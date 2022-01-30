@@ -58,6 +58,11 @@ char* String::ReadUserInput()
 		Initialize();
 	}*/
 
+	if (m_length == 0)
+	{
+		FreeMemory();
+	}
+
 	/*size_t source_string_length = 0;
 	for (size_t i = 0; m_string_data[i] != '\0'; i++)
 	{
@@ -158,7 +163,7 @@ size_t String::GetLength() const
 }
 
 void String::Initialize()
-{
+{	
 	m_string_data = (char*)malloc(sizeof(char));
 	if (m_string_data)
 	{
