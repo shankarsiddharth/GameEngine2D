@@ -24,17 +24,18 @@
 #define GAME_WINDOW_SIZE_X 800
 #define GAME_WINDOW_SIZE_Y 600
 
-#define PLAYER_SPEED 10
+#define PLAYER_SPEED 100
 #define MONSTER_SPEED 1
 
 int monsterDirection = std::rand() % 4;
+int inputKeyCode = -1;
 
 void* LoadFile(const char* i_pFilename, size_t& o_sizeFile);
 GLib::Sprite* CreateSprite(const char* i_pFilename);
 void KeyInputCallback(unsigned int i_VKeyID, bool bWentDown);
 Monster* CreateNewMonster(int monster_count, int SizeX, int SizeY);
 void MoveMonster(Monster* monsters, int SizeX, int SizeY);
-void MovePlayer(Player& player, Point2D deltaPosition, int SizeX, int SizeY);
+void MovePlayer(Player& player, int inputKeyCode, int SizeX, int SizeY);
 void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow);
 
 int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
@@ -63,8 +64,8 @@ void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpC
 		Player player;
 		GLib::Sprite* pPlayerSprite = CreateSprite("data\\player.dds");
 
-		Monster* monster = CreateNewMonster(0, GAME_WINDOW_SIZE_X/2, GAME_WINDOW_SIZE_Y/2);
-		MoveMonster(monster, GAME_WINDOW_SIZE_X/2, GAME_WINDOW_SIZE_Y/2);
+		Monster* monster = CreateNewMonster(0, GAME_WINDOW_SIZE_X / 2, GAME_WINDOW_SIZE_Y / 2);
+		MoveMonster(monster, GAME_WINDOW_SIZE_X / 2, GAME_WINDOW_SIZE_Y / 2);
 		GLib::Sprite* pMonsterSprite = CreateSprite("data\\monster.dds");
 
 		bool bQuit = false;
@@ -76,6 +77,11 @@ void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpC
 			if (!bQuit)
 			{
 				//TODO: Process Input
+				if (inputKeyCode != -1)
+				{
+					MovePlayer(player, inputKeyCode, GAME_WINDOW_SIZE_X / 2, GAME_WINDOW_SIZE_Y / 2);
+					inputKeyCode = -1;
+				}
 
 				// IMPORTANT: Tell GLib that we want to start rendering
 				GLib::BeginRendering(DirectX::Colors::Blue);
@@ -89,7 +95,7 @@ void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpC
 					GLib::Render(*pPlayerSprite, playerPosition, 0.0f, 0.0f);
 				}
 
-				MoveMonster(monster, GAME_WINDOW_SIZE_X/2, GAME_WINDOW_SIZE_Y/2);
+				MoveMonster(monster, GAME_WINDOW_SIZE_X / 2, GAME_WINDOW_SIZE_Y / 2);
 				GLib::Point2D monsterPosition{ (float)(monster->GetPosition().X()), (float)(monster->GetPosition().Y()) };
 				if (pMonsterSprite)
 				{
@@ -202,6 +208,7 @@ void* LoadFile(const char* i_pFilename, size_t& o_sizeFile)
 
 void KeyInputCallback(unsigned int i_VKeyID, bool bWentDown)
 {
+	inputKeyCode = i_VKeyID;
 #ifdef _DEBUG
 	const size_t	lenBuffer = 65;
 	char			Buffer[lenBuffer];
@@ -271,8 +278,38 @@ void MoveMonster(Monster* monster, int SizeX, int SizeY)
 	monster->SetPosition(newPos);
 }
 
-void MovePlayer(Player& player, Point2D deltaPosition, int SizeX, int SizeY)
+void MovePlayer(Player& player, int inputKeyCode, int SizeX, int SizeY)
 {
+	Point2D deltaPosition;
+
+	switch (inputKeyCode)
+	{
+	case 65: //A
+	case 37: //Left
+	{
+		deltaPosition = Point2D(-MONSTER_SPEED, 0);
+	}
+	break;
+
+	case 87: //W
+	case 38: //Up
+	{
+		deltaPosition = Point2D(0, MONSTER_SPEED);
+	}
+	break;
+	case 68: //D
+	case 39: //Right
+	{
+		deltaPosition = Point2D(MONSTER_SPEED, 0);
+	}
+	break;
+	case 83: //S
+	case 40: //Down
+	{
+		deltaPosition = Point2D(0, -MONSTER_SPEED);
+	}
+	break;
+	}
 	Point2D newPos = player.GetPosition() + deltaPosition;
 	if (newPos.X() < -SizeX)
 	{
