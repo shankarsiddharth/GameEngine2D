@@ -222,14 +222,6 @@ Monster* CreateNewMonster(int monster_count, int SizeX, int SizeY)
 
 void MoveMonster(Monster* monster, int SizeX, int SizeY)
 {
-	//auto time_now = std::chrono::system_clock::now();
-	//auto ms = std::chrono::time_point_cast<std::chrono::milliseconds>(time_now).time_since_epoch().count();
-	////Change Direction Every 5 secs
-	//if((ms/1000) % 5 == 0)
-	//{
-	//	monsterDirection = std::rand() % 4;
-	//}
-
 	Point2D deltaPosition;
 	switch (monsterDirection)
 	{
