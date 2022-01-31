@@ -72,25 +72,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)Library\Engine</OutDir>
+    <OutDir>$(SolutionDir)Library\Engine\</OutDir>
     <TargetName>$(ProjectName)-$(PlatformTarget)-$(Configuration)</TargetName>
     <IntDir>$(SolutionDir).intermediates\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)Library\Engine</OutDir>
+    <OutDir>$(SolutionDir)Library\Engine\</OutDir>
     <TargetName>$(ProjectName)-$(PlatformTarget)-$(Configuration)</TargetName>
     <IntDir>$(SolutionDir).intermediates\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)Library\Engine</OutDir>
+    <OutDir>$(SolutionDir)Library\Engine\</OutDir>
     <TargetName>$(ProjectName)-$(PlatformTarget)-$(Configuration)</TargetName>
     <IntDir>$(SolutionDir).intermediates\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)Library\Engine</OutDir>
+    <OutDir>$(SolutionDir)Library\Engine\</OutDir>
     <TargetName>$(ProjectName)-$(PlatformTarget)-$(Configuration)</TargetName>
     <IntDir>$(SolutionDir).intermediates\$(ProjectName)\$(PlatformTarget)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -151,20 +151,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="DataStructure\LinkedList.h" />
     <ClInclude Include="Initialization.h" />
-    <ClInclude Include="Input\Helper\InputHelpers.h" />
+    <ClInclude Include="Math\MathHelper.hpp" />
     <ClInclude Include="Math\Point2D.h" />
     <ClInclude Include="Object\GameObject.h" />
-    <ClInclude Include="String\String.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DataStructure\LinkedList.cpp" />
     <ClCompile Include="Initialization.cpp" />
-    <ClCompile Include="Input\Helper\InputHelpers.cpp" />
     <ClCompile Include="Math\Point2D.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
-    <ClCompile Include="String\String.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

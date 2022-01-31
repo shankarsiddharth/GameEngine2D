@@ -1,180 +1,293 @@
-// MonsterChase2.cpp : Defines the entry point for the application.
-//
+#include <assert.h>
+#include <stdio.h>
+#include <stdint.h>
+#include <Windows.h>
 
-#include "framework.h"
-#include "MonsterChase2.h"
+#include <DirectXColors.h>
 
-#define MAX_LOADSTRING 100
+#if defined _DEBUG
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
+#endif // _DEBUG
 
-// Global Variables:
-HINSTANCE hInst;                                // current instance
-WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
-WCHAR szWindowClass[MAX_LOADSTRING];            // the main window class name
+#include <conio.h>
 
-// Forward declarations of functions included in this code module:
-ATOM                MyRegisterClass(HINSTANCE hInstance);
-BOOL                InitInstance(HINSTANCE, int);
-LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
-INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
+#include "GLib.h"
+#include "Initialization.h"
+#include "Monster.h"
+#include "Player.h"
+#include "DataStructure/LinkedList.h"
+#include "Math/MathHelper.hpp"
 
-int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,
-                     _In_ LPWSTR    lpCmdLine,
-                     _In_ int       nCmdShow)
+
+#define GAME_WINDOW_SIZE_X 800
+#define GAME_WINDOW_SIZE_Y 600
+
+#define PLAYER_SPEED 10
+#define MONSTER_SPEED 0
+
+void* LoadFile(const char* i_pFilename, size_t& o_sizeFile);
+GLib::Sprite* CreateSprite(const char* i_pFilename);
+void KeyInputCallback(unsigned int i_VKeyID, bool bWentDown);
+Monster* CreateNewMonster(int monster_count, int SizeX, int SizeY);
+void MoveMonster(Monster* monsters, int SizeX, int SizeY);
+void MovePlayer(Player& player, Point2D deltaPosition, int SizeX, int SizeY);
+void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow);
+
+int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
 {
-    UNREFERENCED_PARAMETER(hPrevInstance);
-    UNREFERENCED_PARAMETER(lpCmdLine);
+	MonsterChase(i_hInstance, i_hPrevInstance, i_lpCmdLine, i_nCmdShow);
 
-    // TODO: Place code here.
+#if defined _DEBUG
+	_CrtDumpMemoryLeaks();
+#endif // _DEBUG
 
-    // Initialize global strings
-    LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    LoadStringW(hInstance, IDC_MONSTERCHASE2, szWindowClass, MAX_LOADSTRING);
-    MyRegisterClass(hInstance);
-
-    // Perform application initialization:
-    if (!InitInstance (hInstance, nCmdShow))
-    {
-        return FALSE;
-    }
-
-    HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MONSTERCHASE2));
-
-    MSG msg;
-
-    // Main message loop:
-    while (GetMessage(&msg, nullptr, 0, 0))
-    {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-        {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
-    }
-
-    return (int) msg.wParam;
 }
 
-
-
-//
-//  FUNCTION: MyRegisterClass()
-//
-//  PURPOSE: Registers the window class.
-//
-ATOM MyRegisterClass(HINSTANCE hInstance)
+void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
 {
-    WNDCLASSEXW wcex;
+	// IMPORTANT: first we need to initialize GLib
+	bool bSuccess = GLib::Initialize(i_hInstance, i_nCmdShow, "MonsterChase2", -1, GAME_WINDOW_SIZE_X, GAME_WINDOW_SIZE_Y, true);
 
-    wcex.cbSize = sizeof(WNDCLASSEX);
+	if (bSuccess)
+	{
+		// IMPORTANT (if we want keypress info from GLib): Set a callback for notification of key presses
+		GLib::SetKeyStateChangeCallback(KeyInputCallback);
 
-    wcex.style          = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc    = WndProc;
-    wcex.cbClsExtra     = 0;
-    wcex.cbWndExtra     = 0;
-    wcex.hInstance      = hInstance;
-    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MONSTERCHASE2));
-    wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_MONSTERCHASE2);
-    wcex.lpszClassName  = szWindowClass;
-    wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+		//Initialize Engine
+		Engine::Initialize();
 
-    return RegisterClassExW(&wcex);
+		const int player_speed = 5;
+		Player player;
+		//TODO:Create Player Sprite
+		GLib::Sprite* pPlayerSprite = CreateSprite("data\\player.dds");
+
+		const int monster_speed = 5;
+		Monster* monster = CreateNewMonster(0, GAME_WINDOW_SIZE_X, GAME_WINDOW_SIZE_Y);
+		MoveMonster(monster, GAME_WINDOW_SIZE_X, GAME_WINDOW_SIZE_Y);
+		monster->SetPosition(Point2D(0, 0));
+		//TODO:Create Monster Sprite
+		GLib::Sprite* pMonsterSprite = CreateSprite("data\\monster.dds");
+
+		bool bQuit = false;
+		do
+		{
+			// IMPORTANT: We need to let GLib do it's thing. 
+			GLib::Service(bQuit);
+
+			if (!bQuit)
+			{
+				//TODO: Process Input
+
+				// IMPORTANT: Tell GLib that we want to start rendering
+				GLib::BeginRendering(DirectX::Colors::Blue);
+				// Tell GLib that we want to render some sprites
+				GLib::Sprites::BeginRendering();
+
+				//TODO: Update Sprite Positions
+				GLib::Point2D playerPosition{ (float)(player.GetPosition().X()), (float)(player.GetPosition().Y()) };
+				if (pPlayerSprite)
+				{
+					GLib::Render(*pPlayerSprite, playerPosition, 0.0f, 0.0f);
+				}
+
+				//MoveMonster(monster, GAME_WINDOW_SIZE_X, GAME_WINDOW_SIZE_Y);
+				GLib::Point2D monsterPosition{ (float)(monster->GetPosition().X()), (float)(monster->GetPosition().Y()) };
+				if (pMonsterSprite)
+				{
+					GLib::Render(*pMonsterSprite, monsterPosition, 0.0f, 0.0f);
+				}
+
+				// Tell GLib we're done rendering sprites
+				GLib::Sprites::EndRendering();
+				// IMPORTANT: Tell GLib we're done rendering
+				GLib::EndRendering();
+			}
+
+		} while (bQuit == false);
+
+		if (pPlayerSprite)
+		{
+			GLib::Release(pPlayerSprite);
+		}
+		if (pMonsterSprite)
+		{
+			GLib::Release(pMonsterSprite);
+		}
+		if (monster)
+		{
+			delete monster;
+			monster = nullptr;
+		}
+
+		// IMPORTANT:  Tell GLib to shutdown, releasing resources.
+		GLib::Shutdown();
+	}
 }
 
-//
-//   FUNCTION: InitInstance(HINSTANCE, int)
-//
-//   PURPOSE: Saves instance handle and creates main window
-//
-//   COMMENTS:
-//
-//        In this function, we save the instance handle in a global variable and
-//        create and display the main program window.
-//
-BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
+GLib::Sprite* CreateSprite(const char* i_pFilename)
 {
-   hInst = hInstance; // Store instance handle in our global variable
+	assert(i_pFilename);
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+	size_t sizeTextureFile = 0;
 
-   if (!hWnd)
-   {
-      return FALSE;
-   }
+	// Load the source file (texture data)
+	void* pTextureFile = LoadFile(i_pFilename, sizeTextureFile);
 
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
+	// Ask GLib to create a texture out of the data (assuming it was loaded successfully)
+	GLib::Texture* pTexture = pTextureFile ? GLib::CreateTexture(pTextureFile, sizeTextureFile) : nullptr;
 
-   return TRUE;
+	// exit if something didn't work
+	// probably need some debug logging in here!!!!
+	if (pTextureFile)
+		delete[] pTextureFile;
+
+	if (pTexture == nullptr)
+		return nullptr;
+
+	unsigned int width = 0;
+	unsigned int height = 0;
+	unsigned int depth = 0;
+
+	// Get the dimensions of the texture. We'll use this to determine how big it is on screen
+	bool result = GLib::GetDimensions(*pTexture, width, height, depth);
+	assert(result == true);
+	assert((width > 0) && (height > 0));
+
+	// Define the sprite edges
+	GLib::SpriteEdges	Edges = { -float(width / 2.0f), float(height), float(width / 2.0f), 0.0f };
+	GLib::SpriteUVs	UVs = { { 0.0f, 0.0f }, { 1.0f, 0.0f }, { 0.0f, 1.0f }, { 1.0f, 1.0f } };
+	GLib::RGBA							Color = { 255, 255, 255, 255 };
+
+	// Create the sprite
+	GLib::Sprite* pSprite = GLib::CreateSprite(Edges, 0.1f, Color, UVs, pTexture);
+
+	// release our reference on the Texture
+	GLib::Release(pTexture);
+
+	return pSprite;
 }
 
-//
-//  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  PURPOSE: Processes messages for the main window.
-//
-//  WM_COMMAND  - process the application menu
-//  WM_PAINT    - Paint the main window
-//  WM_DESTROY  - post a quit message and return
-//
-//
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+void* LoadFile(const char* i_pFilename, size_t& o_sizeFile)
 {
-    switch (message)
-    {
-    case WM_COMMAND:
-        {
-            int wmId = LOWORD(wParam);
-            // Parse the menu selections:
-            switch (wmId)
-            {
-            case IDM_ABOUT:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-                break;
-            case IDM_EXIT:
-                DestroyWindow(hWnd);
-                break;
-            default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
-            }
-        }
-        break;
-    case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: Add any drawing code that uses hdc here...
-            EndPaint(hWnd, &ps);
-        }
-        break;
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        break;
-    default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
-    }
-    return 0;
+	assert(i_pFilename != NULL);
+
+	FILE* pFile = NULL;
+
+	errno_t fopenError = fopen_s(&pFile, i_pFilename, "rb");
+	if (fopenError != 0)
+		return NULL;
+
+	assert(pFile != NULL);
+
+	int FileIOError = fseek(pFile, 0, SEEK_END);
+	assert(FileIOError == 0);
+
+	long FileSize = ftell(pFile);
+	assert(FileSize >= 0);
+
+	FileIOError = fseek(pFile, 0, SEEK_SET);
+	assert(FileIOError == 0);
+
+	uint8_t* pBuffer = new uint8_t[FileSize];
+	assert(pBuffer);
+
+	size_t FileRead = fread(pBuffer, 1, FileSize, pFile);
+	assert(FileRead == FileSize);
+
+	fclose(pFile);
+
+	o_sizeFile = FileSize;
+
+	return pBuffer;
 }
 
-// Message handler for about box.
-INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+void KeyInputCallback(unsigned int i_VKeyID, bool bWentDown)
 {
-    UNREFERENCED_PARAMETER(lParam);
-    switch (message)
-    {
-    case WM_INITDIALOG:
-        return (INT_PTR)TRUE;
+#ifdef _DEBUG
+	const size_t	lenBuffer = 65;
+	char			Buffer[lenBuffer];
 
-    case WM_COMMAND:
-        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-        {
-            EndDialog(hDlg, LOWORD(wParam));
-            return (INT_PTR)TRUE;
-        }
-        break;
-    }
-    return (INT_PTR)FALSE;
+	sprintf_s(Buffer, lenBuffer, "VKey 0x%04x went %s\n", i_VKeyID, bWentDown ? "down" : "up");
+	OutputDebugStringA(Buffer);
+#endif // __DEBUG
+}
+
+Monster* CreateNewMonster(int monster_count, int SizeX, int SizeY)
+{
+	Monster* newMonster = new Monster();
+	int newX = GetRandomNumberInRange(SizeX, 0);
+	int newY = GetRandomNumberInRange(SizeY, 0);
+	newMonster->SetPosition(Point2D(newX, newY));
+	return newMonster;
+}
+
+void MoveMonster(Monster* monster, int SizeX, int SizeY)
+{
+	int randomDirection = std::rand() % 4;
+	Point2D deltaPosition;
+	switch (randomDirection)
+	{
+	case 0:
+	{
+		deltaPosition = Point2D(0, MONSTER_SPEED);
+	}
+	break;
+	case 1:
+	{
+		deltaPosition = Point2D(-MONSTER_SPEED, 0);
+	}
+	break;
+	case 2:
+	{
+		deltaPosition = Point2D(0, -MONSTER_SPEED);
+	}
+	break;
+	case 3:
+	default:
+	{
+		deltaPosition = Point2D(MONSTER_SPEED, 0);
+	}
+	break;
+	}
+	Point2D newPos = monster->GetPosition() + deltaPosition;
+	if (newPos.X() < 0)
+	{
+		newPos.X(SizeX);
+	}
+	else if (newPos.X() > SizeX)
+	{
+		newPos.X(0);
+	}
+	if (newPos.Y() < 0)
+	{
+		newPos.Y(SizeY);
+	}
+	else if (newPos.Y() > SizeY)
+	{
+		newPos.Y(0);
+	}
+	monster->SetPosition(newPos);
+}
+
+void MovePlayer(Player& player, Point2D deltaPosition, int SizeX, int SizeY)
+{
+	Point2D newPos = player.GetPosition() + deltaPosition;
+	if (newPos.X() < 0)
+	{
+		newPos.X(SizeX);
+	}
+	else if (newPos.X() > SizeX)
+	{
+		newPos.X(0);
+	}
+	if (newPos.Y() < 0)
+	{
+		newPos.Y(SizeY);
+	}
+	else if (newPos.Y() > SizeY)
+	{
+		newPos.Y(0);
+	}
+	player.SetPosition(newPos);
 }
