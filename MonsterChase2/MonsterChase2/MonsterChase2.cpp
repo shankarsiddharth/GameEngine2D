@@ -10,6 +10,7 @@
 #include <crtdbg.h>
 #endif // _DEBUG
 
+#include <chrono>
 #include <conio.h>
 
 #include "GLib.h"
@@ -24,7 +25,9 @@
 #define GAME_WINDOW_SIZE_Y 600
 
 #define PLAYER_SPEED 10
-#define MONSTER_SPEED 0
+#define MONSTER_SPEED 1
+
+int monsterDirection = std::rand() % 4;
 
 void* LoadFile(const char* i_pFilename, size_t& o_sizeFile);
 GLib::Sprite* CreateSprite(const char* i_pFilename);
@@ -57,16 +60,11 @@ void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpC
 		//Initialize Engine
 		Engine::Initialize();
 
-		const int player_speed = 5;
 		Player player;
-		//TODO:Create Player Sprite
 		GLib::Sprite* pPlayerSprite = CreateSprite("data\\player.dds");
 
-		const int monster_speed = 5;
-		Monster* monster = CreateNewMonster(0, GAME_WINDOW_SIZE_X, GAME_WINDOW_SIZE_Y);
-		MoveMonster(monster, GAME_WINDOW_SIZE_X, GAME_WINDOW_SIZE_Y);
-		monster->SetPosition(Point2D(0, 0));
-		//TODO:Create Monster Sprite
+		Monster* monster = CreateNewMonster(0, GAME_WINDOW_SIZE_X/2, GAME_WINDOW_SIZE_Y/2);
+		MoveMonster(monster, GAME_WINDOW_SIZE_X/2, GAME_WINDOW_SIZE_Y/2);
 		GLib::Sprite* pMonsterSprite = CreateSprite("data\\monster.dds");
 
 		bool bQuit = false;
@@ -91,7 +89,7 @@ void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpC
 					GLib::Render(*pPlayerSprite, playerPosition, 0.0f, 0.0f);
 				}
 
-				//MoveMonster(monster, GAME_WINDOW_SIZE_X, GAME_WINDOW_SIZE_Y);
+				MoveMonster(monster, GAME_WINDOW_SIZE_X/2, GAME_WINDOW_SIZE_Y/2);
 				GLib::Point2D monsterPosition{ (float)(monster->GetPosition().X()), (float)(monster->GetPosition().Y()) };
 				if (pMonsterSprite)
 				{
@@ -216,17 +214,24 @@ void KeyInputCallback(unsigned int i_VKeyID, bool bWentDown)
 Monster* CreateNewMonster(int monster_count, int SizeX, int SizeY)
 {
 	Monster* newMonster = new Monster();
-	int newX = GetRandomNumberInRange(SizeX, 0);
-	int newY = GetRandomNumberInRange(SizeY, 0);
+	int newX = GetRandomNumberInRange(SizeX, -SizeX);
+	int newY = GetRandomNumberInRange(SizeY, -SizeY);
 	newMonster->SetPosition(Point2D(newX, newY));
 	return newMonster;
 }
 
 void MoveMonster(Monster* monster, int SizeX, int SizeY)
 {
-	int randomDirection = std::rand() % 4;
+	//auto time_now = std::chrono::system_clock::now();
+	//auto ms = std::chrono::time_point_cast<std::chrono::milliseconds>(time_now).time_since_epoch().count();
+	////Change Direction Every 5 secs
+	//if((ms/1000) % 5 == 0)
+	//{
+	//	monsterDirection = std::rand() % 4;
+	//}
+
 	Point2D deltaPosition;
-	switch (randomDirection)
+	switch (monsterDirection)
 	{
 	case 0:
 	{
@@ -251,21 +256,25 @@ void MoveMonster(Monster* monster, int SizeX, int SizeY)
 	break;
 	}
 	Point2D newPos = monster->GetPosition() + deltaPosition;
-	if (newPos.X() < 0)
+	if (newPos.X() < -SizeX)
 	{
-		newPos.X(SizeX);
+		monsterDirection = std::rand() % 4;
+		newPos.X(-SizeX);
 	}
 	else if (newPos.X() > SizeX)
 	{
-		newPos.X(0);
+		monsterDirection = std::rand() % 4;
+		newPos.X(SizeX);
 	}
-	if (newPos.Y() < 0)
+	if (newPos.Y() < -SizeY)
 	{
-		newPos.Y(SizeY);
+		monsterDirection = std::rand() % 4;
+		newPos.Y(-SizeY);
 	}
 	else if (newPos.Y() > SizeY)
 	{
-		newPos.Y(0);
+		monsterDirection = std::rand() % 4;
+		newPos.Y(SizeY);
 	}
 	monster->SetPosition(newPos);
 }
@@ -273,7 +282,7 @@ void MoveMonster(Monster* monster, int SizeX, int SizeY)
 void MovePlayer(Player& player, Point2D deltaPosition, int SizeX, int SizeY)
 {
 	Point2D newPos = player.GetPosition() + deltaPosition;
-	if (newPos.X() < 0)
+	if (newPos.X() < -SizeX)
 	{
 		newPos.X(SizeX);
 	}
@@ -281,7 +290,7 @@ void MovePlayer(Player& player, Point2D deltaPosition, int SizeX, int SizeY)
 	{
 		newPos.X(0);
 	}
-	if (newPos.Y() < 0)
+	if (newPos.Y() < -SizeY)
 	{
 		newPos.Y(SizeY);
 	}
