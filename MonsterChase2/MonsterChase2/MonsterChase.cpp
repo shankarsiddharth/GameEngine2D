@@ -39,21 +39,6 @@ int GetNumberOfMonsters()
 	return number_of_monsters;
 }
 
-//String GetNameForMonster(int monsterIndex)
-//{
-//	printf_s("\nEnter a name for monster %d: ", monsterIndex);
-//
-//	String name_for_monster;
-//	name_for_monster.ReadUserInput();
-//
-//	while (name_for_monster.GetLength() == 0)
-//	{
-//		printf_s("\nEmpty name not allowed. Enter a name for monster %d: ", monsterIndex);
-//		name_for_monster.ReadUserInput();
-//	}
-//	return name_for_monster;
-//}
-
 void GetNameForMonster(String* monster_name, int monsterIndex)
 {	
 	fseek(stdin, 0, SEEK_END);
@@ -78,72 +63,6 @@ void GetNameForPlayer(String& object_name)
 		object_name.ReadUserInput();
 	}	
 }
-
-void Test()
-{
-	{
-		/*String* s1 = new String();
-		s1->ReadUserInput();
-		printf_s("\n%p\n", s1);
-
-		String* s2 = new String();
-		s2->ReadUserInput();
-		printf_s("\n%p\n", s2);
-		s2->CopyString(s1->GetString());
-		printf_s("\n%p\n", s2);
-
-		delete s1;
-		s1 = nullptr;
-
-		printf_s("%s", s2->GetString());
-
-		delete s2;
-		s2 = nullptr;*/
-
-		GameObject* go = new GameObject[2];
-		{
-			String s1, s2;
-			s1.ReadUserInput();
-			//go = new GameObject();
-			go[0].SetName(s1.GetString());
-			printf_s("\n%s", s1.GetString());
-			s2.ReadUserInput();
-			//go = new GameObject();
-			go[1].SetName(s2.GetString());
-			printf_s("\n%s", s2.GetString());
-		}		
-		
-		printf_s("\n%s", go[0].GetName()->GetString());
-		printf_s("\n%s", go[1].GetName()->GetString());
-
-		if (go)
-		{
-			delete[] go;
-			go = nullptr;
-		}
-	}
-	_CrtDumpMemoryLeaks();
-}
-
-//void DisplayStats(const Monster* monsters, int monster_count, Player& player)
-//{
-//	printf_s("\n");
-//	printf_s("\nMonsters:");
-//	for (int i = 0; i < monster_count; i++)
-//	{
-//		printf_s("\n%s is at [ %d, %d]", 
-//			monsters[i].GetName()->GetString(), 
-//			monsters[i].GetPosition().X(),
-//			monsters[i].GetPosition().Y());
-//	}
-//	printf_s("\n");
-//	printf_s("\nPlayer:");
-//	printf_s("\n%s is at [ %d, %d]",
-//		player.GetName()->GetString(),
-//		player.GetPosition().X(),
-//		player.GetPosition().Y());
-//	printf_s("\n");
-//}
 
 void DisplayStats(const LinkedList<Monster*> &monsters, int monster_count, Player& player)
 {
@@ -170,26 +89,6 @@ int GetRandomNumberInRange(int upper = 64, int lower = 0)
 	int number = (rand() % (upper - lower + 1)) + lower;
 	return number;
 }
-
-//void MoveMonsters(Monster* monsters, int monster_count, int GridX, int GridY)
-//{
-//	for (int i = 0; i < monster_count; i++)
-//	{
-//		int newX = GenerateRandomPositionInTheGrid(GridX, -GridX);
-//		int newY = GenerateRandomPositionInTheGrid(GridY, -GridY);
-//		monsters[i].SetPosition(Point2D(newX, newY));		
-//	}
-//}
-
-//void MoveMonsters(LinkedList<Monster*> &monsters, int monster_count, int GridX, int GridY)
-//{
-//	for (int i = 0; i < monster_count; i++)
-//	{
-//		int newX = GetRandomNumberInRange(GridX, -GridX);
-//		int newY = GetRandomNumberInRange(GridY, -GridY);
-//		monsters[i]->SetPosition(Point2D(newX, newY));
-//	}
-//}
 
 void MoveMonsters(LinkedList<Monster*>& monsters, int monster_count, int GridX, int GridY)
 {	
@@ -270,7 +169,6 @@ Monster* CreateNewMonster(int& total_newbie, int GridX, int GridY)
 	Monster* newMonster = new Monster();
 	char c = '0' + total_newbie;
 	char numberstring[] = { 'n','e','w','b','i','e', char(c),'\0'};
-	//sprintf_s(numberstring, "%d", total_newbie);
 	newMonster->SetName(numberstring);
 	int newX = GetRandomNumberInRange(GridX, -GridX);
 	int newY = GetRandomNumberInRange(GridY, -GridY);
@@ -295,7 +193,6 @@ void MonsterChase()
 		unsigned int number_of_monsters = GetNumberOfMonsters();
 
 		LinkedList<Monster*> monsters;
-		//Monster* monsters = new Monster[number_of_monsters];
 		for (unsigned int monster_index = 0; monster_index < number_of_monsters; monster_index++)
 		{
 			Monster* monster = new Monster();
@@ -351,28 +248,24 @@ void MonsterChase()
 			{				
 				MoveMonsters(monsters, number_of_monsters, GridX, GridY);
 				MovePlayer(player, Point2D(0, 1), GridX, GridY);
-				//player.Move(Point2D(0, 1));
 				DisplayStats(monsters, number_of_monsters, player);
 			}
 			else if (input_key == 'A' || input_key == 'a')
 			{
 				MoveMonsters(monsters, number_of_monsters, GridX, GridY);
 				MovePlayer(player, Point2D(-1, 0), GridX, GridY);
-				//player.Move(Point2D(-1, 0));
 				DisplayStats(monsters, number_of_monsters, player);
 			}
 			else if (input_key == 'S' || input_key == 's')
 			{				
 				MoveMonsters(monsters, number_of_monsters, GridX, GridY);
 				MovePlayer(player, Point2D(0, -1), GridX, GridY);
-				//player.Move(Point2D(0, -1));
 				DisplayStats(monsters, number_of_monsters, player);
 			}
 			else if (input_key == 'D' || input_key == 'd')
 			{
 				MoveMonsters(monsters, number_of_monsters, GridX, GridY);
 				MovePlayer(player, Point2D(1, 0), GridX, GridY);
-				//player.Move(Point2D(1, 0));
 				DisplayStats(monsters, number_of_monsters, player);
 			}
 			else
