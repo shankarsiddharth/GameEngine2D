@@ -22,6 +22,9 @@
     <Filter Include="Source Files\Component">
       <UniqueIdentifier>{aea41336-3b62-4bf5-8313-5ab54167f92b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Time">
+      <UniqueIdentifier>{0d2dc80a-d62f-4130-8e21-a2af8807759c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Initialization.cpp">
@@ -55,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="Object\GameObject_inl.h">
       <Filter>Source Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Time\EngineTime.h">
+      <Filter>Source Files\Time</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

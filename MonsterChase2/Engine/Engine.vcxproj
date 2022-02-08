@@ -157,6 +157,7 @@
     <ClInclude Include="Math\Point2D.h" />
     <ClInclude Include="Object\GameObject.h" />
     <ClInclude Include="Object\GameObject_inl.h" />
+    <ClInclude Include="Time\EngineTime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component\Component.cpp" />
