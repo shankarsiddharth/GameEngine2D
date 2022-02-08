@@ -12,6 +12,8 @@
 
 #include <chrono>
 #include <conio.h>
+#include <tchar.h>
+#include <string>
 
 #include "GLib.h"
 #include "Initialization.h"
@@ -39,7 +41,7 @@ Monster* CreateNewMonster(int monster_count, int SizeX, int SizeY);
 void MoveMonster(Monster* monsters, int SizeX, int SizeY);
 void MovePlayer(Player& player, int inputKeyCode, int SizeX, int SizeY);
 void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow);
-float GetFrameTime_ms();
+float GetFrameTime();
 
 int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
 {
@@ -82,7 +84,13 @@ void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpC
 
 			if (!bQuit)
 			{
-				float deltaTime = GetFrameTime_ms();
+				float deltaTime = GetFrameTime();
+
+				//Check the FPS
+				float fps = (1.0f / deltaTime);
+				//std::string fpsString = std::to_string(fps) + "\n";
+				//OutputDebugStringA(fpsString.c_str());
+				//OutputDebugString(_T(std::to_string(fps)));
 
 				//TODO: Process Input
 				if (inputKeyCode != -1)
@@ -358,14 +366,13 @@ float GetTimeDiff_ms(uint64_t i_StartTime, uint64_t i_EndTime = GetCurrentTickCo
 	return ( (1000.0f * static_cast<float>(i_EndTime - i_StartTime)) / PerformanceFrequency.QuadPart );
 }
 
-float GetFrameTime_ms()
+float GetFrameTime()
 {
-	//TODO: Add code for debugger check
 	static uint64_t lastFrameStartTick = 0;
 	float frameTime;
 	uint64_t currentFrameStartTick = GetCurrentTickCounter();
 	frameTime = (lastFrameStartTick == 0) ? (1.0f / 60.0f) : (GetTimeDiff_ms(currentFrameStartTick, lastFrameStartTick) / 1000.0f);
 	lastFrameStartTick = currentFrameStartTick;
-	return frameTime * 1000.0f;
+	return IsDebuggerPresent() ? (1.0f / 60.0f) : frameTime;
 }
 
