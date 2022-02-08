@@ -30,6 +30,8 @@
 int monsterDirection = std::rand() % 4;
 int inputKeyCode = -1;
 
+LARGE_INTEGER PerformanceFrequency = { 0 };
+
 void* LoadFile(const char* i_pFilename, size_t& o_sizeFile);
 GLib::Sprite* CreateSprite(const char* i_pFilename);
 void KeyInputCallback(unsigned int i_VKeyID, bool bWentDown);
@@ -37,6 +39,7 @@ Monster* CreateNewMonster(int monster_count, int SizeX, int SizeY);
 void MoveMonster(Monster* monsters, int SizeX, int SizeY);
 void MovePlayer(Player& player, int inputKeyCode, int SizeX, int SizeY);
 void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow);
+float GetFrameTime_ms();
 
 int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
 {
@@ -60,6 +63,9 @@ void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpC
 
 		//Initialize Engine
 		Engine::Initialize();
+		//Initialize Timer
+		BOOL isSuccess = QueryPerformanceFrequency(&PerformanceFrequency);
+		assert(isSuccess == TRUE);
 
 		Player player;
 		GLib::Sprite* pPlayerSprite = CreateSprite("data\\player.dds");
@@ -76,6 +82,8 @@ void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpC
 
 			if (!bQuit)
 			{
+				float deltaTime = GetFrameTime_ms();
+
 				//TODO: Process Input
 				if (inputKeyCode != -1)
 				{
@@ -329,3 +337,35 @@ void MovePlayer(Player& player, int inputKeyCode, int SizeX, int SizeY)
 	}
 	player.SetPosition(newPos);
 }
+
+LARGE_INTEGER intToLargeInt(uint64_t i) {
+	LARGE_INTEGER LI;
+	LI.QuadPart = i;
+	return LI;
+}
+
+uint64_t GetCurrentTickCounter()
+{
+	LARGE_INTEGER CurrentFrameCounter;
+	BOOL isSuccess = QueryPerformanceCounter(&CurrentFrameCounter);
+	assert(isSuccess == TRUE);
+	return CurrentFrameCounter.QuadPart;
+}
+
+float GetTimeDiff_ms(uint64_t i_StartTime, uint64_t i_EndTime = GetCurrentTickCounter())
+{
+	assert(PerformanceFrequency.QuadPart != 0);
+	return ( (1000.0f * static_cast<float>(i_EndTime - i_StartTime)) / PerformanceFrequency.QuadPart );
+}
+
+float GetFrameTime_ms()
+{
+	//TODO: Add code for debugger check
+	static uint64_t lastFrameStartTick = 0;
+	float frameTime;
+	uint64_t currentFrameStartTick = GetCurrentTickCounter();
+	frameTime = (lastFrameStartTick == 0) ? (1.0f / 60.0f) : (GetTimeDiff_ms(currentFrameStartTick, lastFrameStartTick) / 1000.0f);
+	lastFrameStartTick = currentFrameStartTick;
+	return frameTime * 1000.0f;
+}
+
