@@ -19,6 +19,9 @@
     <Filter Include="Source Files\Object">
       <UniqueIdentifier>{78d1284e-89c0-4bd5-b166-537ddfa3ead0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Component">
+      <UniqueIdentifier>{aea41336-3b62-4bf5-8313-5ab54167f92b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Initialization.cpp">
@@ -29,6 +32,9 @@
     </ClCompile>
     <ClCompile Include="Math\Point2D.cpp">
       <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Component.cpp">
+      <Filter>Source Files\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="Math\MathHelper.hpp">
       <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Component.h">
+      <Filter>Source Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

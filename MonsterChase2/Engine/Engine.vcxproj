@@ -151,12 +151,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Component\Component.h" />
     <ClInclude Include="Initialization.h" />
     <ClInclude Include="Math\MathHelper.hpp" />
     <ClInclude Include="Math\Point2D.h" />
     <ClInclude Include="Object\GameObject.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Initialization.cpp" />
     <ClCompile Include="Math\Point2D.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
