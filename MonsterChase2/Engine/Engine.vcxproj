@@ -156,6 +156,7 @@
     <ClInclude Include="Math\MathHelper.hpp" />
     <ClInclude Include="Math\Point2D.h" />
     <ClInclude Include="Object\GameObject.h" />
+    <ClInclude Include="Object\GameObject_inl.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component\Component.cpp" />

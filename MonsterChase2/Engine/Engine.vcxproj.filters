@@ -53,5 +53,8 @@
     <ClInclude Include="Component\Component.h">
       <Filter>Source Files\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Object\GameObject_inl.h">
+      <Filter>Source Files\Object</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

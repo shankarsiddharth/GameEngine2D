@@ -166,6 +166,7 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterChase2.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MonsterChase2.rc" />

@@ -7,7 +7,7 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	
+	RemoveAllComponents();
 };
 
 Point2D GameObject::GetPosition() const
@@ -23,4 +23,22 @@ void GameObject::Move(const Point2D& InMoveBy)
 void GameObject::SetPosition(const Point2D& InNewPosition)
 {
 	m_Position = InNewPosition;
+}
+
+std::vector<Component*> GameObject::GetAllComponents()
+{
+	return componentList;
+}
+
+void GameObject::RemoveAllComponents()
+{
+	for (Component* element: componentList)
+	{
+		if (element != nullptr)
+		{
+			delete element;
+			element = nullptr;
+		}
+	}
+	componentList.clear();
 }
