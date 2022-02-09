@@ -164,6 +164,8 @@
     <ClInclude Include="Object\GameObject.h" />
     <ClInclude Include="Object\GameObject_inl.h" />
     <ClInclude Include="Component\Sprite2D.h" />
+    <ClInclude Include="PhysicsSystem.h" />
+    <ClInclude Include="RigidBody2D.h" />
     <ClInclude Include="System\RenderSystem.h" />
     <ClInclude Include="Time\EngineTime.h" />
   </ItemGroup>
@@ -178,6 +180,8 @@
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Component\Sprite2D.cpp" />
+    <ClCompile Include="PhysicsSystem.cpp" />
+    <ClCompile Include="RigidBody2D.cpp" />
     <ClCompile Include="System\RenderSystem.cpp" />
     <ClCompile Include="Time\EngineTime.cpp" />
   </ItemGroup>

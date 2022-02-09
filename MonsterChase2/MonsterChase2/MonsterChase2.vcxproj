@@ -163,6 +163,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DebugCRT.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterChase2.cpp" />
     <ClCompile Include="MonsterChaseGame.cpp" />
