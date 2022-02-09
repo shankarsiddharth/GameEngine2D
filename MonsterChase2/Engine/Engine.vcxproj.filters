@@ -72,11 +72,11 @@
     <ClCompile Include="GameWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RigidBody2D.cpp">
-      <Filter>Source Files\Component</Filter>
-    </ClCompile>
     <ClCompile Include="PhysicsSystem.cpp">
       <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\RigidBody2D.cpp">
+      <Filter>Source Files\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,11 +125,11 @@
     <ClInclude Include="GameWorld.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="RigidBody2D.h">
-      <Filter>Source Files\Component</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicsSystem.h">
       <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\RigidBody2D.h">
+      <Filter>Source Files\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

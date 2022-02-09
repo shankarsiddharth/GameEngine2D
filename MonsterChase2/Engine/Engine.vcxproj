@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Component\Component.h" />
+    <ClInclude Include="Component\RigidBody2D.h" />
     <ClInclude Include="FileLoader\FileLoader.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameRuntime.h" />
@@ -165,12 +166,12 @@
     <ClInclude Include="Object\GameObject_inl.h" />
     <ClInclude Include="Component\Sprite2D.h" />
     <ClInclude Include="PhysicsSystem.h" />
-    <ClInclude Include="RigidBody2D.h" />
     <ClInclude Include="System\RenderSystem.h" />
     <ClInclude Include="Time\EngineTime.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component\Component.cpp" />
+    <ClCompile Include="Component\RigidBody2D.cpp" />
     <ClCompile Include="FileLoader\FileLoader.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameRuntime.cpp" />
@@ -181,7 +182,6 @@
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Component\Sprite2D.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
-    <ClCompile Include="RigidBody2D.cpp" />
     <ClCompile Include="System\RenderSystem.cpp" />
     <ClCompile Include="Time\EngineTime.cpp" />
   </ItemGroup>

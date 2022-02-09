@@ -1,6 +1,24 @@
 #include "Vector2.h"
 
-Vector2::Vector2(int InX, int InY)
+const Vector2 Vector2::Zero(0.0f, 0.0f);
+
+Vector2 Vector2::operator/(float const& InValue)
+{
+	Vector2 result(Vector2::Zero);
+	result.m_X = m_X / InValue;
+	result.m_Y = m_Y / InValue;
+	return result;
+}
+
+Vector2 Vector2::operator*(float const& InValue)
+{
+	Vector2 result(Vector2::Zero);
+	result.m_X = m_X * InValue;
+	result.m_Y = m_Y * InValue;
+	return result;
+}
+
+Vector2::Vector2(float InX, float InY)
 {
 	m_X = InX;
 	m_Y = InY;
@@ -13,55 +31,55 @@ Vector2::Vector2()
 
 }
 
-int Vector2::X() const
+float Vector2::X() const
 {
 	return m_X;
 }
 
-void Vector2::X(const int InX)
+void Vector2::X(const float InX)
 {
 	m_X = InX;
 }
 
-int Vector2::Y() const
+float Vector2::Y() const
 {
 	return m_Y;
 }
 
-void Vector2::Y(const int InY)
+void Vector2::Y(const float InY)
 {
 	m_Y = InY;
 }
 
-Vector2 Vector2::operator*(const Vector2& InPoint)
+Vector2 Vector2::operator*(const Vector2& InVector)
 {
-	return Vector2(m_X * InPoint.m_X, m_Y * InPoint.m_Y);
+	return Vector2(m_X * InVector.m_X, m_Y * InVector.m_Y);
 }
 
-void Vector2::operator*=(const Vector2& InPoint)
+void Vector2::operator*=(const Vector2& InVector)
 {
-	m_X *= InPoint.m_X;
-	m_Y *= InPoint.m_Y;
+	m_X *= InVector.m_X;
+	m_Y *= InVector.m_Y;
 }
 
-void Vector2::operator-=(const Vector2& InPoint)
+void Vector2::operator-=(const Vector2& InVector)
 {
-	m_X -= InPoint.m_X;
-	m_Y -= InPoint.m_Y;
+	m_X -= InVector.m_X;
+	m_Y -= InVector.m_Y;
 }
 
-void Vector2::operator+=(const Vector2& InPoint)
+void Vector2::operator+=(const Vector2& InVector)
 {
-	m_X += InPoint.m_X;
-	m_Y += InPoint.m_Y;
+	m_X += InVector.m_X;
+	m_Y += InVector.m_Y;
 }
 
-Vector2 Vector2::operator+(const Vector2& InPoint)
+Vector2 Vector2::operator+(const Vector2& InVector)
 {
-	return Vector2(m_X + InPoint.m_X, m_Y + InPoint.m_Y);
+	return Vector2(m_X + InVector.m_X, m_Y + InVector.m_Y);
 }
 
-Vector2 Vector2::operator-(const Vector2& InPoint)
+Vector2 Vector2::operator-(const Vector2& InVector)
 {
-	return Vector2(m_X - InPoint.m_X, m_Y - InPoint.m_Y);
+	return Vector2(m_X - InVector.m_X, m_Y - InVector.m_Y);
 }

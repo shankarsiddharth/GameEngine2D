@@ -3,24 +3,29 @@
 class Vector2
 {
 public:
-	Vector2(int InX, int InY);
+	Vector2(float InX, float InY);
 	Vector2();
 
-	int X() const;
-	int Y() const;
+	float X() const;
+	float Y() const;
 
-	void X(const int InX);
-	void Y(const int InY);
+	void X(const float InX);
+	void Y(const float InY);
 
-	Vector2 operator+(const Vector2& InPoint);
-	Vector2 operator-(const Vector2& InPoint);
-	Vector2 operator*(const Vector2& InPoint);	
-	void operator+=(const Vector2& InPoint);	
-	void operator-=(const Vector2& InPoint);
-	void operator*=(const Vector2& InPoint);
+	Vector2 operator+(const Vector2& InVector);
+	Vector2 operator-(const Vector2& InVector);
+	Vector2 operator*(const Vector2& InVector);	
+	void operator+=(const Vector2& InVector);	
+	void operator-=(const Vector2& InVector);
+	void operator*=(const Vector2& InVector);
+
+	Vector2 operator / (float const& InValue);
+	Vector2 operator * (float const& InValue);
+
+	static const Vector2 Zero;
 
 private:
-	int m_X;
-	int m_Y;
+	float m_X;
+	float m_Y;
 };
 

@@ -1,5 +1,9 @@
 #pragma once
-class RigidBody2D
+
+#include "Component/Component.h"
+
+class RigidBody2D :
+	public Component
 {
 };
 
