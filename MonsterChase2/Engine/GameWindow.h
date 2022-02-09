@@ -6,6 +6,9 @@
 class GameWindow
 {
 public:
+	GameWindow();
+	~GameWindow();
+
 	bool Initialize(HINSTANCE i_hInstance, int i_nCmdShow, 
 		std::string i_WindowName = DEFAULT_WINDOW_TITLE, 
 		unsigned int i_WindowWidth = DEFAULT_GAME_WINDOW_WIDTH_SIZE_X,

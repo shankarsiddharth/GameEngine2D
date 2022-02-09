@@ -1,5 +1,7 @@
 #pragma once
 
+class GameWorld;
+
 class RenderSystem
 {
 public:
@@ -7,7 +9,7 @@ public:
 	~RenderSystem();
 
 	void Initialize();
-	void Update(float deltaTime);
+	void Update(float deltaTime, GameWorld* i_GameWorld);
 	void ShutDown();
 
 private:

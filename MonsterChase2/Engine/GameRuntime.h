@@ -2,10 +2,14 @@
 
 #include "GameEngine.h"
 #include "GameWindow.h"
+#include "GameWorld.h"
 
 class GameRuntime
 {
 public:
+	GameRuntime();
+	~GameRuntime();
+
 	bool Initialize(HINSTANCE i_hInstance, int i_nCmdShow);
 	void UpdateInput();
 	void Update();
@@ -14,11 +18,12 @@ public:
 	bool IsRunning();
 	void UpdateDeltaTime();
 
-private:
+protected:
 	bool bQuit = false;
 
 	float deltaTime;
 	GameEngine gameEngine;
 	GameWindow gameWindow;
+	GameWorld gameWorld;
 };
 

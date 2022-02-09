@@ -156,6 +156,7 @@
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameRuntime.h" />
     <ClInclude Include="GameWindow.h" />
+    <ClInclude Include="GameWorld.h" />
     <ClInclude Include="Input\InputSystem.h" />
     <ClInclude Include="Input\KeyCode.h" />
     <ClInclude Include="Math\MathHelper.hpp" />
@@ -165,7 +166,6 @@
     <ClInclude Include="Component\Sprite2D.h" />
     <ClInclude Include="System\RenderSystem.h" />
     <ClInclude Include="Time\EngineTime.h" />
-    <ClInclude Include="World\World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Component\Component.cpp" />
@@ -173,13 +173,13 @@
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameRuntime.cpp" />
     <ClCompile Include="GameWindow.cpp" />
+    <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="Input\InputSystem.cpp" />
     <ClCompile Include="Math\Point2D.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Component\Sprite2D.cpp" />
     <ClCompile Include="System\RenderSystem.cpp" />
     <ClCompile Include="Time\EngineTime.cpp" />
-    <ClCompile Include="World\World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

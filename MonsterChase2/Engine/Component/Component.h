@@ -6,7 +6,7 @@ class Component
 {
 public:
 	Component(GameObject* inRootGameObject);
-	~Component();
+	virtual ~Component();
 	virtual void Start();
 	virtual void Update();
 protected:

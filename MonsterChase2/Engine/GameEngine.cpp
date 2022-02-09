@@ -1,6 +1,7 @@
 #include "GameEngine.h"
 #include <stdio.h>
 #include "Time/EngineTime.h"
+#include "GameWorld.h"
 
 
 void GameEngine::Initialize()
@@ -13,9 +14,9 @@ void GameEngine::Initialize()
 	renderSystem.Initialize();
 }
 
-void GameEngine::Update(float deltaTime)
+void GameEngine::Update(float deltaTime, GameWorld* i_GameWorld)
 {
-	renderSystem.Update(deltaTime);
+	renderSystem.Update(deltaTime, i_GameWorld);
 }
 
 void GameEngine::ShutDown()

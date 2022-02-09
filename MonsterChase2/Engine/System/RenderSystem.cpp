@@ -1,10 +1,10 @@
 #include "RenderSystem.h"
 #include <vector>
 #include "../Object/GameObject.h"
-#include "../World/World.h"
 #include "../Component/Sprite2D.h"
 #include "../../GLib/GLib.h"
 #include <DirectXColors.h>
+#include "../GameWorld.h"
 
 RenderSystem::RenderSystem()
 {
@@ -19,11 +19,12 @@ void RenderSystem::Initialize()
 
 }
 
-void RenderSystem::Update(float deltaTime)
+void RenderSystem::Update(float deltaTime, GameWorld* i_GameWorld)
 {
 	BeginRendering();
 
-	std::vector<GameObject*> gameObjects = World::GetInstance().GetAllGameObjects();
+	//std::vector<GameObject*> gameObjects = World::GetInstance().GetAllGameObjects();
+	std::vector<GameObject*> gameObjects = i_GameWorld->GetAllGameObjects();
 	for (GameObject* gameObject : gameObjects)
 	{
 		GLib::Point2D position{ (float)(gameObject->GetPosition().X()), (float)(gameObject->GetPosition().Y()) };

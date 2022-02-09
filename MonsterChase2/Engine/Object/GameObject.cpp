@@ -8,7 +8,10 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	RemoveAllComponents();
+	if (componentList.size() != 0)
+	{
+		RemoveAllComponents();
+	}
 };
 
 Point2D GameObject::GetPosition() const

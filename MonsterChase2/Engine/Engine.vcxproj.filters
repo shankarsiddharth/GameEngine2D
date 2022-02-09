@@ -28,9 +28,6 @@
     <Filter Include="Source Files\Input">
       <UniqueIdentifier>{7cdf57e2-8de5-4dde-b3c1-242aa19affa4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\World">
-      <UniqueIdentifier>{ae813d3a-f774-440e-8c9b-f6e175e0ae3d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\System">
       <UniqueIdentifier>{f6a1af37-e546-46f9-a3f6-448f72fc3ed5}</UniqueIdentifier>
     </Filter>
@@ -57,9 +54,6 @@
     <ClCompile Include="Input\InputSystem.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
-    <ClCompile Include="World\World.cpp">
-      <Filter>Source Files\World</Filter>
-    </ClCompile>
     <ClCompile Include="System\RenderSystem.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
@@ -74,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="Time\EngineTime.cpp">
       <Filter>Source Files\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWorld.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,9 +107,6 @@
     <ClInclude Include="Input\KeyCode.h">
       <Filter>Source Files\Input</Filter>
     </ClInclude>
-    <ClInclude Include="World\World.h">
-      <Filter>Source Files\World</Filter>
-    </ClInclude>
     <ClInclude Include="System\RenderSystem.h">
       <Filter>Source Files\System</Filter>
     </ClInclude>
@@ -120,6 +114,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="GameWindow.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWorld.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
