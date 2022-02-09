@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <Windows.h>
-#include "../Component/Sprite2D.h"
 #include "../../GLib/GLib.h"
 
 namespace FileLoader
