@@ -40,3 +40,17 @@ T* GameObject::GetComponent()
 	}
 	return nullptr;
 }
+
+
+template<class T>
+bool GameObject::HasComponent()
+{
+	for (std::vector<Component*>::iterator iterator = componentList.begin(); iterator != componentList.end(); ++iterator)
+	{
+		if (dynamic_cast<T*>(*iterator) != nullptr)
+		{
+			return true;
+		}
+	}
+	return false;
+}

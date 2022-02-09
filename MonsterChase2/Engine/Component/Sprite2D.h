@@ -17,6 +17,8 @@ public:
 	void Start() override;
 	void Update() override;
 
+	GLib::Sprite* GetGLibSprite();
+
 protected:
 	std::string filePath;
 	GLib::Sprite* glibSprite;

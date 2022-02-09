@@ -16,7 +16,6 @@
 #include <string>
 
 #include "GLib.h"
-#include "Initialization.h"
 #include "Monster.h"
 #include "Player.h"
 #include "DataStructure/LinkedList.h"
@@ -47,6 +46,8 @@ float GetFrameTime();
 
 int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
 {
+	//_CrtSetBreakAlloc(223);
+
 	MonsterChase(i_hInstance, i_hPrevInstance, i_lpCmdLine, i_nCmdShow);
 
 #if defined _DEBUG
@@ -66,10 +67,8 @@ void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpC
 		GLib::SetKeyStateChangeCallback(KeyInputCallback);
 
 		//Initialize Engine
-		Engine::Initialize();
-		//Initialize Time
 		EngineTime::Initialize();
-
+		
 		Player player;
 		GLib::Sprite* pPlayerSprite = FileLoader::CreateSprite("data\\player.dds");
 
@@ -85,7 +84,7 @@ void MonsterChase(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpC
 
 			if (!bQuit)
 			{
-				float deltaTime = GetFrameTime();
+				float deltaTime = EngineTime::GetFrameTime();
 
 				//Check the FPS
 				float fps = (1.0f / deltaTime);

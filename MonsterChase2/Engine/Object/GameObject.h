@@ -21,6 +21,8 @@ public:
 	T* GetComponent();
 	template<class T>
 	void RemoveComponent();
+	template<class T>
+	bool HasComponent();
 
 	std::vector<Component*> GetAllComponents();
 	void RemoveAllComponents();
