@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "../Component/Component.h"
 
 GameObject::GameObject()
 	:m_Position(Point2D(0,0))

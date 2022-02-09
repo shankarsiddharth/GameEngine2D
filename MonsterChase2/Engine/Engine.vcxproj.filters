@@ -25,6 +25,9 @@
     <Filter Include="Source Files\Time">
       <UniqueIdentifier>{0d2dc80a-d62f-4130-8e21-a2af8807759c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\FileLoader">
+      <UniqueIdentifier>{2e251f8c-e957-4bea-ac80-dcfb21c7fe9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Initialization.cpp">
@@ -37,6 +40,9 @@
       <Filter>Source Files\Math</Filter>
     </ClCompile>
     <ClCompile Include="Component\Component.cpp">
+      <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Sprite2D.cpp">
       <Filter>Source Files\Component</Filter>
     </ClCompile>
   </ItemGroup>
@@ -61,6 +67,12 @@
     </ClInclude>
     <ClInclude Include="Time\EngineTime.h">
       <Filter>Source Files\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Sprite2D.h">
+      <Filter>Source Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLoader\FileLoader.h">
+      <Filter>Source Files\FileLoader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

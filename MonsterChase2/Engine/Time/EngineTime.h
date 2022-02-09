@@ -36,3 +36,13 @@ float GetFrameTime()
 	lastFrameStartTick = currentFrameStartTick;
 	return IsDebuggerPresent() ? (1.0f / 60.0f) : frameTime;
 }
+
+namespace EngineTime
+{
+	void Initialize()
+	{
+		//Initialize Timer
+		BOOL isSuccess = QueryPerformanceFrequency(&PerformanceFrequency);
+		assert(isSuccess == TRUE);
+	}
+}

@@ -1,8 +1,14 @@
 #pragma once
 
+class GameObject;
+
 class Component
 {
 public:
-	Component();
+	Component(GameObject* inRootGameObject);
 	~Component();
+	virtual void Start();
+	virtual void Update();
+protected:
+	GameObject* rootGameObject;
 };
