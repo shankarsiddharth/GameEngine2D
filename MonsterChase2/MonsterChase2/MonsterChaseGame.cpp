@@ -59,7 +59,7 @@ void MonsterChaseGame::ProcessInput()
 	if (inputSystem.IsKeyDown(KeyCode::A))
 	{
 		int a = 0;
-		playerRigidBody->AddForce(Vector2(1.5f, 1.5f));
+		playerRigidBody->AddForce(Vector2(2.5f, 2.5f));
 	}
 }
 
@@ -68,7 +68,7 @@ void MonsterChaseGame::LoadGameObjects()
 	player = new GameObject();
 	playerSprite = new Sprite2D(player, "data\\player.dds");
 	player->AddComponent(playerSprite);
-	playerRigidBody = new RigidBody2D(player);
+	playerRigidBody = new RigidBody2D(player, 0.5f);
 	player->AddComponent(playerRigidBody);
 	//World::GetInstance().AddGameObject(player);
 	gameWorld.AddGameObject(player);
