@@ -154,6 +154,8 @@
     <ClInclude Include="Component\Component.h" />
     <ClInclude Include="FileLoader\FileLoader.h" />
     <ClInclude Include="Initialization.h" />
+    <ClInclude Include="Input\InputSystem.h" />
+    <ClInclude Include="Input\KeyCode.h" />
     <ClInclude Include="Math\MathHelper.hpp" />
     <ClInclude Include="Math\Point2D.h" />
     <ClInclude Include="Object\GameObject.h" />
@@ -164,6 +166,7 @@
   <ItemGroup>
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Initialization.cpp" />
+    <ClCompile Include="Input\InputSystem.cpp" />
     <ClCompile Include="Math\Point2D.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Component\Sprite2D.cpp" />

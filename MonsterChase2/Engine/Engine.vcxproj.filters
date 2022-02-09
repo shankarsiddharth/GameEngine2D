@@ -28,6 +28,9 @@
     <Filter Include="Source Files\FileLoader">
       <UniqueIdentifier>{2e251f8c-e957-4bea-ac80-dcfb21c7fe9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{7cdf57e2-8de5-4dde-b3c1-242aa19affa4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Initialization.cpp">
@@ -44,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="Component\Sprite2D.cpp">
       <Filter>Source Files\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\InputSystem.cpp">
+      <Filter>Source Files\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="FileLoader\FileLoader.h">
       <Filter>Source Files\FileLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\InputSystem.h">
+      <Filter>Source Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\KeyCode.h">
+      <Filter>Source Files\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
