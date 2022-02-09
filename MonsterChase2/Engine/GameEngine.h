@@ -1,6 +1,7 @@
 #pragma once
 
 #include "System/RenderSystem.h"
+#include "System/PhysicsSystem.h"
 
 class GameWorld;
 
@@ -15,4 +16,5 @@ public:
 
 private:
 	RenderSystem renderSystem;
+	PhysicsSystem physicsSystem;
 };

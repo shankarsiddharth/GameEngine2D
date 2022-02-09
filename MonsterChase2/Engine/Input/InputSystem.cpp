@@ -6,11 +6,16 @@ void InputSystem::Initialize()
 	GLib::SetKeyStateChangeCallback(std::bind(&InputSystem::KeyInputCallback, this, std::placeholders::_1,std::placeholders:: _2));
 }
 
-void InputSystem::Update()
+void InputSystem::ClearInput()
 {
 	inputKeyCode = -1;
 	isDown = false;
 	isUp = false;
+}
+
+bool InputSystem::IsValidInput()
+{
+	return inputKeyCode != -1;
 }
 
 bool InputSystem::IsKeyDown(KeyCode i_Key)

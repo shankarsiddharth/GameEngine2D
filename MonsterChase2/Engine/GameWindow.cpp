@@ -1,10 +1,6 @@
 #include "GameWindow.h"
 #include "../GLib/GLib.h"
 
-//const unsigned int GameWindow::DEFAULT_GAME_WINDOW_WIDTH_SIZE_X = 800;
-//const unsigned int GameWindow::DEFAULT_GAME_WINDOW_HEIGHT_SIZE_Y = 600;
-//const std::string GameWindow::DEFAULT_WINDOW_TITLE = std::string("DefaultGameWindow");
-
 GameWindow::GameWindow()
 {
 
@@ -16,7 +12,7 @@ GameWindow::~GameWindow()
 }
 
 bool GameWindow::Initialize(HINSTANCE i_hInstance, int i_nCmdShow, 
-	std::string i_WindowName /*= DEFAULT_WINDOW_TITLE*/, 
+	std::string i_WindowName /*= "DefaultGameWindow"*/, 
 	unsigned int i_WindowWidth /*= DEFAULT_GAME_WINDOW_WIDTH_SIZE_X*/, 
 	unsigned int i_WindowHeight /*= DEFAULT_GAME_WINDOW_HEIGHT_SIZE_Y*/)
 {

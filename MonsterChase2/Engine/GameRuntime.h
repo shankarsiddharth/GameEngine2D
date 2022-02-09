@@ -3,6 +3,7 @@
 #include "GameEngine.h"
 #include "GameWindow.h"
 #include "GameWorld.h"
+#include "Input/InputSystem.h"
 
 class GameRuntime
 {
@@ -18,6 +19,8 @@ public:
 	bool IsRunning();
 	void UpdateDeltaTime();
 
+	virtual void ProcessInput() = 0;
+
 protected:
 	bool bQuit = false;
 
@@ -25,5 +28,6 @@ protected:
 	GameEngine gameEngine;
 	GameWindow gameWindow;
 	GameWorld gameWorld;
+	InputSystem inputSystem;
 };
 

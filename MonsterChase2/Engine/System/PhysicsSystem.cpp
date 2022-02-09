@@ -1,7 +1,9 @@
 #include "PhysicsSystem.h"
-#include "GameWorld.h"
-#include "Component/RigidBody2D.h"
-#include "Object/GameObject.h"
+#include <vector>
+#include "../Object/GameObject.h"
+#include "../Component/RigidBody2D.h"
+#include "../GameWorld.h"
+
 
 PhysicsSystem::PhysicsSystem()
 {

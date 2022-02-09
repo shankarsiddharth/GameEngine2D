@@ -16,6 +16,7 @@ bool GameRuntime::Initialize(HINSTANCE i_hInstance, int i_nCmdShow)
 	bool isWindowInitialized = gameWindow.Initialize(i_hInstance, i_nCmdShow);
 	if (isWindowInitialized)
 	{
+		inputSystem.Initialize();
 		gameWorld.Initialize();
 		gameEngine.Initialize();
 		return true;
@@ -25,7 +26,11 @@ bool GameRuntime::Initialize(HINSTANCE i_hInstance, int i_nCmdShow)
 
 void GameRuntime::UpdateInput()
 {
-
+	if (inputSystem.IsValidInput())
+	{
+		ProcessInput();
+		inputSystem.ClearInput();
+	}
 }
 
 void GameRuntime::Update()

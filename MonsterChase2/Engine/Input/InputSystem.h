@@ -5,7 +5,9 @@ class InputSystem
 {
 public:
 	void Initialize();
-	void Update();
+	void ClearInput();
+
+	bool IsValidInput();
 
 	bool IsKeyDown(KeyCode i_Key);
 	bool IsKeyUp(KeyCode i_Key);

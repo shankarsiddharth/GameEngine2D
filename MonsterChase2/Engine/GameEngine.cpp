@@ -10,17 +10,19 @@ void GameEngine::Initialize()
 
 	//Initialize Time
 	EngineTime::Initialize();
-
+	physicsSystem.Initialize();
 	renderSystem.Initialize();
 }
 
 void GameEngine::Update(float deltaTime, GameWorld* i_GameWorld)
 {
+	physicsSystem.Update(deltaTime, i_GameWorld);
 	renderSystem.Update(deltaTime, i_GameWorld);
 }
 
 void GameEngine::ShutDown()
 {
+	physicsSystem.ShutDown();
 	renderSystem.ShutDown();
 }
 
