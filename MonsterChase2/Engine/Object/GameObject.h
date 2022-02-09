@@ -1,5 +1,5 @@
 #pragma once
-#include "../Math/Point2D.h"
+#include "../Math/Vector2.h"
 #include <vector>
 
 class Component;
@@ -10,9 +10,9 @@ public:
 	GameObject();
 	~GameObject();
 
-	Point2D GetPosition() const;
-	void Move(const Point2D& InMoveBy);
-	void SetPosition(const Point2D& InNewPosition);
+	Vector2 GetPosition() const;
+	void Move(const Vector2& InMoveBy);
+	void SetPosition(const Vector2& InNewPosition);
 
 
 	template<class T>
@@ -29,7 +29,7 @@ public:
 
 
 protected:
-	Point2D m_Position;
+	Vector2 m_Position;
 	std::vector<Component*> componentList;
 };
 

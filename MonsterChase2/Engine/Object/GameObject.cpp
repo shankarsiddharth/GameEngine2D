@@ -2,7 +2,7 @@
 #include "../Component/Component.h"
 
 GameObject::GameObject()
-	:m_Position(Point2D(0,0))
+	:m_Position(Vector2(0,0))
 {
 }
 
@@ -14,17 +14,17 @@ GameObject::~GameObject()
 	}
 };
 
-Point2D GameObject::GetPosition() const
+Vector2 GameObject::GetPosition() const
 {
 	return m_Position;
 }
 
-void GameObject::Move(const Point2D& InMoveBy)
+void GameObject::Move(const Vector2& InMoveBy)
 {
 	m_Position += InMoveBy;
 }
 
-void GameObject::SetPosition(const Point2D& InNewPosition)
+void GameObject::SetPosition(const Vector2& InNewPosition)
 {
 	m_Position = InNewPosition;
 }
