@@ -137,5 +137,8 @@
     <ClInclude Include="SmartPointer\SmartPointer.h">
       <Filter>Source Files\SmartPointer</Filter>
     </ClInclude>
+    <ClInclude Include="SmartPointer\Counter.h">
+      <Filter>Source Files\SmartPointer</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
