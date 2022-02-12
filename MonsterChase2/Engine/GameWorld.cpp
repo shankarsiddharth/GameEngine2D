@@ -33,13 +33,13 @@ void GameWorld::Update()
 
 void GameWorld::ShutDown()
 {
-	for (GameObject* gameObject : gameObjectList)
+	/*for (GameObject* gameObject : gameObjectList)
 	{
 		if (gameObject != nullptr)
 		{
 			delete gameObject;
 			gameObject = nullptr;
 		}
-	}
+	}*/
 	gameObjectList.clear();
 }
