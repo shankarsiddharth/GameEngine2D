@@ -165,6 +165,7 @@
     <ClInclude Include="Object\GameObject.h" />
     <ClInclude Include="Object\GameObject_inl.h" />
     <ClInclude Include="Component\Sprite2D.h" />
+    <ClInclude Include="SmartPointer\SmartPointer.h" />
     <ClInclude Include="System\PhysicsSystem.h" />
     <ClInclude Include="System\RenderSystem.h" />
     <ClInclude Include="Time\EngineTime.h" />

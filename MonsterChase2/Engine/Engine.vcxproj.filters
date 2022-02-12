@@ -34,6 +34,9 @@
     <Filter Include="Source Files\FileLoader">
       <UniqueIdentifier>{2e251f8c-e957-4bea-ac80-dcfb21c7fe9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\SmartPointer">
+      <UniqueIdentifier>{3247ab32-50e8-411d-bc3f-2aa7bd064701}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine.cpp">
@@ -130,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="System\PhysicsSystem.h">
       <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="SmartPointer\SmartPointer.h">
+      <Filter>Source Files\SmartPointer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
