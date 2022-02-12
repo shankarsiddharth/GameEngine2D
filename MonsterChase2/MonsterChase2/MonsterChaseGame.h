@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameRuntime.h"
+#include "SmartPointer/SmartPointer.h"
 
 class Sprite2D;
 class GameObject;
@@ -24,11 +25,11 @@ private:
 
 	void LoadGameObjects();
 
-	GameObject* player;
+	SharedPointer<GameObject> player;
 	Sprite2D* playerSprite;
 	RigidBody2D* playerRigidBody;
 
-	GameObject* monster;
+	SharedPointer<GameObject> monster;
 	Sprite2D* monsterSprite;
 };
 

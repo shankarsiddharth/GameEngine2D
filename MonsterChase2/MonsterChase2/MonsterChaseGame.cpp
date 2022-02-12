@@ -65,19 +65,19 @@ void MonsterChaseGame::ProcessInput()
 
 void MonsterChaseGame::LoadGameObjects()
 {
-	player = new GameObject();
-	playerSprite = new Sprite2D(player, "data\\player.dds");
+	player = SharedPointer<GameObject>(new GameObject());
+	playerSprite = new Sprite2D(player.AccessPointer(), "data\\player.dds");
 	player->AddComponent(playerSprite);
-	playerRigidBody = new RigidBody2D(player, 0.5f);
+	playerRigidBody = new RigidBody2D(player.AccessPointer(), 0.5f);
 	player->AddComponent(playerRigidBody);
 	//World::GetInstance().AddGameObject(player);
-	gameWorld.AddGameObject(player);
+	gameWorld.AddGameObject(player.AccessPointer());
 	
-	monster = new GameObject();
-	monsterSprite = new Sprite2D(monster, "data\\monster.dds");
+	monster = SharedPointer<GameObject>(new GameObject());
+	monsterSprite = new Sprite2D(monster.AccessPointer(), "data\\monster.dds");
 	monster->AddComponent(monsterSprite);
 	//World::GetInstance().AddGameObject(monster);
-	gameWorld.AddGameObject(monster);
+	gameWorld.AddGameObject(monster.AccessPointer());
 }
 
 void MonsterChaseGame::UpdateGame()
