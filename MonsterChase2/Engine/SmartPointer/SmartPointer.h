@@ -27,7 +27,7 @@ public:
 	//Constructor with a Pointer - avoid implicit conversion of types
 	explicit SharedPointer(T* i_Pointer)
 		:pPointer(i_Pointer),
-		pCounter(i_Pointer ? new Counter(1, 0) : nullptr)
+		pCounter(i_Pointer ? new Counter(1) : nullptr)
 	{}
 
 
@@ -45,7 +45,7 @@ public:
 	template<class U>
 	SharedPointer(const SharedPointer<U>& i_OtherPointer)
 		:pPointer(i_OtherPointer.pPointer),
-		pCounter(i_OtherPointer.pPointer)
+		pCounter(i_OtherPointer.pCounter)
 	{
 		if (pCounter)
 		{
@@ -56,7 +56,7 @@ public:
 	//Assignment Operator
 	SharedPointer& operator=(const SharedPointer& i_OtherPointer)
 	{
-		if (this != &i_OtherPointer)
+		if (pPointer != i_OtherPointer.pPointer)
 		{
 			~SharedPointer();
 			pPointer = i_OtherPointer.pPointer;
@@ -69,6 +69,22 @@ public:
 		return *this;
 	}
 	
+	template<class U>
+	SharedPointer& operator=(const SharedPointer<U>& i_OtherPointer)
+	{
+		if (pPointer != i_OtherPointer.pPointer)
+		{
+			~SharedPointer();
+			pPointer = i_OtherPointer.pPointer;
+			pCounter = i_OtherPointer.pCounter;
+			if (pCounter)
+			{
+				(pCounter->sharedReference)++;
+			}
+		}
+		return *this;
+	}
+
 	//Assignment Operator nullptr
 	SharedPointer& operator=(std::nullptr_t i_NullPointer)
 	{
