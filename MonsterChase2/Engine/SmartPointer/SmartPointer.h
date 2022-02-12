@@ -18,13 +18,18 @@ public:
 		{
 			if ((--(pCounter->sharedReference)) == 0)
 			{
+				//delete pointer
 				delete pPointer;
 				pPointer = nullptr;
+
+				//delete counter
+				delete pCounter;
+				pCounter = nullptr;
 			}
 		}
 	}
 
-	//Constructor with a Pointer - avoid implicit conversion of types
+	//Constructor with a Pointer - to avoid implicit conversion of types
 	explicit SharedPointer(T* i_Pointer)
 		:pPointer(i_Pointer),
 		pCounter(i_Pointer ? new Counter(1) : nullptr)
@@ -32,9 +37,9 @@ public:
 
 
 	//Copy Constructor
-	SharedPointer(const SharedPointer& i_OtherPointer)
-		:pPointer(i_OtherPointer.pPointer),
-		pCounter(i_OtherPointer.pCounter)
+	SharedPointer(const SharedPointer& i_Other)
+		:pPointer(i_Other.pPointer),
+		pCounter(i_Other.pCounter)
 	{
 		if (pCounter)
 		{
@@ -43,9 +48,9 @@ public:
 	}
 
 	template<class U>
-	SharedPointer(const SharedPointer<U>& i_OtherPointer)
-		:pPointer(i_OtherPointer.pPointer),
-		pCounter(i_OtherPointer.pCounter)
+	SharedPointer(const SharedPointer<U>& i_Other)
+		:pPointer(i_Other.pPointer),
+		pCounter(i_Other.pCounter)
 	{
 		if (pCounter)
 		{
@@ -54,13 +59,13 @@ public:
 	}
 
 	//Assignment Operator
-	SharedPointer& operator=(const SharedPointer& i_OtherPointer)
+	SharedPointer& operator=(const SharedPointer& i_Other)
 	{
-		if (pPointer != i_OtherPointer.pPointer)
+		if (pPointer != i_Other.pPointer)
 		{
 			~SharedPointer();
-			pPointer = i_OtherPointer.pPointer;
-			pCounter = i_OtherPointer.pCounter;
+			pPointer = i_Other.pPointer;
+			pCounter = i_Other.pCounter;
 			if (pCounter)
 			{
 				(pCounter->sharedReference)++;
@@ -70,13 +75,13 @@ public:
 	}
 	
 	template<class U>
-	SharedPointer& operator=(const SharedPointer<U>& i_OtherPointer)
+	SharedPointer& operator=(const SharedPointer<U>& i_Other)
 	{
-		if (pPointer != i_OtherPointer.pPointer)
+		if (pPointer != i_Other.pPointer)
 		{
 			~SharedPointer();
-			pPointer = i_OtherPointer.pPointer;
-			pCounter = i_OtherPointer.pCounter;
+			pPointer = i_Other.pPointer;
+			pCounter = i_Other.pCounter;
 			if (pCounter)
 			{
 				(pCounter->sharedReference)++;
@@ -99,9 +104,16 @@ public:
 	}
 
 	//Indirection Operator
-	T* operator*()
+	T& operator*()
 	{
 		return *(pPointer);
+	}
+
+	//TODO: Remove this function
+	//Temporary Access Operator
+	T* AccessPointer() const
+	{
+		return pPointer;
 	}
 
 	//Operator bool check - ()
@@ -112,9 +124,9 @@ public:
 
 	//Equal to Operator
 	template<class U>
-	bool operator==(const SharedPointer<U>& i_OtherPointer)
+	bool operator==(const SharedPointer<U>& i_Other)
 	{
-		return (pPointer == i_OtherPointer.pPointer);
+		return (pPointer == i_Other.pPointer);
 	}
 
 private:
