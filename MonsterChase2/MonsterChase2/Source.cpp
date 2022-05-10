@@ -9,12 +9,44 @@
 #include "ThirdParty/nlohmann/json.hpp"
 #include <iostream>
 
+#include "ThirdParty/rapidjson/document.h"
+#include "ThirdParty/rapidjson/writer.h"
+#include "ThirdParty/rapidjson/stringbuffer.h"
+
 using json = nlohmann::json;
+using namespace rapidjson;
 
 void RunGame(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
 {
 	MonsterChaseGame game;
 	game.StartGame(i_hInstance, i_nCmdShow);
+}
+
+void TestJSON1()
+{
+	// 1. Parse a JSON string into DOM.
+	const char* json = "{\"project\":\"rapidjson\",\"stars\":10}";
+	Document d;
+	d.Parse(json);
+
+	// 2. Modify it by DOM.
+	Value& s = d["stars"];
+	s.SetInt(s.GetInt() + 1);
+
+	// 3. Stringify the DOM
+	StringBuffer buffer;
+	Writer<StringBuffer> writer(buffer);
+	d.Accept(writer);
+
+	// Output {"project":"rapidjson","stars":11}
+	std::cout << buffer.GetString() << std::endl;
+
+#ifdef _DEBUG
+	const size_t	lenBuffer = 500;
+	char			Buffer[lenBuffer];
+	sprintf_s(Buffer, lenBuffer, "JSON: %s\n", buffer.GetString());
+	OutputDebugStringA(Buffer);
+#endif _DEBUG
 }
 
 void TestJSON()
@@ -71,7 +103,7 @@ void TestJSON()
 int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
 {	
 	{
-		TestJSON();
+		TestJSON1();
 	}
 
 	{
