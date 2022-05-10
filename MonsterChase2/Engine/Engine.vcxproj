@@ -154,6 +154,7 @@
     <ClInclude Include="Component\Component.h" />
     <ClInclude Include="Component\RigidBody2D.h" />
     <ClInclude Include="FileLoader\FileLoader.h" />
+    <ClInclude Include="FileLoader\JSONParser.h" />
     <ClInclude Include="GameEngine.h" />
     <ClInclude Include="GameRuntime.h" />
     <ClInclude Include="GameWindow.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\RigidBody2D.cpp" />
     <ClCompile Include="FileLoader\FileLoader.cpp" />
+    <ClCompile Include="FileLoader\JSONParser.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameRuntime.cpp" />
     <ClCompile Include="GameWindow.cpp" />

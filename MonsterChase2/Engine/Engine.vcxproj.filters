@@ -99,6 +99,9 @@
     <ClCompile Include="System\PhysicsSystem.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
+    <ClCompile Include="FileLoader\JSONParser.cpp">
+      <Filter>Source Files\FileLoader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -274,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="ThirdParty\rapidjson\msinttypes\stdint.h">
       <Filter>Source Files\ThirdParty\rapidjson\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="FileLoader\JSONParser.h">
+      <Filter>Source Files\FileLoader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
