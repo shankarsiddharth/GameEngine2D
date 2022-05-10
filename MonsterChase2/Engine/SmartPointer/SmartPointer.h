@@ -99,7 +99,7 @@ public:
 
 	//TODO: Remove this function
 	//Temporary Access Operator
-	T* AccessPointer() const
+	T* AccessPointer()
 	{
 		return pPointer;
 	}

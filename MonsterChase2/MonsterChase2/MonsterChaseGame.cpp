@@ -61,17 +61,14 @@ void MonsterChaseGame::ProcessInput()
 	{
 		int a = 0;
 		playerRigidBody->AddForce(Vector2(2.5f, 2.5f));
-	}
-
-	if (inputSystem.IsKeyDown(KeyCode::S))
-	{
-		SharedPointer<GameObject> newGameObject = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument("data/test.json"));
-		int d = 0;
-	}
+	}	
 }
 
 void MonsterChaseGame::LoadGameObjects()
 {
+	newGameObject = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument("data/player.json"));
+	gameWorld.AddGameObject(newGameObject.AccessPointer());
+
 	player = SharedPointer<GameObject>(new GameObject());
 	playerSprite = new Sprite2D(player.AccessPointer(), "data\\player.dds");
 	player->AddComponent(playerSprite);

@@ -36,5 +36,7 @@ private:
 
 	ObjectGenerator objectGenerator;
 	JSONParser jsonParser;
+
+	SharedPointer<GameObject> newGameObject;
 };
 
