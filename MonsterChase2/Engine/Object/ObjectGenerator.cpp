@@ -1,4 +1,6 @@
 #include "ObjectGenerator.h"
+#include "../SmartPointer/SmartPointer.h"
+#include <stddef.h>
 
 ObjectGenerator::ObjectGenerator()
 {
@@ -10,11 +12,16 @@ ObjectGenerator::~ObjectGenerator()
 
 }
 
-GameObject* ObjectGenerator::CreateGameObjectFromJSONDocument(const rapidjson::Document i_JSONDocument)
+SharedPointer<GameObject> ObjectGenerator::CreateGameObjectFromJSONDocument(const rapidjson::Document i_JSONDocument)
 {
-	if (i_JSONDocument.IsObject())
+	if (!i_JSONDocument.IsObject())
 	{
-		return new GameObject();
+		return SharedPointer<GameObject>(nullptr);
 	}
-	return nullptr;
+
+	SharedPointer<GameObject> newGameObject(new GameObject());
+
+	//Read JSON File and Create components
+	
+	return newGameObject;
 }

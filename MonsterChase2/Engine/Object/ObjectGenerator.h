@@ -2,12 +2,13 @@
 
 #include "GameObject.h"
 #include "../ThirdParty/rapidjson/document.h"
+#include "../SmartPointer/SmartPointer.h"
 
 class ObjectGenerator
 {
 public:
 	ObjectGenerator();
 	~ObjectGenerator();
-	GameObject* CreateGameObjectFromJSONDocument(const rapidjson::Document i_JSONDocument);
+	SharedPointer<GameObject> CreateGameObjectFromJSONDocument(const rapidjson::Document i_JSONDocument);
 
 };

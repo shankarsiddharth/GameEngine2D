@@ -9,7 +9,8 @@ MonsterChaseGame::MonsterChaseGame()
 	player(nullptr),
 	playerSprite(nullptr),
 	monster(nullptr),
-	monsterSprite(nullptr)
+	monsterSprite(nullptr),
+	playerRigidBody(nullptr)
 {
 
 }
@@ -64,7 +65,7 @@ void MonsterChaseGame::ProcessInput()
 
 	if (inputSystem.IsKeyDown(KeyCode::S))
 	{
-		GameObject* newGameObject = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument("data/test.json"));
+		SharedPointer<GameObject> newGameObject = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument("data/test.json"));
 		int d = 0;
 	}
 }
