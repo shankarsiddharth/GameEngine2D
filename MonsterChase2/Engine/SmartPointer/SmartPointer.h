@@ -14,19 +14,7 @@ public:
 	//Destructor
 	~SharedPointer()
 	{
-		if (pCounter)
-		{
-			if ((--(pCounter->sharedReference)) == 0)
-			{
-				//delete pointer
-				delete pPointer;
-				pPointer = nullptr;
-
-				//delete counter
-				delete pCounter;
-				pCounter = nullptr;
-			}
-		}
+		ReleasePointer();
 	}
 
 	//Constructor with a Pointer - to avoid implicit conversion of types
@@ -63,7 +51,7 @@ public:
 	{
 		if (pPointer != i_Other.pPointer)
 		{
-			~SharedPointer();
+			ReleasePointer();
 			pPointer = i_Other.pPointer;
 			pCounter = i_Other.pCounter;
 			if (pCounter)
@@ -79,7 +67,7 @@ public:
 	{
 		if (pPointer != i_Other.pPointer)
 		{
-			~SharedPointer();
+			ReleasePointer();
 			pPointer = i_Other.pPointer;
 			pCounter = i_Other.pCounter;
 			if (pCounter)
@@ -93,7 +81,7 @@ public:
 	//Assignment Operator nullptr
 	SharedPointer& operator=(std::nullptr_t i_NullPointer)
 	{
-		~SharedPointer();
+		ReleasePointer();
 		return *this;
 	}
 
@@ -130,6 +118,24 @@ public:
 	}
 
 private:
+
+	void ReleasePointer()
+	{
+		if (pCounter)
+		{
+			if ((--(pCounter->sharedReference)) == 0)
+			{
+				//delete pointer
+				delete pPointer;
+				pPointer = nullptr;
+
+				//delete counter
+				delete pCounter;
+				pCounter = nullptr;
+			}
+		}
+	}
+
 	T* pPointer;
 	Counter* pCounter;
 };
