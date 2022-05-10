@@ -102,6 +102,9 @@
     <ClCompile Include="FileLoader\JSONParser.cpp">
       <Filter>Source Files\FileLoader</Filter>
     </ClCompile>
+    <ClCompile Include="Object\ObjectGenerator.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -280,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="FileLoader\JSONParser.h">
       <Filter>Source Files\FileLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\ObjectGenerator.h">
+      <Filter>Source Files\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

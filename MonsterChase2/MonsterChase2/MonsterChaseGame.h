@@ -2,9 +2,11 @@
 
 #include "GameRuntime.h"
 #include "SmartPointer/SmartPointer.h"
+#include "Object/ObjectGenerator.h"
+#include "Object/GameObject.h"
+#include "FileLoader/JSONParser.h"
 
 class Sprite2D;
-class GameObject;
 class RigidBody2D;
 
 class MonsterChaseGame :
@@ -31,5 +33,8 @@ private:
 
 	SharedPointer<GameObject> monster;
 	Sprite2D* monsterSprite;
+
+	ObjectGenerator objectGenerator;
+	JSONParser jsonParser;
 };
 

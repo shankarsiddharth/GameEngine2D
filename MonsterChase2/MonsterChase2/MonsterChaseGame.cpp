@@ -61,6 +61,12 @@ void MonsterChaseGame::ProcessInput()
 		int a = 0;
 		playerRigidBody->AddForce(Vector2(2.5f, 2.5f));
 	}
+
+	if (inputSystem.IsKeyDown(KeyCode::S))
+	{
+		GameObject* newGameObject = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument("data/test.json"));
+		int d = 0;
+	}
 }
 
 void MonsterChaseGame::LoadGameObjects()

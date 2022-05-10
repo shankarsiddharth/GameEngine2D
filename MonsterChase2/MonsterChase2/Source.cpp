@@ -102,9 +102,9 @@ void TestJSON()
 
 int WINAPI wWinMain(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
 {	
-	{
+	/*{
 		TestJSON1();
-	}
+	}*/
 
 	{
 		RunGame(i_hInstance, i_hPrevInstance, i_lpCmdLine, i_nCmdShow);

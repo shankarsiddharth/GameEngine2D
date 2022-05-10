@@ -166,6 +166,7 @@
     <ClInclude Include="Object\GameObject.h" />
     <ClInclude Include="Object\GameObject_inl.h" />
     <ClInclude Include="Component\Sprite2D.h" />
+    <ClInclude Include="Object\ObjectGenerator.h" />
     <ClInclude Include="SmartPointer\Counter.h" />
     <ClInclude Include="SmartPointer\SmartPointer.h" />
     <ClInclude Include="System\PhysicsSystem.h" />
@@ -224,6 +225,7 @@
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Component\Sprite2D.cpp" />
+    <ClCompile Include="Object\ObjectGenerator.cpp" />
     <ClCompile Include="System\PhysicsSystem.cpp" />
     <ClCompile Include="System\RenderSystem.cpp" />
     <ClCompile Include="Time\EngineTime.cpp" />
