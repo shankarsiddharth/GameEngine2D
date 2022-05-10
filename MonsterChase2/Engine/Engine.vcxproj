@@ -169,6 +169,7 @@
     <ClInclude Include="SmartPointer\SmartPointer.h" />
     <ClInclude Include="System\PhysicsSystem.h" />
     <ClInclude Include="System\RenderSystem.h" />
+    <ClInclude Include="ThirdParty\nlohmann\json.hpp" />
     <ClInclude Include="Time\EngineTime.h" />
   </ItemGroup>
   <ItemGroup>

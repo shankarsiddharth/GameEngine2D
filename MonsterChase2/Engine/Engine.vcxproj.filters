@@ -37,6 +37,12 @@
     <Filter Include="Source Files\SmartPointer">
       <UniqueIdentifier>{3247ab32-50e8-411d-bc3f-2aa7bd064701}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ThirdParty">
+      <UniqueIdentifier>{db5a2376-b05c-4a2d-8301-a7340b65baf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ThirdParty\nlohmann">
+      <UniqueIdentifier>{4ccff0b3-90bc-4318-9088-4869dfebc280}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine.cpp">
@@ -139,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="SmartPointer\Counter.h">
       <Filter>Source Files\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\nlohmann\json.hpp">
+      <Filter>Source Files\ThirdParty\nlohmann</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
