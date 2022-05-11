@@ -1,13 +1,13 @@
 #pragma once
 #include "Vector4.h"
 
-#define MATRIX_DIMENSION 4
+#define MATRIX_DIMENSION_4 4
 
 class Matrix4x4
 {
 public:
 	Matrix4x4();
-	Matrix4x4(float InMatrixArray[MATRIX_DIMENSION][MATRIX_DIMENSION]);
+	Matrix4x4(float InMatrixArray[MATRIX_DIMENSION_4][MATRIX_DIMENSION_4]);
 	~Matrix4x4();
 
 	Matrix4x4(const Matrix4x4& InOtherMatrix);
@@ -30,5 +30,5 @@ public:
 private:
 	static Matrix4x4 InitializeMatrix(float InValue);
 
-	float m_RC[MATRIX_DIMENSION][MATRIX_DIMENSION];
+	float m_RC[MATRIX_DIMENSION_4][MATRIX_DIMENSION_4];
 };

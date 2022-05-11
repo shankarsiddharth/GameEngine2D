@@ -7,11 +7,11 @@ Matrix4x4::Matrix4x4()
 
 }
 
-Matrix4x4::Matrix4x4(float InMatrix[MATRIX_DIMENSION][MATRIX_DIMENSION])
+Matrix4x4::Matrix4x4(float InMatrix[MATRIX_DIMENSION_4][MATRIX_DIMENSION_4])
 {
-	for (int i = 0; i < MATRIX_DIMENSION; i++)
+	for (int i = 0; i < MATRIX_DIMENSION_4; i++)
 	{
-		for (int j = 0; j < MATRIX_DIMENSION; j++)
+		for (int j = 0; j < MATRIX_DIMENSION_4; j++)
 		{
 			m_RC[i][j] = InMatrix[i][j];
 		}
@@ -20,9 +20,9 @@ Matrix4x4::Matrix4x4(float InMatrix[MATRIX_DIMENSION][MATRIX_DIMENSION])
 
 Matrix4x4::Matrix4x4(const Matrix4x4& InOtherMatrix)
 {
-	for (int i = 0; i < MATRIX_DIMENSION; i++)
+	for (int i = 0; i < MATRIX_DIMENSION_4; i++)
 	{
-		for (int j = 0; j < MATRIX_DIMENSION; j++)
+		for (int j = 0; j < MATRIX_DIMENSION_4; j++)
 		{
 			m_RC[i][j] = InOtherMatrix.m_RC[i][j];
 		}
@@ -32,11 +32,11 @@ Matrix4x4::Matrix4x4(const Matrix4x4& InOtherMatrix)
 Matrix4x4 Matrix4x4::operator*(const Matrix4x4& InOtherMatrix)
 {
 	Matrix4x4 resultMatrix(InitializeMatrix(0.0f));
-	for (int i = 0; i < MATRIX_DIMENSION; i++)
+	for (int i = 0; i < MATRIX_DIMENSION_4; i++)
 	{
-		for (int j = 0; j < MATRIX_DIMENSION; j++)
+		for (int j = 0; j < MATRIX_DIMENSION_4; j++)
 		{
-			for (int k = 0; k < MATRIX_DIMENSION; k++)
+			for (int k = 0; k < MATRIX_DIMENSION_4; k++)
 			{
 				resultMatrix.m_RC[i][j] += m_RC[i][k] * InOtherMatrix.m_RC[k][j];
 			}
@@ -48,9 +48,9 @@ Matrix4x4 Matrix4x4::operator*(const Matrix4x4& InOtherMatrix)
 Vector4 Matrix4x4::operator*(const Vector4& InVector)
 {
 	Vector4 resultVector(Vector4::Zero);
-	for (int i = 0; i < MATRIX_DIMENSION; i++)
+	for (int i = 0; i < MATRIX_DIMENSION_4; i++)
 	{
-		for (int j = 0; j < MATRIX_DIMENSION; j++)
+		for (int j = 0; j < MATRIX_DIMENSION_4; j++)
 		{
 			float iValue = 0.0f;
 			if (j == 0) iValue = InVector.X() * m_RC[i][j];
@@ -74,8 +74,8 @@ float Matrix4x4::operator[](const int RowColumnValue) const
 	int rowValue = RowColumnValue / 10;
 	int rowIndex = rowValue - 1;
 
-	assert(columnIndex >= 0 && columnIndex < MATRIX_DIMENSION);
-	assert(rowIndex >= 0 && rowIndex < MATRIX_DIMENSION);
+	assert(columnIndex >= 0 && columnIndex < MATRIX_DIMENSION_4);
+	assert(rowIndex >= 0 && rowIndex < MATRIX_DIMENSION_4);
 
 	return m_RC[rowIndex][columnIndex];
 }
@@ -83,9 +83,9 @@ float Matrix4x4::operator[](const int RowColumnValue) const
 void Matrix4x4::Transpose()
 {
 	Matrix4x4 transposeMatrix;
-	for (int i = 0; i < MATRIX_DIMENSION; i++)
+	for (int i = 0; i < MATRIX_DIMENSION_4; i++)
 	{
-		for (int j = 0; j < MATRIX_DIMENSION; j++)
+		for (int j = 0; j < MATRIX_DIMENSION_4; j++)
 		{
 			transposeMatrix.m_RC[j][i] = m_RC[i][j];
 		}
@@ -129,9 +129,9 @@ Matrix4x4 Matrix4x4::TranslationMatrix(float InX, float InY, float InZ)
 Matrix4x4 Matrix4x4::IdentityMatrix()
 {
 	Matrix4x4 identityMatrix;
-	for (int i = 0; i < MATRIX_DIMENSION; i++)
+	for (int i = 0; i < MATRIX_DIMENSION_4; i++)
 	{
-		for (int j = 0; j < MATRIX_DIMENSION; j++)
+		for (int j = 0; j < MATRIX_DIMENSION_4; j++)
 		{
 			identityMatrix.m_RC[i][j] = 0.0f;
 			if (i == j)
@@ -156,9 +156,9 @@ Matrix4x4 Matrix4x4::ScaleMatrix(float InScaleX, float InScaleY, float InScaleZ)
 Matrix4x4 Matrix4x4::InitializeMatrix(float InValue)
 {
 	Matrix4x4 newMatrix;
-	for (int i = 0; i < MATRIX_DIMENSION; i++)
+	for (int i = 0; i < MATRIX_DIMENSION_4; i++)
 	{
-		for (int j = 0; j < MATRIX_DIMENSION; j++)
+		for (int j = 0; j < MATRIX_DIMENSION_4; j++)
 		{
 			newMatrix.m_RC[i][j] = InValue;
 		}
@@ -168,9 +168,9 @@ Matrix4x4 Matrix4x4::InitializeMatrix(float InValue)
 
 Matrix4x4& Matrix4x4::operator=(const Matrix4x4& InOtherMatrix)
 {
-	for (int i = 0; i < MATRIX_DIMENSION; i++)
+	for (int i = 0; i < MATRIX_DIMENSION_4; i++)
 	{
-		for (int j = 0 ; j < MATRIX_DIMENSION; j++)
+		for (int j = 0 ; j < MATRIX_DIMENSION_4; j++)
 		{
 			m_RC[i][j] = InOtherMatrix.m_RC[i][j];
 		}
