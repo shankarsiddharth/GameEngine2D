@@ -34,7 +34,7 @@ void* FileLoader::LoadFile(const char* i_pFilename, size_t& o_sizeFile)
 	return pBuffer;
 }
 
-GLib::Sprite* FileLoader::CreateSprite(const char* i_pFilename)
+GLib::Sprite* FileLoader::CreateSprite(const char* i_pFilename, unsigned int& o_Width, unsigned int& o_Height, unsigned int& o_Depth)
 {
 	assert(i_pFilename);
 
@@ -62,6 +62,11 @@ GLib::Sprite* FileLoader::CreateSprite(const char* i_pFilename)
 	bool result = GLib::GetDimensions(*pTexture, width, height, depth);
 	assert(result == true);
 	assert((width > 0) && (height > 0));
+
+	//Store the Dimensions of the Texture
+	o_Width = width;
+	o_Height = height;
+	o_Depth = depth;
 
 	// Define the sprite edges
 	GLib::SpriteEdges	Edges = { -float(width / 2.0f), float(height), float(width / 2.0f), 0.0f };

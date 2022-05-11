@@ -19,8 +19,16 @@ public:
 
 	GLib::Sprite* GetGLibSprite();
 
+	unsigned int GetHeight() const;
+	unsigned int GetWidth() const;
+	unsigned int GetDepth() const;
+
 protected:
 	std::string filePath;
 	GLib::Sprite* glibSprite;
+
+	unsigned int height;
+	unsigned int width;
+	unsigned int depth;
 };
 
