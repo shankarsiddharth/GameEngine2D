@@ -7,16 +7,16 @@ class Matrix4x4
 {
 public:
 	Matrix4x4();
-	Matrix4x4(float InMatrix[MATRIX_DIMENSION][MATRIX_DIMENSION]);
+	Matrix4x4(float InMatrixArray[MATRIX_DIMENSION][MATRIX_DIMENSION]);
 	~Matrix4x4();
 
-	Matrix4x4(const Matrix4x4& InMatrix);
-	Matrix4x4& operator=(const Matrix4x4& InMatrix);
+	Matrix4x4(const Matrix4x4& InOtherMatrix);
+	Matrix4x4& operator=(const Matrix4x4& InOtherMatrix);
 
-	Matrix4x4 operator*(const Matrix4x4& InMatrix);
+	Matrix4x4 operator*(const Matrix4x4& InOtherMatrix);
 	Matrix4x4 operator*(const Vector4& InVector);
 
-	float operator[](int RowColumnValue);
+	float operator[](const int RowColumnValue) const;
 
 	void Transpose();
 
@@ -28,7 +28,7 @@ public:
 	static Matrix4x4 ScaleMatrix(float InScaleX, float InScaleY, float InScaleZ);
 
 private:
-	static void InitializeMatrix(float InValue);
+	static Matrix4x4 InitializeMatrix(float InValue);
 
 	float m_RC[MATRIX_DIMENSION][MATRIX_DIMENSION];
 };
