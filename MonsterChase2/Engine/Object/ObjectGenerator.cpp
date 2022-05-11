@@ -4,6 +4,7 @@
 #include <string>
 #include "../Component/Sprite2D.h"
 #include "../Component/RigidBody2D.h"
+#include "../Component/BoxCollider2D.h"
 
 ObjectGenerator::ObjectGenerator()
 {
@@ -49,6 +50,12 @@ SharedPointer<GameObject> ObjectGenerator::CreateGameObjectFromJSONDocument(cons
 			const rapidjson::Value& rigidBodyValue = componentsValue["rigidbody2d"];
 			float rigidbody2dMass = rigidBodyValue["mass"].GetFloat();
 			newGameObject->AddComponent(new RigidBody2D(newGameObject, rigidbody2dMass));
+		}
+
+		if (componentsValue.HasMember("boxcollider2d"))
+		{
+			const rapidjson::Value& rigidBodyValue = componentsValue["boxcollider2d"];			
+			newGameObject->AddComponent(new BoxCollider2D(newGameObject));
 		}
 	}
 	

@@ -4,6 +4,7 @@
     "components": {
         "sprite2d":{
             "filepath": "data\\monster.dds"
-        }
+        },
+        "boxcollider2d":{}
     }
 }
