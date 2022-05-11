@@ -11,12 +11,12 @@ GameWorld::~GameWorld()
 
 }
 
-void GameWorld::AddGameObject(GameObject* i_GameObject)
+void GameWorld::AddGameObject(SharedPointer<GameObject> i_GameObject)
 {
 	gameObjectList.push_back(i_GameObject);
 }
 
-std::vector<GameObject*> GameWorld::GetAllGameObjects()
+std::vector<SharedPointer<GameObject>> GameWorld::GetAllGameObjects()
 {
 	return gameObjectList;
 }
@@ -33,13 +33,12 @@ void GameWorld::Update()
 
 void GameWorld::ShutDown()
 {
-	/*for (GameObject* gameObject : gameObjectList)
+	for (SharedPointer<GameObject> gameObject : gameObjectList)
 	{
-		if (gameObject != nullptr)
+		if (gameObject)
 		{
-			delete gameObject;
-			gameObject = nullptr;
+			gameObject->RemoveAllComponents();
 		}
-	}*/
+	}
 	gameObjectList.clear();
 }

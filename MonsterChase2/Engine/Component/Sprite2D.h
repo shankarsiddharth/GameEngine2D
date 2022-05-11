@@ -11,7 +11,7 @@ class Sprite2D :
 	public Component
 {
 public:
-	Sprite2D(GameObject* i_RootGameObject, std::string i_filePath);
+	Sprite2D(const SharedPointer<GameObject>& i_RootGameObject, std::string i_filePath);
 	~Sprite2D();
 
 	void Start() override;

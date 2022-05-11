@@ -60,28 +60,17 @@ void MonsterChaseGame::ProcessInput()
 	if (inputSystem.IsKeyDown(KeyCode::A))
 	{
 		int a = 0;
-		playerRigidBody->AddForce(Vector2(2.5f, 2.5f));
+		player->GetComponent<RigidBody2D>()->AddForce(Vector2(2.5f, 2.5f));
 	}	
 }
 
 void MonsterChaseGame::LoadGameObjects()
 {
-	newGameObject = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument("data/player.json"));
-	gameWorld.AddGameObject(newGameObject.AccessPointer());
+	player = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument("data/player.json"));
+	gameWorld.AddGameObject(player);
 
-	player = SharedPointer<GameObject>(new GameObject());
-	playerSprite = new Sprite2D(player.AccessPointer(), "data\\player.dds");
-	player->AddComponent(playerSprite);
-	playerRigidBody = new RigidBody2D(player.AccessPointer(), 0.5f);
-	player->AddComponent(playerRigidBody);
-	//World::GetInstance().AddGameObject(player);
-	gameWorld.AddGameObject(player.AccessPointer());
-	
-	monster = SharedPointer<GameObject>(new GameObject());
-	monsterSprite = new Sprite2D(monster.AccessPointer(), "data\\monster.dds");
-	monster->AddComponent(monsterSprite);
-	//World::GetInstance().AddGameObject(monster);
-	gameWorld.AddGameObject(monster.AccessPointer());
+	monster = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument("data/monster.json"));
+	gameWorld.AddGameObject(monster);	
 }
 
 void MonsterChaseGame::UpdateGame()

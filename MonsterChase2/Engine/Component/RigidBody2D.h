@@ -6,7 +6,7 @@ class RigidBody2D
 	:public Component
 {
 public:
-	RigidBody2D(GameObject* i_RootGameObject, 
+	RigidBody2D(const SharedPointer<GameObject>& i_RootGameObject,
 		float i_Mass = 1.0f, 
 		float i_CoefficientDrag = 0.0f,  
 		bool i_EnableDrag = false,

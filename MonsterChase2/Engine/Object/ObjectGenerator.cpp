@@ -41,14 +41,14 @@ SharedPointer<GameObject> ObjectGenerator::CreateGameObjectFromJSONDocument(cons
 		{
 			const rapidjson::Value& sprite2dValue = componentsValue["sprite2d"];
 			std::string sprite2dFilePath = sprite2dValue["filepath"].GetString();
-			newGameObject->AddComponent(new Sprite2D(newGameObject.AccessPointer(), sprite2dFilePath));
+			newGameObject->AddComponent(new Sprite2D(newGameObject, sprite2dFilePath));
 		}
 
 		if (componentsValue.HasMember("rigidbody2d"))
 		{
 			const rapidjson::Value& rigidBodyValue = componentsValue["rigidbody2d"];
 			float rigidbody2dMass = rigidBodyValue["mass"].GetFloat();
-			newGameObject->AddComponent(new RigidBody2D(newGameObject.AccessPointer(), rigidbody2dMass));
+			newGameObject->AddComponent(new RigidBody2D(newGameObject, rigidbody2dMass));
 		}
 	}
 	

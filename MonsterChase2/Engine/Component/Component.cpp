@@ -1,6 +1,6 @@
 #include "Component.h"
 
-Component::Component(GameObject* inRootGameObject)
+Component::Component(const SharedPointer<GameObject>& inRootGameObject)
 	: rootGameObject(inRootGameObject)
 {
 

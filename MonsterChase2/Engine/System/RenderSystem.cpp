@@ -24,8 +24,8 @@ void RenderSystem::Update(float deltaTime, GameWorld* i_GameWorld)
 	BeginRendering();
 
 	//std::vector<GameObject*> gameObjects = World::GetInstance().GetAllGameObjects();
-	std::vector<GameObject*> gameObjects = i_GameWorld->GetAllGameObjects();
-	for (GameObject* gameObject : gameObjects)
+	std::vector<SharedPointer<GameObject>> gameObjects = i_GameWorld->GetAllGameObjects();
+	for (SharedPointer<GameObject> gameObject : gameObjects)
 	{
 		GLib::Point2D position{ (float)(gameObject->GetPosition().X()), (float)(gameObject->GetPosition().Y()) };
 		Sprite2D* spriteComponent = gameObject->GetComponent<Sprite2D>();

@@ -2,7 +2,7 @@
 #include "../FileLoader/FileLoader.h"
 #include "../../GLib/GLib.h"
 
-Sprite2D::Sprite2D(GameObject* i_RootGameObject, std::string i_filePath)
+Sprite2D::Sprite2D(const SharedPointer<GameObject>& i_RootGameObject, std::string i_filePath)
 	:Component(i_RootGameObject),
 	filePath(i_filePath),
 	glibSprite(nullptr)

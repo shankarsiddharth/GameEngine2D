@@ -1,0 +1,9 @@
+{
+    "name": "Monster",
+    "position": [0 , 50],
+    "components": {
+        "sprite2d":{
+            "filepath": "data\\monster.dds"
+        }
+    }
+}

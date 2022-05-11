@@ -1,7 +1,7 @@
 #include "RigidBody2D.h"
 #include "../Object/GameObject.h"
 
-RigidBody2D::RigidBody2D(GameObject* i_RootGameObject, float i_Mass /*= 1.0f*/,
+RigidBody2D::RigidBody2D(const SharedPointer<GameObject>& i_RootGameObject, float i_Mass /*= 1.0f*/,
 	float i_CoefficientDrag /*= 0.0f*/, bool i_EnableDrag /*= false*/,
 	bool i_EnableGravity /*= false*/)
 	:Component(i_RootGameObject),

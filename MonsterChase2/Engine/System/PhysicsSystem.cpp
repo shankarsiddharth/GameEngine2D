@@ -22,8 +22,8 @@ void PhysicsSystem::Initialize()
 
 void PhysicsSystem::Update(float deltaTime, GameWorld* i_GameWorld)
 {
-	std::vector<GameObject*> gameObjects = i_GameWorld->GetAllGameObjects();
-	for (GameObject* gameObject : gameObjects)
+	std::vector<SharedPointer<GameObject>> gameObjects = i_GameWorld->GetAllGameObjects();
+	for (SharedPointer<GameObject> gameObject : gameObjects)
 	{		
 		RigidBody2D* rigidBodyComponent = gameObject->GetComponent<RigidBody2D>();
 		if (rigidBodyComponent != nullptr)

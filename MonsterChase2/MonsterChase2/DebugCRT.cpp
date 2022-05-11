@@ -8,7 +8,7 @@
 
 struct CrtBreakAllocSetter {
 	CrtBreakAllocSetter() {
-		//_crtBreakAlloc = 266;
+		_crtBreakAlloc = 338;
 	}
 };
 

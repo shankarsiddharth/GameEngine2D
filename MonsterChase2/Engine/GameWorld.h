@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "SmartPointer/SmartPointer.h"
 
 class GameObject;
 
@@ -9,8 +10,8 @@ public:
 	GameWorld();
 	~GameWorld();
 
-	void AddGameObject(GameObject* i_GameObject);
-	std::vector<GameObject*> GetAllGameObjects();
+	void AddGameObject(SharedPointer<GameObject> i_GameObject);
+	std::vector<SharedPointer<GameObject>> GetAllGameObjects();
 
 	void Initialize();
 	void Update();
@@ -18,6 +19,6 @@ public:
 
 private:
 
-	std::vector<GameObject*> gameObjectList;
+	std::vector<SharedPointer<GameObject>> gameObjectList;
 };
 

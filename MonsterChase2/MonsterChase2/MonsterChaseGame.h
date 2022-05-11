@@ -35,8 +35,6 @@ private:
 	Sprite2D* monsterSprite;
 
 	ObjectGenerator objectGenerator;
-	JSONParser jsonParser;
-
-	SharedPointer<GameObject> newGameObject;
+	JSONParser jsonParser;		
 };
 
