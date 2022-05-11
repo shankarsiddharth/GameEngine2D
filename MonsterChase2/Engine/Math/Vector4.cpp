@@ -15,6 +15,11 @@ Vector4::Vector4()
 
 }
 
+Vector4::~Vector4()
+{
+
+}
+
 Vector4::Vector4(float InX, float InY, float InZ, float InW)
 	:m_X(InX),
 	m_Y(InY),
@@ -147,9 +152,4 @@ Vector4& Vector4::operator/=(float const& InValue)
 	m_Z /= InValue;
 	m_W /= InValue;
 	return *this;
-}
-
-Vector4::~Vector4()
-{
-
 }
