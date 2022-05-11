@@ -17,10 +17,10 @@ BoxCollider2D::BoxCollider2D(const SharedPointer<GameObject>& i_RootGameObject)
 		spriteDepth = sprite2d.GetDepth();
 	}
 
-	Vector2 localTopLeftExtent(-(spriteWidth/2), spriteHeight);
-	Vector2 localTopRightExtent((spriteWidth/2), spriteHeight);
-	Vector2 localBottomLeftExtent(-(spriteWidth/2), 0);
-	Vector2 localBottomRightExtent((spriteWidth/2), 0);
+	Vector2 localTopLeftExtent(-1.0f * (float)(spriteWidth/2), (float)spriteHeight);
+	Vector2 localTopRightExtent((float)(spriteWidth/2), (float)spriteHeight);
+	Vector2 localBottomLeftExtent(-1.0f * (float)(spriteWidth/2), 0);
+	Vector2 localBottomRightExtent((float)(spriteWidth/2), 0);
 
 
 	localExtentCoordinates.push_back(Vector4(localTopLeftExtent, 1.0f, 1.0f));
