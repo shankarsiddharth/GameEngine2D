@@ -11,6 +11,10 @@ float Vector4::DotProduct(const Vector4& InVectorLHS, const Vector4& InVectorRHS
 }
 
 Vector4::Vector4()
+	:m_X(0),
+	m_Y(0),
+	m_Z(0),
+	m_W(0)
 {
 
 }
