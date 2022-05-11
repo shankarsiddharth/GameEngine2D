@@ -114,6 +114,9 @@
     <ClCompile Include="Component\BoxCollider2D.cpp">
       <Filter>Source Files\Component</Filter>
     </ClCompile>
+    <ClCompile Include="System\CollisionSystem.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -304,6 +307,9 @@
     </ClInclude>
     <ClInclude Include="Component\BoxCollider2D.h">
       <Filter>Source Files\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="System\CollisionSystem.h">
+      <Filter>Source Files\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
