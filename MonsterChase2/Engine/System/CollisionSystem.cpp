@@ -30,9 +30,13 @@ void CollisionSystem::Update(float deltaTime, GameWorld* i_GameWorld)
 		BoxCollider2D* boxCollider2DComponent = gameObject->GetComponent<BoxCollider2D>();
 		if (boxCollider2DComponent != nullptr)
 		{
+			//Update the collider extents based on the object position & rotation
+			boxCollider2DComponent->UpdateWorldExtents();
 			boxColliders.push_back(boxCollider2DComponent);
 		}
 	}
+
+
 }
 
 void CollisionSystem::ShutDown()

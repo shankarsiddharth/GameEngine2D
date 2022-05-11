@@ -13,6 +13,8 @@ public:
 	void Start() override;
 	void Update() override;
 
+	void UpdateWorldExtents();
+
 protected:
 	//Index 0 - TopLeft, 1- TopRight, 2- BottomLeft, 3-BottomRight
 	std::vector<Vector4> localExtentCoordinates;
