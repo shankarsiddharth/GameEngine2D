@@ -91,18 +91,23 @@ public:
 		return pPointer;
 	}
 
+	const T* operator->() const
+	{
+		return pPointer;
+	}
+
 	//Indirection Operator
 	T& operator*()
 	{
 		return *(pPointer);
 	}
 
-	//TODO: Remove this function
-	//Temporary Access Operator
-	T* AccessPointer()
-	{
-		return pPointer;
-	}
+	////TODO: Remove this function
+	////Temporary Access Operator
+	//T* AccessPointer()
+	//{
+	//	return pPointer;
+	//}
 
 	//Operator bool check - ()
 	operator bool()
