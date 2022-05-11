@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Component\BoxCollider2D.h" />
     <ClInclude Include="Component\Component.h" />
     <ClInclude Include="Component\RigidBody2D.h" />
     <ClInclude Include="FileLoader\FileLoader.h" />
@@ -162,7 +163,9 @@
     <ClInclude Include="Input\InputSystem.h" />
     <ClInclude Include="Input\KeyCode.h" />
     <ClInclude Include="Math\MathHelper.hpp" />
+    <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Object\GameObject.h" />
     <ClInclude Include="Object\GameObject_inl.h" />
     <ClInclude Include="Component\Sprite2D.h" />
@@ -213,6 +216,7 @@
     <ClInclude Include="Time\EngineTime.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Component\BoxCollider2D.cpp" />
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\RigidBody2D.cpp" />
     <ClCompile Include="FileLoader\FileLoader.cpp" />
@@ -222,7 +226,9 @@
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="Input\InputSystem.cpp" />
+    <ClCompile Include="Math\Matrix4x4.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
+    <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Object\GameObject.cpp" />
     <ClCompile Include="Component\Sprite2D.cpp" />
     <ClCompile Include="Object\ObjectGenerator.cpp" />

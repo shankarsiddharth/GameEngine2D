@@ -164,6 +164,7 @@
     <ClCompile Include="DebugCRT.cpp" />
     <ClCompile Include="MonsterChaseGame.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TestMatrix.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MonsterChase2.rc" />
