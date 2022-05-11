@@ -2,6 +2,7 @@
 
 #include "System/RenderSystem.h"
 #include "System/PhysicsSystem.h"
+#include "System/CollisionSystem.h"
 
 class GameWorld;
 
@@ -17,4 +18,5 @@ public:
 private:
 	RenderSystem renderSystem;
 	PhysicsSystem physicsSystem;
+	CollisionSystem collisionSystem;
 };
