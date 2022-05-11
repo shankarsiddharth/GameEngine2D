@@ -21,19 +21,17 @@ public:
 
 	Vector4 operator+(const Vector4& InVector);
 	Vector4 operator-(const Vector4& InVector);
-	Vector4 operator*(const Vector4& InVector);
-	Vector4 operator/(const Vector4& InVector);
 
 	Vector4& operator+=(const Vector4& InVector);
 	Vector4& operator-=(const Vector4& InVector);
 	
-	Vector4& operator*=(float const& InValue);
-	Vector4& operator/=(float const& InValue);
-
 	Vector4 operator / (float const& InValue);
 	Vector4 operator * (float const& InValue);
 
-	static float DotProduct(const Vector4& InVector);
+	Vector4& operator*=(float const& InValue);
+	Vector4& operator/=(float const& InValue);
+	
+	static float DotProduct(const Vector4& InVectorLHS, const Vector4& InVectorRHS);
 
 	static const Vector4 Zero;
 
