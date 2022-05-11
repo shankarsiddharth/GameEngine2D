@@ -15,6 +15,15 @@ Vector4::Vector4()
 
 }
 
+Vector4& Vector4::operator=(const Vector4& InOther)
+{
+	m_X = InOther.m_X;
+	m_Y = InOther.m_Y;
+	m_Z = InOther.m_Z;
+	m_W = InOther.m_W;
+	return *this;
+}
+
 Vector4::~Vector4()
 {
 

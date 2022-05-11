@@ -9,6 +9,8 @@ public:
 	Vector4(float InX, float InY, float InZ, float InW);
 	Vector4(const Vector4& InOther);
 
+	Vector4& operator=(const Vector4& InOther);
+
 	float X() const;
 	float Y() const;
 	float Z() const;

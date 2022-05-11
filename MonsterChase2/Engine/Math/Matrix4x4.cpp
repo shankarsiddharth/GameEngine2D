@@ -1,5 +1,6 @@
 #include "Matrix4x4.h"
 #include <cassert>
+#include <corecrt_math.h>
 
 Matrix4x4::Matrix4x4()
 {
@@ -30,7 +31,7 @@ Matrix4x4::Matrix4x4(const Matrix4x4& InOtherMatrix)
 
 Matrix4x4 Matrix4x4::operator*(const Matrix4x4& InOtherMatrix)
 {
-	Matrix4x4 resultMatrix;
+	Matrix4x4 resultMatrix(InitializeMatrix(0.0f));
 	for (int i = 0; i < MATRIX_DIMENSION; i++)
 	{
 		for (int j = 0; j < MATRIX_DIMENSION; j++)
@@ -44,10 +45,25 @@ Matrix4x4 Matrix4x4::operator*(const Matrix4x4& InOtherMatrix)
 	return resultMatrix;
 }
 
-Matrix4x4 Matrix4x4::operator*(const Vector4& InVector)
+Vector4 Matrix4x4::operator*(const Vector4& InVector)
 {
-	// TODO: Matrix x Vector
-	return Matrix4x4();
+	Vector4 resultVector(Vector4::Zero);
+	for (int i = 0; i < MATRIX_DIMENSION; i++)
+	{
+		for (int j = 0; j < MATRIX_DIMENSION; j++)
+		{
+			float iValue = 0.0f;
+			if (j == 0) iValue = InVector.X() * m_RC[i][j];
+			if (j == 1) iValue = InVector.Y() * m_RC[i][j];
+			if (j == 2) iValue = InVector.Z() * m_RC[i][j];
+			if (j == 3) iValue = InVector.W() * m_RC[i][j];
+			if (i == 0) resultVector.X(resultVector.X() + iValue);
+			if (i == 1) resultVector.Y(resultVector.Y() + iValue);
+			if (i == 2) resultVector.Z(resultVector.Z() + iValue);
+			if (i == 3) resultVector.W(resultVector.W() + iValue);
+		}
+	}
+	return resultVector;
 }
 
 float Matrix4x4::operator[](const int RowColumnValue) const
@@ -79,14 +95,35 @@ void Matrix4x4::Transpose()
 
 Matrix4x4 Matrix4x4::ZRotationMatrix(float InRadians)
 {
-	//TODO: ZRotation Matrix
-	return Matrix4x4();
+	float sinValue = sinf(InRadians);
+	float cosValue = cosf(InRadians);
+
+	Matrix4x4 zRotationMatrix(InitializeMatrix(0.0f));
+
+	zRotationMatrix.m_RC[0][0] = cosValue;
+	zRotationMatrix.m_RC[0][1] = -sinValue;
+	zRotationMatrix.m_RC[1][0] = sinValue;
+	zRotationMatrix.m_RC[1][1] = cosValue;
+	zRotationMatrix.m_RC[2][2] = 1.0f;
+	zRotationMatrix.m_RC[3][3] = 1.0f;
+
+	return zRotationMatrix;
 }
 
 Matrix4x4 Matrix4x4::TranslationMatrix(float InX, float InY, float InZ)
 {
-	//TODO: Translation Matrix
-	return Matrix4x4();
+	Matrix4x4 translationMatrix(InitializeMatrix(0.0f));
+
+	translationMatrix.m_RC[0][0] = 1.0f;
+	translationMatrix.m_RC[1][1] = 1.0f;
+	translationMatrix.m_RC[2][2] = 1.0f;
+	translationMatrix.m_RC[3][3] = 1.0f;
+	
+	translationMatrix.m_RC[0][3] = InX;
+	translationMatrix.m_RC[1][3] = InY;
+	translationMatrix.m_RC[2][3] = InZ;
+
+	return translationMatrix;
 }
 
 Matrix4x4 Matrix4x4::IdentityMatrix()

@@ -14,7 +14,7 @@ public:
 	Matrix4x4& operator=(const Matrix4x4& InOtherMatrix);
 
 	Matrix4x4 operator*(const Matrix4x4& InOtherMatrix);
-	Matrix4x4 operator*(const Vector4& InVector);
+	Vector4 operator*(const Vector4& InVector);
 
 	float operator[](const int RowColumnValue) const;
 
