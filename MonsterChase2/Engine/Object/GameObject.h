@@ -1,6 +1,7 @@
 #pragma once
 #include "../Math/Vector2.h"
 #include <vector>
+#include "../Math/Vector4.h"
 
 class Component;
 
@@ -14,6 +15,8 @@ public:
 	void Move(const Vector2& InMoveBy);
 	void SetPosition(const Vector2& InNewPosition);
 
+	Vector4 GetRotation() const;
+	void SetRotation(const Vector4& InNewRotation);
 
 	template<class T>
 	void AddComponent(T* newComponent);
@@ -30,6 +33,7 @@ public:
 
 protected:
 	Vector2 m_Position;
+	Vector4 m_Rotation;
 	std::vector<Component*> componentList;
 };
 

@@ -29,6 +29,16 @@ void GameObject::SetPosition(const Vector2& InNewPosition)
 	m_Position = InNewPosition;
 }
 
+Vector4 GameObject::GetRotation() const
+{
+	return m_Rotation;
+}
+
+void GameObject::SetRotation(const Vector4& InNewRotation)
+{
+	m_Rotation = InNewRotation;
+}
+
 std::vector<Component*> GameObject::GetAllComponents()
 {
 	return componentList;
