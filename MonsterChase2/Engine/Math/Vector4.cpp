@@ -15,6 +15,15 @@ Vector4::Vector4()
 
 }
 
+Vector4::Vector4(const Vector2& InOther, float InZ, float InW)
+	:m_X(InOther.X()),
+	m_Y(InOther.Y()),
+	m_Z(InZ),
+	m_W(InW)
+{
+
+}
+
 Vector4& Vector4::operator=(const Vector4& InOther)
 {
 	m_X = InOther.m_X;

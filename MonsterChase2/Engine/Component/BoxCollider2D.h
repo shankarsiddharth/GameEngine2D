@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
-#include "../Math/Vector2.h"
+#include <vector>
+#include "../Math/Vector4.h"
 
 class BoxCollider2D
 	:public Component
@@ -13,5 +14,7 @@ public:
 	void Update() override;
 
 protected:
-
+	//Index 0 - TopLeft, 1- TopRight, 2- BottomLeft, 3-BottomRight
+	std::vector<Vector4> localExtentCoordinates;
+	std::vector<Vector4> worldExtentCoordinates;
 };

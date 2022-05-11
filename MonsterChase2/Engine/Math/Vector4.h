@@ -1,4 +1,5 @@
 #pragma once
+#include "Vector2.h"
 
 class Vector4
 {
@@ -8,6 +9,7 @@ public:
 
 	Vector4(float InX, float InY, float InZ, float InW);
 	Vector4(const Vector4& InOther);
+	Vector4(const Vector2& InOther, float InZ, float InW);
 
 	Vector4& operator=(const Vector4& InOther);
 
