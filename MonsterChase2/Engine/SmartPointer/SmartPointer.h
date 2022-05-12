@@ -102,7 +102,7 @@ public:
 		return *(pPointer);
 	}
 
-	////TODO: Remove this function
+	////Remove this function
 	////Temporary Access Operator
 	//T* AccessPointer()
 	//{
