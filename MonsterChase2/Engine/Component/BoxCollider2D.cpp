@@ -74,7 +74,7 @@ void BoxCollider2D::UpdateWorldExtentsAxes()
 	{
 		Vector4 currentvertex = worldExtentCoordinates[i];
 
-		const int nextIndex = (i + 1) % worldExtentCoordinates.size();
+		const size_t nextIndex = (i + 1) % worldExtentCoordinates.size();
 		Vector4 nextVertex = worldExtentCoordinates[nextIndex];
 
 		Vector4 worldExtentEdge = nextVertex - currentvertex;
