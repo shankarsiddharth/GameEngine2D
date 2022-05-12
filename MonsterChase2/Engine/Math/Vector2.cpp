@@ -1,5 +1,10 @@
 #include "Vector2.h"
 
+Vector2 Vector2::PerpendicularVector(const Vector2& InVector)
+{
+	return Vector2(-1.0f * InVector.m_Y, InVector.m_X);
+}
+
 const Vector2 Vector2::Zero(0.0f, 0.0f);
 
 Vector2 Vector2::operator/(float const& InValue)

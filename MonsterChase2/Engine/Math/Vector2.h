@@ -22,6 +22,8 @@ public:
 	Vector2 operator / (float const& InValue);
 	Vector2 operator * (float const& InValue);
 
+	static Vector2 PerpendicularVector(const Vector2& InVector);
+
 	static const Vector2 Zero;
 
 private:
