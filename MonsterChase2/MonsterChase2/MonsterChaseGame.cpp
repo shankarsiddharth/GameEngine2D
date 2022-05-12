@@ -88,6 +88,15 @@ void MonsterChaseGame::ProcessInput()
 	{
 		player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, force));
 	}
+
+	if (inputSystem.IsKeyPressed(KeyCode::K))
+	{
+		player->AddRotationZ(0.01f);
+	}
+	if (inputSystem.IsKeyPressed(KeyCode::L))
+	{
+		player->AddRotationZ(-0.01f);
+	}
 }
 
 void MonsterChaseGame::LoadGameObjects()

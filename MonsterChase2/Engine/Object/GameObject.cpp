@@ -39,6 +39,11 @@ void GameObject::SetRotation(const Vector4& InNewRotation)
 	m_Rotation = InNewRotation;
 }
 
+void GameObject::AddRotationZ(float InValue)
+{
+	m_Rotation.Z(m_Rotation.Z() + InValue);
+}
+
 std::vector<Component*> GameObject::GetAllComponents()
 {
 	return componentList;

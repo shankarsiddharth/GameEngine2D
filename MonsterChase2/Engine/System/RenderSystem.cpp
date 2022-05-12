@@ -31,7 +31,8 @@ void RenderSystem::Update(float deltaTime, GameWorld* i_GameWorld)
 		Sprite2D* spriteComponent = gameObject->GetComponent<Sprite2D>();
 		if (spriteComponent != nullptr)
 		{
-			GLib::Render(*(spriteComponent->GetGLibSprite()), position, 0.0f, 0.0f);
+			float rotationZ = gameObject->GetRotation().Z();
+			GLib::Render(*(spriteComponent->GetGLibSprite()), position, 0.0f, rotationZ);
 		}
 	}
 

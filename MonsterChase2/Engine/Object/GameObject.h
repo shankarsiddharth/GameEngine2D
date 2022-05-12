@@ -11,12 +11,13 @@ public:
 	GameObject();
 	~GameObject();
 
-	Vector2 GetPosition() const;
-	void Move(const Vector2& InMoveBy);
+	Vector2 GetPosition() const;	
 	void SetPosition(const Vector2& InNewPosition);
+	void Move(const Vector2& InMoveBy);
 
 	Vector4 GetRotation() const;
 	void SetRotation(const Vector4& InNewRotation);
+	void AddRotationZ(float InValue);
 
 	template<class T>
 	void AddComponent(T* newComponent);
