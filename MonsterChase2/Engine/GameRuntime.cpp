@@ -31,6 +31,7 @@ void GameRuntime::UpdateInput()
 		ProcessInput();
 		inputSystem.ClearInput();
 	}
+	inputSystem.UpdateInput();
 }
 
 void GameRuntime::Update()

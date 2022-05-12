@@ -55,6 +55,9 @@
     <Filter Include="Source Files\ThirdParty\rapidjson\msinttypes">
       <UniqueIdentifier>{224a80f1-4486-44d5-92be-f8d0288f0044}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\EngineHelpers">
+      <UniqueIdentifier>{9cc779af-310f-47cb-bcd3-1d5842b8e5e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine.cpp">
@@ -310,6 +313,9 @@
     </ClInclude>
     <ClInclude Include="System\CollisionSystem.h">
       <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\EngineHelpers.h">
+      <Filter>Source Files\EngineHelpers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

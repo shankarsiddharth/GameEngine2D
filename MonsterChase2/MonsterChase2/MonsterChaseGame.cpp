@@ -53,15 +53,41 @@ void MonsterChaseGame::StartGame(HINSTANCE i_hInstance, int i_nCmdShow)
 
 void MonsterChaseGame::ProcessInput()
 {
-	/*if (inputSystem.GetCurrentKeyCode() == KeyCode::A)
+	float force = 25.0f;
+	
+	if (inputSystem.IsKeyDown(KeyCode::W))
 	{
-		int a = 0;
-	}*/
+		player->GetComponent<RigidBody2D>()->AddForce(Vector2(force, 0));
+	}
 	if (inputSystem.IsKeyDown(KeyCode::A))
 	{
-		int a = 0;
-		player->GetComponent<RigidBody2D>()->AddForce(Vector2(2.5f, 2.5f));
-	}	
+		player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, -force));
+	}
+	if (inputSystem.IsKeyDown(KeyCode::S))
+	{
+		player->GetComponent<RigidBody2D>()->AddForce(Vector2(-force, 0));
+	}
+	if (inputSystem.IsKeyDown(KeyCode::D))
+	{
+		player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, force));
+	}
+
+	if (inputSystem.IsKeyPressed(KeyCode::W))
+	{
+		player->GetComponent<RigidBody2D>()->AddForce(Vector2(force, 0));
+	}
+	if (inputSystem.IsKeyPressed(KeyCode::A))
+	{
+		player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, -force));
+	}
+	if (inputSystem.IsKeyPressed(KeyCode::S))
+	{
+		player->GetComponent<RigidBody2D>()->AddForce(Vector2(-force, 0));
+	}
+	if (inputSystem.IsKeyPressed(KeyCode::D))
+	{
+		player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, force));
+	}
 }
 
 void MonsterChaseGame::LoadGameObjects()

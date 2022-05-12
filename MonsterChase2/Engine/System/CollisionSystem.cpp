@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <iterator>
 #include <Windows.h>
+#include "../Helpers/EngineHelpers.h"
 
 CollisionSystem::CollisionSystem()
 {
@@ -65,12 +66,11 @@ void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InB
 			bool doesIntersect = DoesInterect(colliderA, colliderB) && DoesInterect(colliderB, colliderA);
 			if (doesIntersect)
 			{
-#ifdef _DEBUG
-				const size_t	lenBuffer = 65;
-				char			Buffer[lenBuffer];
-				sprintf_s(Buffer, lenBuffer, "Collision Detected\n");
-				OutputDebugStringA(Buffer);
-#endif // __DEBUG
+				EngineHelpers::DebugPrint("Collision Detected");
+			}
+			else
+			{
+				//EngineHelpers::DebugPrint("No Collision Detected");
 			}
 		}
 	}
