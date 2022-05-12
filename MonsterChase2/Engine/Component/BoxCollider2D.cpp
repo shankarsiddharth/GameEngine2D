@@ -82,7 +82,8 @@ void BoxCollider2D::UpdateWorldExtentsAxes()
 		worldExtentEdges.push_back(worldExtentEdge);
 
 		Vector2 edgeXY(worldExtentEdge.X(), worldExtentEdge.Y());
-		Vector2 edgeAxis = Vector2::PerpendicularVector(edgeXY);
+		Vector2 normalizedEdgeXY = edgeXY.GetNormalVector();
+		Vector2 edgeAxis = Vector2::PerpendicularVector(normalizedEdgeXY);
 		Vector4 worldExtentAxis(edgeAxis, 0.0f, 1.0f);
 
 		worldExtentAxes.push_back(worldExtentAxis);

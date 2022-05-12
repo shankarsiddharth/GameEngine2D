@@ -1,4 +1,18 @@
 #include "Vector2.h"
+#include <math.h>
+
+Vector2 Vector2::GetNormalVector() const
+{
+	double magnitude = sqrt((double)m_X * (double)m_X + (double)m_Y * (double)m_Y);
+	
+	Vector2 normalizedVector;
+	if (magnitude != 0)
+	{
+		normalizedVector.m_X = m_X / (float)magnitude;
+		normalizedVector.m_Y = m_Y / (float)magnitude;
+	}
+	return normalizedVector;
+}
 
 Vector2 Vector2::PerpendicularVector(const Vector2& InVector)
 {
@@ -31,7 +45,7 @@ Vector2::Vector2(float InX, float InY)
 
 Vector2::Vector2()
 	:m_X(0),
-	m_Y(1)
+	m_Y(0)
 {
 
 }
