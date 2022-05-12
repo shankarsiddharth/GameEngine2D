@@ -2,6 +2,7 @@
 #include "../Math/Vector2.h"
 #include <vector>
 #include "../Math/Vector4.h"
+#include <string>
 
 class Component;
 
@@ -31,11 +32,14 @@ public:
 	std::vector<Component*> GetAllComponents();
 	void RemoveAllComponents();
 
+	std::string GetName() const;
+	void SetName(std::string InName);
 
 protected:
 	Vector2 m_Position;
 	Vector4 m_Rotation;
 	std::vector<Component*> componentList;
+	std::string m_Name;
 };
 
 #include "GameObject_inl.h"

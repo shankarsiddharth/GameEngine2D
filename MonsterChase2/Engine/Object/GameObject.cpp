@@ -61,3 +61,13 @@ void GameObject::RemoveAllComponents()
 	}
 	componentList.clear();
 }
+
+std::string GameObject::GetName() const
+{
+	return m_Name;
+}
+
+void GameObject::SetName(std::string InName)
+{
+	m_Name = InName;
+}

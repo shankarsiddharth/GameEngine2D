@@ -34,6 +34,13 @@ SharedPointer<GameObject> ObjectGenerator::CreateGameObjectFromJSONDocument(cons
 		newGameObject->SetPosition(Vector2(x, y));
 	}
 
+	if (i_JSONDocument.HasMember("name"))
+	{
+		const rapidjson::Value& nameValue = i_JSONDocument["name"];
+		std::string gameObjectName = nameValue.GetString();
+		newGameObject->SetName(gameObjectName);
+	}
+
 	if (i_JSONDocument.HasMember("components"))
 	{
 		const rapidjson::Value& componentsValue = i_JSONDocument["components"];
