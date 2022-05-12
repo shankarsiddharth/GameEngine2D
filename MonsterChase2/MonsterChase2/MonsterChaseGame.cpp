@@ -55,7 +55,7 @@ void MonsterChaseGame::StartGame(HINSTANCE i_hInstance, int i_nCmdShow)
 void MonsterChaseGame::ProcessInput()
 {
 	float force = 25.0f;
-	
+
 	/*if (inputSystem.IsKeyDown(KeyCode::W))
 	{
 		player->GetComponent<RigidBody2D>()->AddForce(Vector2(force, 0));
@@ -98,6 +98,18 @@ void MonsterChaseGame::ProcessInput()
 	{
 		player->AddRotationZ(-0.01f);
 	}
+
+
+	if (inputSystem.IsKeyDown(KeyCode::O))
+	{
+		SharedPointer<GameObject> newGameObject = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument("data/player.json"));
+		gameWorld.AddGameObject(newGameObject);
+	}
+	if (inputSystem.IsKeyDown(KeyCode::P))
+	{
+		gameWorld.RemoveGameObjectAtIndex(gameWorld.GetGameObjectsCount() - 1);
+	}
+
 }
 
 void MonsterChaseGame::LoadGameObjects()
@@ -106,8 +118,6 @@ void MonsterChaseGame::LoadGameObjects()
 
 	{
 		Engine::JobSystem::JobStatus Status;
-
-		
 
 		Engine::JobSystem::RunJob(
 			Engine::JobSystem::GetDefaultQueueName(),
@@ -118,17 +128,17 @@ void MonsterChaseGame::LoadGameObjects()
 					this->gameWorld.AddGameObject(player);
 					});
 			},
-			& Status
+			&Status
 				);
 
 		Status.WaitForZeroJobsLeft();
 	}
-		
+
 	//player = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument(playerFilePath));
 	//gameWorld.AddGameObject(player);
 
 	monster = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument("data/monster.json"));
-	gameWorld.AddGameObject(monster);	
+	gameWorld.AddGameObject(monster);
 }
 
 void MonsterChaseGame::UpdateGame()

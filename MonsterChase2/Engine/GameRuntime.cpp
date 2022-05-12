@@ -60,3 +60,8 @@ void GameRuntime::UpdateDeltaTime()
 {
 	deltaTime = gameEngine.ComputeDeltaTime();
 }
+
+void GameRuntime::ProcessInput()
+{
+
+}
