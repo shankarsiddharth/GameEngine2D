@@ -24,13 +24,25 @@ void PhysicsSystem::Update(float deltaTime, GameWorld* i_GameWorld)
 {
 	std::vector<SharedPointer<GameObject>> gameObjects = i_GameWorld->GetAllGameObjects();
 	for (SharedPointer<GameObject> gameObject : gameObjects)
-	{		
+	{
 		RigidBody2D* rigidBodyComponent = gameObject->GetComponent<RigidBody2D>();
 		if (rigidBodyComponent != nullptr)
 		{
+			Vector2 netForce(Vector2::Zero);
+			if (rigidBodyComponent->IsDragEnabled())
+			{
+				Vector2 currentVelocity = rigidBodyComponent->GetVelocity();
+				rigidBodyComponent->SetDragForce(currentVelocity * -1.0f * rigidBodyComponent->GetDragCoefficient());
+				netForce = rigidBodyComponent->GetDragForce() + rigidBodyComponent->GetForce();
+			}
+			else
+			{
+				netForce = rigidBodyComponent->GetForce();
+			}
+
 			//Calculate Dynamics - Euler MidPoint Method
 			// a = F / m
-			Vector2 accelaration = rigidBodyComponent->GetForce() / rigidBodyComponent->GetMass();
+			Vector2 accelaration = netForce / rigidBodyComponent->GetMass();
 			Vector2 currentVelocity = rigidBodyComponent->GetVelocity();
 			Vector2 previousVelocity = currentVelocity;
 
@@ -46,7 +58,7 @@ void PhysicsSystem::Update(float deltaTime, GameWorld* i_GameWorld)
 			rigidBodyComponent->SetVelocity(currentVelocity);
 
 			// reset the net force
-			rigidBodyComponent->SetForce(Vector2::Zero); 
+			rigidBodyComponent->SetForce(Vector2::Zero);
 		}
 	}
 }

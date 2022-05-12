@@ -49,7 +49,7 @@ SharedPointer<GameObject> ObjectGenerator::CreateGameObjectFromJSONDocument(cons
 		{
 			const rapidjson::Value& rigidBodyValue = componentsValue["rigidbody2d"];
 			float rigidbody2dMass = rigidBodyValue["mass"].GetFloat();
-			newGameObject->AddComponent(new RigidBody2D(newGameObject, rigidbody2dMass));
+			newGameObject->AddComponent(new RigidBody2D(newGameObject, rigidbody2dMass, 0.5f));
 		}
 
 		if (componentsValue.HasMember("boxcollider2d"))

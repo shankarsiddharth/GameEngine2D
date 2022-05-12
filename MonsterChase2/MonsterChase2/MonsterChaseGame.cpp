@@ -74,19 +74,19 @@ void MonsterChaseGame::ProcessInput()
 
 	if (inputSystem.IsKeyPressed(KeyCode::W))
 	{
-		player->GetComponent<RigidBody2D>()->AddForce(Vector2(force, 0));
+		player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, force));
 	}
 	if (inputSystem.IsKeyPressed(KeyCode::A))
 	{
-		player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, -force));
+		player->GetComponent<RigidBody2D>()->AddForce(Vector2(-force, 0));
 	}
 	if (inputSystem.IsKeyPressed(KeyCode::S))
 	{
-		player->GetComponent<RigidBody2D>()->AddForce(Vector2(-force, 0));
+		player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, -force));
 	}
 	if (inputSystem.IsKeyPressed(KeyCode::D))
 	{
-		player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, force));
+		player->GetComponent<RigidBody2D>()->AddForce(Vector2(force, 0));
 	}
 
 	if (inputSystem.IsKeyPressed(KeyCode::K))

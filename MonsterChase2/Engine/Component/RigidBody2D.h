@@ -28,8 +28,18 @@ public:
 
 	float GetMass() const;
 
+	bool IsDragEnabled() const;
+	float GetDragCoefficient() const;
+
+	Vector2 GetDragForce() const;
+	void SetDragForce(Vector2 i_DragForce);
+
 protected:
 	Vector2 m_Velocity;
 	Vector2 m_Force;
 	float m_Mass;
+
+	bool m_isDragEnabled;
+	Vector2 m_Drag;
+	float m_CoefficientDrag;
 };
