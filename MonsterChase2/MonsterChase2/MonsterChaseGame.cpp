@@ -56,23 +56,6 @@ void MonsterChaseGame::ProcessInput()
 {
 	float force = 25.0f;
 
-	/*if (inputSystem.IsKeyDown(KeyCode::W))
-	{
-		player->GetComponent<RigidBody2D>()->AddForce(Vector2(force, 0));
-	}
-	if (inputSystem.IsKeyDown(KeyCode::A))
-	{
-		player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, -force));
-	}
-	if (inputSystem.IsKeyDown(KeyCode::S))
-	{
-		player->GetComponent<RigidBody2D>()->AddForce(Vector2(-force, 0));
-	}
-	if (inputSystem.IsKeyDown(KeyCode::D))
-	{
-		player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, force));
-	}*/
-
 	if (inputSystem.IsKeyPressed(KeyCode::W))
 	{
 		player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, force));
