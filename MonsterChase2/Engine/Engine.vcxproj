@@ -246,6 +246,7 @@
     <ClCompile Include="GameRuntime.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="Helpers\EngineHelpers.cpp" />
     <ClCompile Include="Input\InputSystem.cpp" />
     <ClCompile Include="JobSystem\Console\ConsolePrint.Win32.cpp" />
     <ClCompile Include="JobSystem\HashedString\HashedString.cpp" />
