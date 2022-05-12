@@ -23,11 +23,10 @@ BoxCollider2D::BoxCollider2D(const SharedPointer<GameObject>& i_RootGameObject)
 	Vector2 localBottomLeftExtent(-1.0f * (float)(spriteWidth / 2), 0);
 	Vector2 localBottomRightExtent((float)(spriteWidth / 2), 0);
 
-
 	localExtentCoordinates.push_back(Vector4(localTopLeftExtent, 0.0f, 1.0f));
 	localExtentCoordinates.push_back(Vector4(localTopRightExtent, 0.0f, 1.0f));
-	localExtentCoordinates.push_back(Vector4(localBottomLeftExtent, 0.0f, 1.0f));
 	localExtentCoordinates.push_back(Vector4(localBottomRightExtent, 0.0f, 1.0f));
+	localExtentCoordinates.push_back(Vector4(localBottomLeftExtent, 0.0f, 1.0f));
 }
 
 BoxCollider2D::~BoxCollider2D()
@@ -87,7 +86,7 @@ void BoxCollider2D::UpdateWorldExtentsAxes()
 		Vector4 worldExtentAxis(edgeAxis, 0.0f, 1.0f);
 
 		worldExtentAxes.push_back(worldExtentAxis);
-	}	
+	}
 }
 
 std::vector<Vector4> BoxCollider2D::GetWorldExtentAxes() const
@@ -103,16 +102,27 @@ std::vector<Vector4> BoxCollider2D::GetWorldExtentCoordinates() const
 void BoxCollider2D::UpdateWorldExtentsEdges()
 {
 	worldExtentEdges.clear();
-	
+	worldExtentAxes.clear();
+
 	Vector4 worldExtentEdge1 = worldExtentCoordinates[1] - worldExtentCoordinates[0];
 	Vector4 worldExtentEdge2 = worldExtentCoordinates[2] - worldExtentCoordinates[1];
 	Vector4 worldExtentEdge3 = worldExtentCoordinates[3] - worldExtentCoordinates[2];
 	Vector4 worldExtentEdge4 = worldExtentCoordinates[0] - worldExtentCoordinates[3];
-	
+
 	worldExtentEdges.push_back(worldExtentEdge1);
 	worldExtentEdges.push_back(worldExtentEdge2);
 	worldExtentEdges.push_back(worldExtentEdge3);
 	worldExtentEdges.push_back(worldExtentEdge4);
+
+	for (size_t index = 0; index < worldExtentEdges.size(); index++)
+	{
+		Vector2 edgeXY(worldExtentEdges[index].X(), worldExtentEdges[index].Y());
+		Vector2 normalizedEdgeXY = edgeXY.GetNormalVector();
+		Vector2 edgeAxis = Vector2::PerpendicularVector(normalizedEdgeXY);
+		Vector4 worldExtentAxis(edgeAxis, 0.0f, 1.0f);
+
+		worldExtentAxes.push_back(worldExtentAxis);
+	}
 }
 
 //std::vector<Vector4> BoxCollider2D::GetWorldExtentEdges() const
