@@ -1,6 +1,7 @@
 #include "Matrix4x4.h"
 #include <cassert>
 #include <corecrt_math.h>
+#include <intrin.h>
 
 Matrix4x4::Matrix4x4()
 {
@@ -86,6 +87,21 @@ float Matrix4x4::operator[](const int RowColumnValue) const
 	return m_RC[rowIndex][columnIndex];
 }
 
+bool Matrix4x4::operator==(const Matrix4x4& InOtherMatrix)
+{
+	for (int i = 0; i < MATRIX_DIMENSION_4; i++)
+	{
+		for (int j = 0; j < MATRIX_DIMENSION_4; j++)
+		{
+			if (!IsFloatEqual(m_RC[i][j], InOtherMatrix.m_RC[i][j]))
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
 void Matrix4x4::Transpose()
 {
 	Matrix4x4 transposeMatrix;
@@ -97,6 +113,29 @@ void Matrix4x4::Transpose()
 		}
 	}
 	*this = transposeMatrix;
+}
+
+void Matrix4x4::SIMDMultiply(const Matrix4x4& InA, const Matrix4x4& InTransposeMatrixB, Matrix4x4& OutResult)
+{
+	__declspec(align(16)) Matrix4x4 transposeMatrixB(InTransposeMatrixB);
+
+	for (int i = 0; i < MATRIX_DIMENSION_4; i++)
+	{
+		for (int j = 0; j < MATRIX_DIMENSION_4; j++)
+		{
+			__m128* m1 = (__m128*) InA.m_RC[i];
+			__m128* m2 = (__m128*) transposeMatrixB.m_RC[j];
+			float* res;
+			for (int k = 0; k < MATRIX_DIMENSION_4; k+=MATRIX_DIMENSION_4)
+			{
+				__m128 m3 = _mm_mul_ps(*m1, *m2);
+				res = (float*)&m3;
+				OutResult.m_RC[i][j] += res[0]+res[1]+res[2]+res[3];
+				m1++;
+				m2++;
+			}			
+		}		
+	}
 }
 
 Matrix4x4 Matrix4x4::ZRotationMatrix(float InRadians)
@@ -170,6 +209,15 @@ Matrix4x4 Matrix4x4::InitializeMatrix(float InValue)
 		}
 	}
 	return newMatrix;
+}
+
+bool Matrix4x4::IsFloatEqual(float InA, float InB, float InToleranceValue/* = 1e-9f*/)
+{
+	if (fabs((double)InA - (double)InB) < InToleranceValue)
+	{
+		return true;
+	}
+	return false;
 }
 
 Matrix4x4& Matrix4x4::operator=(const Matrix4x4& InOtherMatrix)
