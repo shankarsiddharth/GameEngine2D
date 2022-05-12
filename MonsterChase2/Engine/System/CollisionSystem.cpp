@@ -88,7 +88,7 @@ bool CollisionSystem::DoesInterect(BoxCollider2D& A, BoxCollider2D& B)
 		}
 		//TODO: Get the Min & Max
 		float aMinimumProjection = *std::min_element(projectionValues.begin(), projectionValues.end());
-		float aMaximumProjection = *std::min_element(projectionValues.begin(), projectionValues.end());
+		float aMaximumProjection = *std::max_element(projectionValues.begin(), projectionValues.end());
 
 		projectionValues.clear();
 
@@ -99,7 +99,7 @@ bool CollisionSystem::DoesInterect(BoxCollider2D& A, BoxCollider2D& B)
 		}
 		// TODO: Get the Min & Max
 		float bMinimumProjection = *std::min_element(projectionValues.begin(), projectionValues.end());
-		float bMaximumProjection = *std::min_element(projectionValues.begin(), projectionValues.end());
+		float bMaximumProjection = *std::max_element(projectionValues.begin(), projectionValues.end());
 
 		projectionValues.clear();
 
