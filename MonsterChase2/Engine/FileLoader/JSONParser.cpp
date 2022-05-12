@@ -24,3 +24,20 @@ rapidjson::Document JSONParser::GetJSONDocument(const std::string i_JSONFilePath
 	return doc;
 }
 
+
+std::string JSONParser::GetFileContents(const std::string i_JSONFilePath)
+{
+	std::ifstream inputJSONFile(i_JSONFilePath);
+	std::stringstream fileContentStringStream;
+	fileContentStringStream << inputJSONFile.rdbuf();
+	return fileContentStringStream.str();
+}
+
+
+void JSONParser::GetFileContentsAsync(const std::string i_JSONFilePath, std::function<void(std::string)> OnFileContentsReadCallback)
+{
+	std::ifstream inputJSONFile(i_JSONFilePath);
+	std::stringstream fileContentStringStream;
+	fileContentStringStream << inputJSONFile.rdbuf();
+	OnFileContentsReadCallback(fileContentStringStream.str());
+}
