@@ -3,6 +3,9 @@
 #include "../Object/GameObject.h"
 #include "../Component/BoxCollider2D.h"
 #include "../GameWorld.h"
+#include <algorithm>
+#include <iterator>
+#include <Windows.h>
 
 CollisionSystem::CollisionSystem()
 {
@@ -60,6 +63,15 @@ void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InB
 			BoxCollider2D& colliderB = *(InBoxColliderList[j]);
 
 			bool doesIntersect = DoesInterect(colliderA, colliderB) && DoesInterect(colliderB, colliderA);
+			if (doesIntersect)
+			{
+#ifdef _DEBUG
+				const size_t	lenBuffer = 65;
+				char			Buffer[lenBuffer];
+				sprintf_s(Buffer, lenBuffer, "Collision Detected\n");
+				OutputDebugStringA(Buffer);
+#endif // __DEBUG
+			}
 		}
 	}
 }
@@ -68,17 +80,37 @@ bool CollisionSystem::DoesInterect(BoxCollider2D& A, BoxCollider2D& B)
 {
 	for (const Vector4& AAxis : A.GetWorldExtentAxes())
 	{
-		for (const Vector4& vertex : A.GetWorldExtentCoordinates()) {
-			//TODO: Dot product			
-			//TODO: Get the Min & Max
+		std::vector<float> projectionValues;
+		for (const Vector4& currentVertex : A.GetWorldExtentCoordinates()) {
+			//TODO: Dot product	
+			float axisProjection = Vector4::DotProduct(AAxis, currentVertex);
+			projectionValues.push_back(axisProjection);
 		}
+		//TODO: Get the Min & Max
+		float aMinimumProjection = *std::min_element(projectionValues.begin(), projectionValues.end());
+		float aMaximumProjection = *std::min_element(projectionValues.begin(), projectionValues.end());
 
-		for (const Vector4& vertex : B.GetWorldExtentCoordinates()) {
+		projectionValues.clear();
+
+		for (const Vector4& currentVertex : B.GetWorldExtentCoordinates()) {
 			//TODO: Dot product
-			//TODO: Get the Min & Max
+			float axisProjection = Vector4::DotProduct(AAxis, currentVertex);
+			projectionValues.push_back(axisProjection);
 		}
+		// TODO: Get the Min & Max
+		float bMinimumProjection = *std::min_element(projectionValues.begin(), projectionValues.end());
+		float bMaximumProjection = *std::min_element(projectionValues.begin(), projectionValues.end());
+
+		projectionValues.clear();
 
 		//TODO: Check the min and max to determine possible intersection
+		if ((aMinimumProjection < bMaximumProjection && aMinimumProjection > bMinimumProjection)
+			|| (bMinimumProjection < aMaximumProjection && bMinimumProjection > aMinimumProjection)) {
+			continue;
+		}
+		else {
+			return false;
+		}
 	}
-	return false;
+	return true;
 }

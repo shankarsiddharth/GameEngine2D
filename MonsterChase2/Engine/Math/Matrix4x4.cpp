@@ -4,7 +4,13 @@
 
 Matrix4x4::Matrix4x4()
 {
-
+	for (int i = 0; i < MATRIX_DIMENSION_4; i++)
+	{
+		for (int j = 0; j < MATRIX_DIMENSION_4; j++)
+		{
+			m_RC[i][j] = 0.0f;
+		}
+	}
 }
 
 Matrix4x4::Matrix4x4(float InMatrix[MATRIX_DIMENSION_4][MATRIX_DIMENSION_4])
@@ -118,7 +124,7 @@ Matrix4x4 Matrix4x4::TranslationMatrix(float InX, float InY, float InZ)
 	translationMatrix.m_RC[1][1] = 1.0f;
 	translationMatrix.m_RC[2][2] = 1.0f;
 	translationMatrix.m_RC[3][3] = 1.0f;
-	
+
 	translationMatrix.m_RC[0][3] = InX;
 	translationMatrix.m_RC[1][3] = InY;
 	translationMatrix.m_RC[2][3] = InZ;
@@ -137,7 +143,7 @@ Matrix4x4 Matrix4x4::IdentityMatrix()
 			if (i == j)
 			{
 				identityMatrix.m_RC[i][j] = 1.0f;
-			}			
+			}
 		}
 	}
 	return identityMatrix;
@@ -170,7 +176,7 @@ Matrix4x4& Matrix4x4::operator=(const Matrix4x4& InOtherMatrix)
 {
 	for (int i = 0; i < MATRIX_DIMENSION_4; i++)
 	{
-		for (int j = 0 ; j < MATRIX_DIMENSION_4; j++)
+		for (int j = 0; j < MATRIX_DIMENSION_4; j++)
 		{
 			m_RC[i][j] = InOtherMatrix.m_RC[i][j];
 		}

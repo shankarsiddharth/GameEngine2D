@@ -24,10 +24,10 @@ BoxCollider2D::BoxCollider2D(const SharedPointer<GameObject>& i_RootGameObject)
 	Vector2 localBottomRightExtent((float)(spriteWidth / 2), 0);
 
 
-	localExtentCoordinates.push_back(Vector4(localTopLeftExtent, 1.0f, 1.0f));
-	localExtentCoordinates.push_back(Vector4(localTopRightExtent, 1.0f, 1.0f));
-	localExtentCoordinates.push_back(Vector4(localBottomLeftExtent, 1.0f, 1.0f));
-	localExtentCoordinates.push_back(Vector4(localBottomRightExtent, 1.0f, 1.0f));
+	localExtentCoordinates.push_back(Vector4(localTopLeftExtent, 0.0f, 1.0f));
+	localExtentCoordinates.push_back(Vector4(localTopRightExtent, 0.0f, 1.0f));
+	localExtentCoordinates.push_back(Vector4(localBottomLeftExtent, 0.0f, 1.0f));
+	localExtentCoordinates.push_back(Vector4(localBottomRightExtent, 0.0f, 1.0f));
 }
 
 BoxCollider2D::~BoxCollider2D()
