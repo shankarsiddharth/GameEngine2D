@@ -120,6 +120,9 @@
     <ClCompile Include="System\CollisionSystem.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
+    <ClCompile Include="Helpers\EngineHelpers.cpp">
+      <Filter>Source Files\EngineHelpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">

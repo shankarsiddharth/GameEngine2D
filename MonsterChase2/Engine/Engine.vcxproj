@@ -227,6 +227,7 @@
     <ClCompile Include="GameRuntime.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="GameWorld.cpp" />
+    <ClCompile Include="Helpers\EngineHelpers.cpp" />
     <ClCompile Include="Input\InputSystem.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
