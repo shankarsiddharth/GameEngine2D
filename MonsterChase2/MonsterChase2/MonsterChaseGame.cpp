@@ -102,11 +102,12 @@ void MonsterChaseGame::ProcessInput()
 
 void MonsterChaseGame::LoadGameObjects()
 {
+	std::string playerFilePath = "data/player.json";
 
 	{
 		Engine::JobSystem::JobStatus Status;
 
-		std::string playerFilePath = "data/player.json";
+		
 
 		Engine::JobSystem::RunJob(
 			Engine::JobSystem::GetDefaultQueueName(),
