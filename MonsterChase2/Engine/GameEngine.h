@@ -3,6 +3,7 @@
 #include "System/RenderSystem.h"
 #include "System/PhysicsSystem.h"
 #include "System/CollisionSystem.h"
+#include "System/TaskSystem.h"
 
 class GameWorld;
 
@@ -19,4 +20,5 @@ private:
 	RenderSystem renderSystem;
 	PhysicsSystem physicsSystem;
 	CollisionSystem collisionSystem;
+	TaskSystem taskSystem;
 };

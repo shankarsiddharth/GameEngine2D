@@ -163,6 +163,24 @@
     <ClInclude Include="Helpers\EngineHelpers.h" />
     <ClInclude Include="Input\InputSystem.h" />
     <ClInclude Include="Input\KeyCode.h" />
+    <ClInclude Include="JobSystem\Console\ConsolePrint.h" />
+    <ClInclude Include="JobSystem\HashedString\HashedString-inl.h" />
+    <ClInclude Include="JobSystem\HashedString\HashedString.h" />
+    <ClInclude Include="JobSystem\JobSystem\JobRunner.h" />
+    <ClInclude Include="JobSystem\JobSystem\JobStatus.h" />
+    <ClInclude Include="JobSystem\JobSystem\JobSystem.h" />
+    <ClInclude Include="JobSystem\JobSystem\SharedJobQueue-inl.h" />
+    <ClInclude Include="JobSystem\JobSystem\SharedJobQueue.h" />
+    <ClInclude Include="JobSystem\Syncronization\AtomicOperations.h" />
+    <ClInclude Include="JobSystem\Syncronization\Events.h" />
+    <ClInclude Include="JobSystem\Syncronization\Mutex.h" />
+    <ClInclude Include="JobSystem\Syncronization\ScopeLock.h" />
+    <ClInclude Include="JobSystem\Syncronization\Semaphore.h" />
+    <ClInclude Include="JobSystem\Syncronization\SingleWriterMultipleReader.h" />
+    <ClInclude Include="JobSystem\Syncronization\SingleWriterMultipleReader.Win.h" />
+    <ClInclude Include="JobSystem\Syncronization\WaitableObject.h" />
+    <ClInclude Include="JobSystem\Syncronization\WaitableObject.Win.h" />
+    <ClInclude Include="JobSystem\Windows\WindowsHelpers.h" />
     <ClInclude Include="Math\MathHelper.hpp" />
     <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Math\Vector2.h" />
@@ -176,6 +194,7 @@
     <ClInclude Include="System\CollisionSystem.h" />
     <ClInclude Include="System\PhysicsSystem.h" />
     <ClInclude Include="System\RenderSystem.h" />
+    <ClInclude Include="System\TaskSystem.h" />
     <ClInclude Include="ThirdParty\nlohmann\json.hpp" />
     <ClInclude Include="ThirdParty\rapidjson\allocators.h" />
     <ClInclude Include="ThirdParty\rapidjson\cursorstreamwrapper.h" />
@@ -228,6 +247,15 @@
     <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="Input\InputSystem.cpp" />
+    <ClCompile Include="JobSystem\Console\ConsolePrint.Win32.cpp" />
+    <ClCompile Include="JobSystem\HashedString\HashedString.cpp" />
+    <ClCompile Include="JobSystem\JobSystem\JobRunner.cpp" />
+    <ClCompile Include="JobSystem\JobSystem\JobSystem.cpp" />
+    <ClCompile Include="JobSystem\JobSystem\SharedJobQueue.cpp" />
+    <ClCompile Include="JobSystem\Syncronization\AtomicOperations.cpp" />
+    <ClCompile Include="JobSystem\Syncronization\Events.Win.cpp" />
+    <ClCompile Include="JobSystem\Syncronization\Mutex.Win.cpp" />
+    <ClCompile Include="JobSystem\Syncronization\Semaphore.Win.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
@@ -237,6 +265,7 @@
     <ClCompile Include="System\CollisionSystem.cpp" />
     <ClCompile Include="System\PhysicsSystem.cpp" />
     <ClCompile Include="System\RenderSystem.cpp" />
+    <ClCompile Include="System\TaskSystem.cpp" />
     <ClCompile Include="Time\EngineTime.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -13,6 +13,7 @@ void GameEngine::Initialize()
 	physicsSystem.Initialize();
 	renderSystem.Initialize();
 	collisionSystem.Initialize();
+	taskSystem.Initialize();
 }
 
 void GameEngine::Update(float deltaTime, GameWorld* i_GameWorld)
@@ -20,10 +21,12 @@ void GameEngine::Update(float deltaTime, GameWorld* i_GameWorld)
 	physicsSystem.Update(deltaTime, i_GameWorld);
 	renderSystem.Update(deltaTime, i_GameWorld);
 	collisionSystem.Update(deltaTime, i_GameWorld);
+	taskSystem.Update(deltaTime, i_GameWorld);
 }
 
 void GameEngine::ShutDown()
 {
+	taskSystem.ShutDown();
 	collisionSystem.ShutDown();
 	physicsSystem.ShutDown();
 	renderSystem.ShutDown();
