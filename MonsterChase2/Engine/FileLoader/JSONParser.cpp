@@ -2,6 +2,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <functional>
 
 JSONParser::JSONParser()
 {
@@ -19,11 +20,15 @@ rapidjson::Document JSONParser::GetJSONDocument(const std::string i_JSONFilePath
 	std::stringstream fileContentStringStream;
 	fileContentStringStream << inputJSONFile.rdbuf();
 
-	rapidjson::Document doc;
-	doc.Parse(fileContentStringStream.str().c_str());
-	return doc;
+	return GetJSONDocumentFromString(fileContentStringStream.str());
 }
 
+rapidjson::Document JSONParser::GetJSONDocumentFromString(const std::string i_JSONString)
+{
+	rapidjson::Document doc;
+	doc.Parse(i_JSONString.c_str());
+	return doc;
+}
 
 std::string JSONParser::GetFileContents(const std::string i_JSONFilePath)
 {
@@ -39,5 +44,8 @@ void JSONParser::GetFileContentsAsync(const std::string i_JSONFilePath, std::fun
 	std::ifstream inputJSONFile(i_JSONFilePath);
 	std::stringstream fileContentStringStream;
 	fileContentStringStream << inputJSONFile.rdbuf();
-	OnFileContentsReadCallback(fileContentStringStream.str());
+	if (OnFileContentsReadCallback != nullptr)
+	{
+		OnFileContentsReadCallback(fileContentStringStream.str());
+	}
 }

@@ -3,6 +3,7 @@
 #include "Component/Sprite2D.h"
 #include "GameRuntime.h"
 #include "Component/RigidBody2D.h"
+#include "JobSystem/JobSystem/JobSystem.h"
 
 MonsterChaseGame::MonsterChaseGame()
 	:GameRuntime(),
@@ -101,8 +102,29 @@ void MonsterChaseGame::ProcessInput()
 
 void MonsterChaseGame::LoadGameObjects()
 {
-	player = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument("data/player.json"));
-	gameWorld.AddGameObject(player);
+
+	{
+		Engine::JobSystem::JobStatus Status;
+
+		std::string playerFilePath = "data/player.json";
+
+		Engine::JobSystem::RunJob(
+			Engine::JobSystem::GetDefaultQueueName(),
+			[this, playerFilePath]()
+			{
+				this->jsonParser.GetFileContentsAsync(playerFilePath, [this](std::string contents) {
+					this->player = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocumentFromString(contents));
+					this->gameWorld.AddGameObject(player);
+					});
+			},
+			& Status
+				);
+
+		Status.WaitForZeroJobsLeft();
+	}
+		
+	//player = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument(playerFilePath));
+	//gameWorld.AddGameObject(player);
 
 	monster = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument("data/monster.json"));
 	gameWorld.AddGameObject(monster);	

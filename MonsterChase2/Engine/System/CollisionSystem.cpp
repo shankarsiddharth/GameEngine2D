@@ -51,9 +51,9 @@ void CollisionSystem::ShutDown()
 
 void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InBoxColliderList)
 {
-	for (int i = 0; i < InBoxColliderList.size(); i++)
+	for (size_t i = 0; i < InBoxColliderList.size(); i++)
 	{
-		for (int j = 0; j < InBoxColliderList.size(); j++)
+		for (size_t j = 0; j < InBoxColliderList.size(); j++)
 		{
 			if (i == j)
 			{
@@ -82,28 +82,28 @@ bool CollisionSystem::DoesInterect(BoxCollider2D& A, BoxCollider2D& B)
 	{
 		std::vector<float> projectionValues;
 		for (const Vector4& currentVertex : A.GetWorldExtentCoordinates()) {
-			//TODO: Dot product	
+			//Dot product	
 			float axisProjection = Vector4::DotProduct(AAxis, currentVertex);
 			projectionValues.push_back(axisProjection);
 		}
-		//TODO: Get the Min & Max
+		//Get the Min & Max
 		float aMinimumProjection = *std::min_element(projectionValues.begin(), projectionValues.end());
 		float aMaximumProjection = *std::max_element(projectionValues.begin(), projectionValues.end());
 
 		projectionValues.clear();
 
 		for (const Vector4& currentVertex : B.GetWorldExtentCoordinates()) {
-			//TODO: Dot product
+			//Dot product
 			float axisProjection = Vector4::DotProduct(AAxis, currentVertex);
 			projectionValues.push_back(axisProjection);
 		}
-		// TODO: Get the Min & Max
+		//Get the Min & Max
 		float bMinimumProjection = *std::min_element(projectionValues.begin(), projectionValues.end());
 		float bMaximumProjection = *std::max_element(projectionValues.begin(), projectionValues.end());
 
 		projectionValues.clear();
 
-		//TODO: Check the min and max to determine possible intersection
+		//Check the min and max to determine possible intersection
 		if ((aMinimumProjection < bMaximumProjection && aMinimumProjection > bMinimumProjection)
 			|| (bMinimumProjection < aMaximumProjection && bMinimumProjection > aMinimumProjection)) {
 			continue;

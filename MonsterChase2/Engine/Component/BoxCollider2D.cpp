@@ -58,7 +58,7 @@ void BoxCollider2D::UpdateWorldExtents()
 
 	Matrix4x4 localToWorldMartrix = translationMatrix * rotationMatrix;
 
-	for (int i = 0; i < localExtentCoordinates.size(); i++)
+	for (size_t i = 0; i < localExtentCoordinates.size(); i++)
 	{
 		Vector4 worldExtent = localToWorldMartrix * localExtentCoordinates[i];
 		worldExtentCoordinates.push_back(worldExtent);

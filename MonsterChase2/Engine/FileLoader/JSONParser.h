@@ -11,8 +11,12 @@ public:
 	~JSONParser();
 
 	rapidjson::Document GetJSONDocument(const std::string i_FilePath);
+	rapidjson::Document GetJSONDocumentFromString(const std::string i_JSONString);
+	
 	std::string  GetFileContents(const std::string i_JSONFilePath);
 
 	void GetFileContentsAsync(const std::string i_JSONFilePath, std::function<void(std::string)> OnFileContentsReadCallback);
-
+	
+private:
+	
 };
