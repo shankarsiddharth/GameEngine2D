@@ -38,7 +38,7 @@
     <ClCompile Include="DebugCRT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestMatrix.cpp">
+    <ClCompile Include="SIMDMatrixTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
