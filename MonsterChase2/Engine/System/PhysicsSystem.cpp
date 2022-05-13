@@ -58,7 +58,7 @@ void PhysicsSystem::Update(float deltaTime, GameWorld* i_GameWorld)
 			rigidBodyComponent->SetVelocity(currentVelocity);
 
 			// reset the net force
-			rigidBodyComponent->SetForce(Vector2::Zero);
+			//rigidBodyComponent->SetForce(Vector2::Zero);
 		}
 	}
 }

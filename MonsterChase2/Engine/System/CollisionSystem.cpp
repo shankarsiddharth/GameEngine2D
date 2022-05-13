@@ -68,10 +68,7 @@ void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InB
 			if (doesIntersect)
 			{
 				EngineHelpers::DebugPrint("Collision Detected");
-			}
-			else
-			{
-				//EngineHelpers::DebugPrint("No Collision Detected");
+				colliderA.ExecuteCollisionCallback(colliderB.GetRootGameObject());
 			}
 		}
 	}

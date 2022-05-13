@@ -98,6 +98,19 @@ std::vector<Vector4> BoxCollider2D::GetWorldExtentCoordinates() const
 	return worldExtentCoordinates;
 }
 
+void BoxCollider2D::EnableCollisionCallback(FCollisionCallback i_CollisionCallback)
+{
+	OnCollision = i_CollisionCallback;
+}
+
+void BoxCollider2D::ExecuteCollisionCallback(SharedPointer<GameObject> CollidedGameObject)
+{
+	if (OnCollision)
+	{
+		OnCollision(CollidedGameObject);
+	}
+}
+
 void BoxCollider2D::UpdateWorldExtentsEdges()
 {
 	worldExtentEdges.clear();
