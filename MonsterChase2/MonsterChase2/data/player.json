@@ -6,8 +6,8 @@
             "filepath": "data\\player.dds"
         },
         "rigidbody2d":{
-            "mass" : 0.5,
-            "dragcoefficient": 0          
+            "mass" : 1,
+            "dragcoefficient": 1         
         },
         "boxcollider2d":{}
     }

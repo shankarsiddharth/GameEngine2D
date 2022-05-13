@@ -5,6 +5,10 @@
         "sprite2d":{
             "filepath": "data\\monster.dds"
         },
+        "rigidbody2d":{
+            "mass" : 1,
+            "dragcoefficient": 0.25          
+        },
         "boxcollider2d":{}
     }
 }
