@@ -7,8 +7,8 @@ class SharedPointer
 public:
 	//Default Constructor
 	SharedPointer()
-		:pPointer(nullptr),
-		pCounter(nullptr)
+		:m_Pointer(nullptr),
+		m_Counter(nullptr)
 	{}
 
 	//Destructor
@@ -18,68 +18,68 @@ public:
 	}
 
 	//Constructor with a Pointer - to avoid implicit conversion of types
-	explicit SharedPointer(T* i_Pointer)
-		:pPointer(i_Pointer),
-		pCounter(i_Pointer ? new Counter(1) : nullptr)
+	explicit SharedPointer(T* InPointer)
+		:m_Pointer(InPointer),
+		m_Counter(InPointer ? new Counter(1) : nullptr)
 	{}
 
 
 	//Copy Constructor
-	SharedPointer(const SharedPointer& i_Other)
-		:pPointer(i_Other.pPointer),
-		pCounter(i_Other.pCounter)
+	SharedPointer(const SharedPointer& InOther)
+		:m_Pointer(InOther.m_Pointer),
+		m_Counter(InOther.m_Counter)
 	{
-		if (pCounter)
+		if (m_Counter)
 		{
-			(pCounter->sharedReference)++;
+			(m_Counter->m_SharedReference)++;
 		}
 	}
 
 	template<class U>
-	SharedPointer(const SharedPointer<U>& i_Other)
-		:pPointer(i_Other.pPointer),
-		pCounter(i_Other.pCounter)
+	SharedPointer(const SharedPointer<U>& InOther)
+		:m_Pointer(InOther.m_Pointer),
+		m_Counter(InOther.m_Counter)
 	{
-		if (pCounter)
+		if (m_Counter)
 		{
-			(pCounter->sharedReference)++;
+			(m_Counter->m_SharedReference)++;
 		}
 	}
 
 	//Assignment Operator
-	SharedPointer& operator=(const SharedPointer& i_Other)
+	SharedPointer& operator=(const SharedPointer& InOther)
 	{
-		if (pPointer != i_Other.pPointer)
+		if (m_Pointer != InOther.m_Pointer)
 		{
 			ReleasePointer();
-			pPointer = i_Other.pPointer;
-			pCounter = i_Other.pCounter;
-			if (pCounter)
+			m_Pointer = InOther.m_Pointer;
+			m_Counter = InOther.m_Counter;
+			if (m_Counter)
 			{
-				(pCounter->sharedReference)++;
+				(m_Counter->m_SharedReference)++;
 			}
 		}
 		return *this;
 	}
 	
 	template<class U>
-	SharedPointer& operator=(const SharedPointer<U>& i_Other)
+	SharedPointer& operator=(const SharedPointer<U>& InOther)
 	{
-		if (pPointer != i_Other.pPointer)
+		if (m_Pointer != InOther.m_Pointer)
 		{
 			ReleasePointer();
-			pPointer = i_Other.pPointer;
-			pCounter = i_Other.pCounter;
-			if (pCounter)
+			m_Pointer = InOther.m_Pointer;
+			m_Counter = InOther.m_Counter;
+			if (m_Counter)
 			{
-				(pCounter->sharedReference)++;
+				(m_Counter->m_SharedReference)++;
 			}
 		}
 		return *this;
 	}
 
 	//Assignment Operator nullptr
-	SharedPointer& operator=(std::nullptr_t i_NullPointer)
+	SharedPointer& operator=(std::nullptr_t InNullPointer)
 	{
 		ReleasePointer();
 		return *this;
@@ -88,18 +88,18 @@ public:
 	//Arrow Operator
 	T* operator->()
 	{
-		return pPointer;
+		return m_Pointer;
 	}
 
 	const T* operator->() const
 	{
-		return pPointer;
+		return m_Pointer;
 	}
 
 	//Indirection Operator
 	T& operator*()
 	{
-		return *(pPointer);
+		return *(m_Pointer);
 	}
 
 	////Remove this function
@@ -112,35 +112,35 @@ public:
 	//Operator bool check - ()
 	operator bool()
 	{
-		return pPointer != nullptr;
+		return m_Pointer != nullptr;
 	}
 
 	//Equal to Operator
 	template<class U>
-	bool operator==(const SharedPointer<U>& i_Other)
+	bool operator==(const SharedPointer<U>& InOther)
 	{
-		return (pPointer == i_Other.pPointer);
+		return (m_Pointer == InOther.m_Pointer);
 	}
 
 private:
 
 	void ReleasePointer()
 	{
-		if (pCounter)
+		if (m_Counter)
 		{
-			if ((--(pCounter->sharedReference)) == 0)
+			if ((--(m_Counter->m_SharedReference)) == 0)
 			{
 				//delete pointer
-				delete pPointer;
-				pPointer = nullptr;
+				delete m_Pointer;
+				m_Pointer = nullptr;
 
 				//delete counter
-				delete pCounter;
-				pCounter = nullptr;
+				delete m_Counter;
+				m_Counter = nullptr;
 			}
 		}
 	}
 
-	T* pPointer;
-	Counter* pCounter;
+	T* m_Pointer;
+	Counter* m_Counter;
 };

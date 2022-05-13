@@ -182,7 +182,7 @@
     <ClInclude Include="JobSystem\Syncronization\WaitableObject.h" />
     <ClInclude Include="JobSystem\Syncronization\WaitableObject.Win.h" />
     <ClInclude Include="JobSystem\Windows\WindowsHelpers.h" />
-    <ClInclude Include="Math\MathHelper.hpp" />
+    <ClInclude Include="Math\MathHelper.h" />
     <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector4.h" />
@@ -259,6 +259,7 @@
     <ClCompile Include="JobSystem\Syncronization\Events.Win.cpp" />
     <ClCompile Include="JobSystem\Syncronization\Mutex.Win.cpp" />
     <ClCompile Include="JobSystem\Syncronization\Semaphore.Win.cpp" />
+    <ClCompile Include="Math\MathHelper.cpp" />
     <ClCompile Include="Math\Matrix4x4.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />

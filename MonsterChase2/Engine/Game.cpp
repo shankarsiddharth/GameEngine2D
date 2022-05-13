@@ -12,10 +12,10 @@ Game::~Game()
 	
 }
 
-void Game::StartGame(HINSTANCE i_hInstance, int i_nCmdShow)
+void Game::StartGame(HINSTANCE InHInstance, int InNCmdShow)
 {
 	InitializeGameplay();
-	bool isRuntimeInitialized = Initialize(i_hInstance, i_nCmdShow);
+	bool isRuntimeInitialized = Initialize(InHInstance, InNCmdShow);
 	if (isRuntimeInitialized)
 	{
 		StartGameplay();
@@ -24,27 +24,27 @@ void Game::StartGame(HINSTANCE i_hInstance, int i_nCmdShow)
 	}
 }
 
-SharedPointer<GameObject> Game::CreateObject(std::string i_FilePath)
+SharedPointer<GameObject> Game::CreateObject(std::string InFilePath)
 {
 	SharedPointer<GameObject> newGameObject;
 
-	Engine::JobSystem::JobStatus Status;
+	Engine::JobSystem::JobStatus jobStatus;
 
 	Engine::JobSystem::RunJob(
 		Engine::JobSystem::GetDefaultQueueName(),
-		[this, i_FilePath, &newGameObject]()
+		[this, InFilePath, &newGameObject]()
 		{
-			this->jsonParser.GetFileContentsAsync(i_FilePath, [this, &newGameObject](std::string contents) {
-				newGameObject = objectGenerator.CreateGameObjectFromJSONDocument(
-					jsonParser.GetJSONDocumentFromString(contents)
+			this->m_JSONParser.GetFileContentsAsync(InFilePath, [this, &newGameObject](std::string contents) {
+				newGameObject = m_ObjectGenerator.CreateGameObjectFromJSONDocument(
+					m_JSONParser.GetJSONDocumentFromString(contents)
 				);
-				this->gameWorld.AddGameObject(newGameObject);
+				this->m_GameWorld.AddGameObject(newGameObject);
 				});
 		},
-		&Status
+		&jobStatus
 			);
 
-	Status.WaitForZeroJobsLeft();
+	jobStatus.WaitForZeroJobsLeft();
 
 	return newGameObject;
 }

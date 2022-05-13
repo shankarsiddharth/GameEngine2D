@@ -12,7 +12,7 @@ namespace EngineTime
 
 	uint64_t GetCurrentTickCounter();
 
-	float GetTimeDiff_ms(uint64_t i_StartTime, uint64_t i_EndTime = GetCurrentTickCounter());
+	float GetTimeDiff_ms(uint64_t InStartTime, uint64_t InEndTime = GetCurrentTickCounter());
 
 	float GetFrameTime();
 

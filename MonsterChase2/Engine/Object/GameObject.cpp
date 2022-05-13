@@ -8,7 +8,7 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	if (componentList.size() != 0)
+	if (m_ComponentList.size() != 0)
 	{
 		RemoveAllComponents();
 	}
@@ -46,12 +46,12 @@ void GameObject::AddRotationZ(float InValue)
 
 std::vector<Component*> GameObject::GetAllComponents()
 {
-	return componentList;
+	return m_ComponentList;
 }
 
 void GameObject::RemoveAllComponents()
 {
-	for (Component* element: componentList)
+	for (Component* element: m_ComponentList)
 	{
 		if (element != nullptr)
 		{
@@ -59,7 +59,7 @@ void GameObject::RemoveAllComponents()
 			element = nullptr;
 		}
 	}
-	componentList.clear();
+	m_ComponentList.clear();
 }
 
 std::string GameObject::GetName() const

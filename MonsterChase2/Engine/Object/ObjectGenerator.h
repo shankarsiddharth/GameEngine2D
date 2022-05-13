@@ -9,6 +9,6 @@ class ObjectGenerator
 public:
 	ObjectGenerator();
 	~ObjectGenerator();
-	SharedPointer<GameObject> CreateGameObjectFromJSONDocument(const rapidjson::Document i_JSONDocument);
+	SharedPointer<GameObject> CreateGameObjectFromJSONDocument(const rapidjson::Document InJSONDocument);
 
 };

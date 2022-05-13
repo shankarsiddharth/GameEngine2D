@@ -4,122 +4,107 @@
 
 void InputSystem::UpdateInput()
 {
-	//previousIsDown = isDown;
-	//previousIsDown = isUp;
-	//previousInputKeyCode = inputKeyCode;
-	//ClearInput();
+
 }
 
 void InputSystem::ClearInput()
 {
-	inputKeyCode = -1;
-	isDown = false;
-	isUp = false;
+	m_InputKeyCode = -1;
+	m_IsDown = false;
+	m_IsUp = false;
 }
 
 bool InputSystem::IsValidInput()
 {
-	return inputKeyCode != -1;
+	return m_InputKeyCode != -1;
 }
 
-bool InputSystem::IsKeyDown(KeyCode i_Key)
+bool InputSystem::IsKeyDown(KeyCode InKey)
 {
-	if (GetCurrentKeyCode() == i_Key
-		&& isDown)
+	if (GetCurrentKeyCode() == InKey
+		&& m_IsDown)
 	{
 		return true;
 	}
 	return false;
 }
 
-bool InputSystem::IsKeyUp(KeyCode i_Key)
+bool InputSystem::IsKeyUp(KeyCode InKey)
 {
-	if (GetCurrentKeyCode() == i_Key
-		&& isUp)
+	if (GetCurrentKeyCode() == InKey
+		&& m_IsUp)
 	{
 		return true;
 	}
 	return false;
 }
-
-//bool InputSystem::IsKeyPressed(KeyCode i_Key)
-//{
-//	for (KeyCode keyCode : validKeyCodes)
-//	{
-//		if (keyCode == i_Key)
-//		{
-//			return keyPressedMap[keyCode];
-//		}
-//	}
-//	return false;
-//}
 
 bool InputSystem::IsKeyPressed(KeyCode i_Key)
 {
-	if (keyPressedMap.count(i_Key))
+	if (m_KeyPressedMap.count(i_Key))
 	{		
-		return keyPressedMap[i_Key];
+		return m_KeyPressedMap[i_Key];
 	}
 	return false;
 }
 
-void InputSystem::KeyInputCallback(unsigned int i_VKeyID, bool bWentDown)
+void InputSystem::KeyInputCallback(unsigned int InVKeyID, bool InIsDown)
 {
-	inputKeyCode = i_VKeyID;
-	isDown = bWentDown;
-	isUp = !bWentDown;
+	m_InputKeyCode = InVKeyID;
+	m_IsDown = InIsDown;
+	m_IsUp = !InIsDown;
 
-	keyPressedMap[(KeyCode)inputKeyCode] = isDown;
+	m_KeyPressedMap[(KeyCode)m_InputKeyCode] = m_IsDown;
 
 #ifdef _DEBUG
 	const size_t	lenBuffer = 65;
 	char			Buffer[lenBuffer];
 
-	sprintf_s(Buffer, lenBuffer, "VKey 0x%04x went %s\n", i_VKeyID, bWentDown ? "down" : "up");
+	sprintf_s(Buffer, lenBuffer, "VKey 0x%04x went %s\n", InVKeyID, InIsDown ? "down" : "up");
 	OutputDebugStringA(Buffer);
 #endif // __DEBUG
 }
 
 KeyCode InputSystem::GetCurrentKeyCode()
 {
-	return (KeyCode)(inputKeyCode);
+	return (KeyCode)(m_InputKeyCode);
 }
 
 void InputSystem::Initialize()
 {
-	validKeyCodes.push_back(KeyCode::Enter);
-	validKeyCodes.push_back(KeyCode::Escape);
-	validKeyCodes.push_back(KeyCode::Space);
-	validKeyCodes.push_back(KeyCode::A);
-	validKeyCodes.push_back(KeyCode::B);
-	validKeyCodes.push_back(KeyCode::C);
-	validKeyCodes.push_back(KeyCode::D);
-	validKeyCodes.push_back(KeyCode::E);
-	validKeyCodes.push_back(KeyCode::F);
-	validKeyCodes.push_back(KeyCode::G);
-	validKeyCodes.push_back(KeyCode::H);
-	validKeyCodes.push_back(KeyCode::I);
-	validKeyCodes.push_back(KeyCode::J);
-	validKeyCodes.push_back(KeyCode::K);
-	validKeyCodes.push_back(KeyCode::L);
-	validKeyCodes.push_back(KeyCode::M);
-	validKeyCodes.push_back(KeyCode::N);
-	validKeyCodes.push_back(KeyCode::O);
-	validKeyCodes.push_back(KeyCode::P);
-	validKeyCodes.push_back(KeyCode::Q);
-	validKeyCodes.push_back(KeyCode::R);
-	validKeyCodes.push_back(KeyCode::S);
-	validKeyCodes.push_back(KeyCode::T);
-	validKeyCodes.push_back(KeyCode::U);
-	validKeyCodes.push_back(KeyCode::V);
-	validKeyCodes.push_back(KeyCode::W);
-	validKeyCodes.push_back(KeyCode::X);
-	validKeyCodes.push_back(KeyCode::Y);
-	validKeyCodes.push_back(KeyCode::Z);
+	m_ValidKeyCodesList.push_back(KeyCode::Enter);
+	m_ValidKeyCodesList.push_back(KeyCode::Escape);
+	m_ValidKeyCodesList.push_back(KeyCode::Space);
+	m_ValidKeyCodesList.push_back(KeyCode::A);
+	m_ValidKeyCodesList.push_back(KeyCode::B);
+	m_ValidKeyCodesList.push_back(KeyCode::C);
+	m_ValidKeyCodesList.push_back(KeyCode::D);
+	m_ValidKeyCodesList.push_back(KeyCode::E);
+	m_ValidKeyCodesList.push_back(KeyCode::F);
+	m_ValidKeyCodesList.push_back(KeyCode::G);
+	m_ValidKeyCodesList.push_back(KeyCode::H);
+	m_ValidKeyCodesList.push_back(KeyCode::I);
+	m_ValidKeyCodesList.push_back(KeyCode::J);
+	m_ValidKeyCodesList.push_back(KeyCode::K);
+	m_ValidKeyCodesList.push_back(KeyCode::L);
+	m_ValidKeyCodesList.push_back(KeyCode::M);
+	m_ValidKeyCodesList.push_back(KeyCode::N);
+	m_ValidKeyCodesList.push_back(KeyCode::O);
+	m_ValidKeyCodesList.push_back(KeyCode::P);
+	m_ValidKeyCodesList.push_back(KeyCode::Q);
+	m_ValidKeyCodesList.push_back(KeyCode::R);
+	m_ValidKeyCodesList.push_back(KeyCode::S);
+	m_ValidKeyCodesList.push_back(KeyCode::T);
+	m_ValidKeyCodesList.push_back(KeyCode::U);
+	m_ValidKeyCodesList.push_back(KeyCode::V);
+	m_ValidKeyCodesList.push_back(KeyCode::W);
+	m_ValidKeyCodesList.push_back(KeyCode::X);
+	m_ValidKeyCodesList.push_back(KeyCode::Y);
+	m_ValidKeyCodesList.push_back(KeyCode::Z);
 
-	for (KeyCode keyCode : validKeyCodes)
+	for (KeyCode keyCode : m_ValidKeyCodesList)
 	{
-		keyPressedMap.insert(std::pair<KeyCode, bool>(keyCode, false));
+		m_KeyPressedMap.insert(std::pair<KeyCode, bool>(keyCode, false));
 	}
 
 	GLib::SetKeyStateChangeCallback(std::bind(&InputSystem::KeyInputCallback, this, std::placeholders::_1, std::placeholders::_2));

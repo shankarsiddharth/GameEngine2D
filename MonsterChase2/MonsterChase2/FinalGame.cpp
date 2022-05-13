@@ -24,9 +24,9 @@ FinalGame::~FinalGame()
 
 void FinalGame::InitializeGameplay()
 {
-	gameWindow.SetWindowName("GameWindow");
-	gameWindow.SetWindowHeight(800);
-	gameWindow.SetWindowWidth(1200);
+	m_GameWindow.SetWindowName("GameWindow");
+	m_GameWindow.SetWindowHeight(800);
+	m_GameWindow.SetWindowWidth(1200);
 }
 
 void FinalGame::StartGameplay()
@@ -38,58 +38,58 @@ void FinalGame::ProcessInput()
 {
 	float force = 0.5f;
 
-	if (inputSystem.IsKeyPressed(KeyCode::W))
+	if (m_InputSystem.IsKeyPressed(KeyCode::W))
 	{
 		m_Player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, force));
 	}
-	if (inputSystem.IsKeyPressed(KeyCode::A))
+	if (m_InputSystem.IsKeyPressed(KeyCode::A))
 	{
 		m_Player->GetComponent<RigidBody2D>()->AddForce(Vector2(-force, 0));
 	}
-	if (inputSystem.IsKeyPressed(KeyCode::S))
+	if (m_InputSystem.IsKeyPressed(KeyCode::S))
 	{
 		m_Player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, -force));
 	}
-	if (inputSystem.IsKeyPressed(KeyCode::D))
+	if (m_InputSystem.IsKeyPressed(KeyCode::D))
 	{
 		m_Player->GetComponent<RigidBody2D>()->AddForce(Vector2(force, 0));
 	}
 
-	//if (inputSystem.IsKeyPressed(KeyCode::Y))
+	//if (m_InputSystem.IsKeyPressed(KeyCode::Y))
 	//{
 	//	monster->GetComponent<RigidBody2D>()->AddForce(Vector2(0, force));
 	//}
-	//if (inputSystem.IsKeyPressed(KeyCode::G))
+	//if (m_InputSystem.IsKeyPressed(KeyCode::G))
 	//{
 	//	monster->GetComponent<RigidBody2D>()->AddForce(Vector2(-force, 0));
 	//}
-	//if (inputSystem.IsKeyPressed(KeyCode::H))
+	//if (m_InputSystem.IsKeyPressed(KeyCode::H))
 	//{
 	//	monster->GetComponent<RigidBody2D>()->AddForce(Vector2(0, -force));
 	//}
-	//if (inputSystem.IsKeyPressed(KeyCode::J))
+	//if (m_InputSystem.IsKeyPressed(KeyCode::J))
 	//{
 	//	monster->GetComponent<RigidBody2D>()->AddForce(Vector2(force, 0));
 	//}
 
-	if (inputSystem.IsKeyPressed(KeyCode::K))
+	if (m_InputSystem.IsKeyPressed(KeyCode::K))
 	{
 		m_Player->AddRotationZ(0.01f);
 	}
-	if (inputSystem.IsKeyPressed(KeyCode::L))
+	if (m_InputSystem.IsKeyPressed(KeyCode::L))
 	{
 		m_Player->AddRotationZ(-0.01f);
 	}
 
 
-	if (inputSystem.IsKeyDown(KeyCode::O))
+	if (m_InputSystem.IsKeyDown(KeyCode::O))
 	{
-		SharedPointer<GameObject> newGameObject = objectGenerator.CreateGameObjectFromJSONDocument(jsonParser.GetJSONDocument("data/player.json"));
-		gameWorld.AddGameObject(newGameObject);
+		SharedPointer<GameObject> newGameObject = m_ObjectGenerator.CreateGameObjectFromJSONDocument(m_JSONParser.GetJSONDocument("data/player.json"));
+		m_GameWorld.AddGameObject(newGameObject);
 	}
-	if (inputSystem.IsKeyDown(KeyCode::P))
+	if (m_InputSystem.IsKeyDown(KeyCode::P))
 	{
-		gameWorld.RemoveGameObjectAtIndex(gameWorld.GetGameObjectsCount() - 1);
+		m_GameWorld.RemoveGameObjectAtIndex(m_GameWorld.GetGameObjectsCount() - 1);
 	}
 
 }
@@ -103,7 +103,7 @@ void FinalGame::UpdateGameplay()
 	{
 		if (monster)
 		{
-			gameWorld.RemoveGameObject(monster);
+			m_GameWorld.RemoveGameObject(monster);
 		}
 		EngineHelpers::DebugPrint("30 seconds elapsed.");
 		gameTime = 0.0f;
@@ -112,7 +112,20 @@ void FinalGame::UpdateGameplay()
 
 void FinalGame::ShutDownGameplay()
 {
+	RemoveAllObstacles();
 
+}
+
+void FinalGame::RemoveAllObstacles()
+{
+	for (SharedPointer<GameObject> obstacles : m_ObstaclesList)
+	{
+		if (obstacles)
+		{
+			obstacles->RemoveAllComponents();
+		}
+	}
+	m_ObstaclesList.clear();
 }
 
 void FinalGame::LoadGameObjects()
@@ -128,7 +141,7 @@ void FinalGame::LoadGameObjects()
 		//rigidbody.AddForce(force * -2.0f);
 		//rigidbody.SetVelocity(Vector2::Zero);
 		//rigidbody.SetForce(Vector2::Zero);
-		this->direction = this->direction * -1.0f;
+		this->m_Direction = this->m_Direction * -1.0f;
 		});
 
 	dataFilePath = "data/goal.json";

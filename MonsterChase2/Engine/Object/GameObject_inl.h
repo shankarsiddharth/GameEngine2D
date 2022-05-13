@@ -1,15 +1,15 @@
 
 template<class T>
-void GameObject::AddComponent(T* newComponent)
+void GameObject::AddComponent(T* InNewComponent)
 {
-	componentList.push_back(newComponent);
+	m_ComponentList.push_back(InNewComponent);
 }
 
 
 template<class T>
 void GameObject::RemoveComponent()
 {
-	for (std::vector<Component*>::iterator iterator = componentList.begin(); iterator != componentList.end();)
+	for (std::vector<Component*>::iterator iterator = m_ComponentList.begin(); iterator != m_ComponentList.end();)
 	{
 		if (dynamic_cast<T*>(*iterator) != nullptr)
 		{
@@ -19,7 +19,7 @@ void GameObject::RemoveComponent()
 				delete element;
 				element = nullptr;
 			}
-			iterator = componentList.erase(iterator);
+			iterator = m_ComponentList.erase(iterator);
 		}
 		else
 		{
@@ -31,7 +31,7 @@ void GameObject::RemoveComponent()
 template<class T>
 T* GameObject::GetComponent()
 {
-	for (std::vector<Component*>::iterator iterator = componentList.begin(); iterator != componentList.end(); ++iterator)
+	for (std::vector<Component*>::iterator iterator = m_ComponentList.begin(); iterator != m_ComponentList.end(); ++iterator)
 	{
 		if (dynamic_cast<T*>(*iterator) != nullptr)
 		{
@@ -45,7 +45,7 @@ T* GameObject::GetComponent()
 template<class T>
 bool GameObject::HasComponent()
 {
-	for (std::vector<Component*>::iterator iterator = componentList.begin(); iterator != componentList.end(); ++iterator)
+	for (std::vector<Component*>::iterator iterator = m_ComponentList.begin(); iterator != m_ComponentList.end(); ++iterator)
 	{
 		if (dynamic_cast<T*>(*iterator) != nullptr)
 		{

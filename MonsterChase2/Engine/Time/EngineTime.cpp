@@ -2,10 +2,10 @@
 
 LARGE_INTEGER PerformanceFrequency = { 0 };
 
-LARGE_INTEGER EngineTime::intToLargeInt(uint64_t i)
+LARGE_INTEGER EngineTime::intToLargeInt(uint64_t InInt)
 {
 	LARGE_INTEGER LI;
-	LI.QuadPart = i;
+	LI.QuadPart = InInt;
 	return LI;
 }
 
@@ -17,10 +17,10 @@ uint64_t EngineTime::GetCurrentTickCounter()
 	return CurrentFrameCounter.QuadPart;
 }
 
-float EngineTime::GetTimeDiff_ms(uint64_t i_StartTime, uint64_t i_EndTime /*= GetCurrentTickCounter()*/)
+float EngineTime::GetTimeDiff_ms(uint64_t InStartTime, uint64_t InEndTime /*= GetCurrentTickCounter()*/)
 {
 	assert(PerformanceFrequency.QuadPart != 0);
-	return ((1000.0f * static_cast<float>(i_EndTime - i_StartTime)) / PerformanceFrequency.QuadPart);
+	return ((1000.0f * static_cast<float>(InEndTime - InStartTime)) / PerformanceFrequency.QuadPart);
 }
 
 float EngineTime::GetFrameTime()

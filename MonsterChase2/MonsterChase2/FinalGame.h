@@ -19,13 +19,15 @@ protected:
 	void UpdateGameplay() override;
 	void ShutDownGameplay() override;
 
+
 private:
 	void LoadGameObjects();
+	void RemoveAllObstacles();
 
 	SharedPointer<GameObject> m_Player;
 	SharedPointer<GameObject> m_Goal;
 	std::vector<SharedPointer<GameObject>> m_ObstaclesList;
 
-	float gameTime = 0;
-	Vector2 direction = Vector2::Zero;
+	float m_GameTime = 0;
+	Vector2 m_Direction = Vector2::Zero;
 };

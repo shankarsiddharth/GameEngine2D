@@ -14,38 +14,38 @@ JSONParser::~JSONParser()
 
 }
 
-rapidjson::Document JSONParser::GetJSONDocument(const std::string i_JSONFilePath)
+rapidjson::Document JSONParser::GetJSONDocument(const std::string InJSONFilePath)
 {
-	std::ifstream inputJSONFile(i_JSONFilePath);
+	std::ifstream inputJSONFile(InJSONFilePath);
 	std::stringstream fileContentStringStream;
 	fileContentStringStream << inputJSONFile.rdbuf();
 
 	return GetJSONDocumentFromString(fileContentStringStream.str());
 }
 
-rapidjson::Document JSONParser::GetJSONDocumentFromString(const std::string i_JSONString)
+rapidjson::Document JSONParser::GetJSONDocumentFromString(const std::string InJSONString)
 {
 	rapidjson::Document doc;
-	doc.Parse(i_JSONString.c_str());
+	doc.Parse(InJSONString.c_str());
 	return doc;
 }
 
-std::string JSONParser::GetFileContents(const std::string i_JSONFilePath)
+std::string JSONParser::GetFileContents(const std::string InJSONFilePath)
 {
-	std::ifstream inputJSONFile(i_JSONFilePath);
+	std::ifstream inputJSONFile(InJSONFilePath);
 	std::stringstream fileContentStringStream;
 	fileContentStringStream << inputJSONFile.rdbuf();
 	return fileContentStringStream.str();
 }
 
 
-void JSONParser::GetFileContentsAsync(const std::string i_JSONFilePath, std::function<void(std::string)> OnFileContentsReadCallback)
+void JSONParser::GetFileContentsAsync(const std::string InJSONFilePath, std::function<void(std::string)> InOnFileContentsReadCallback)
 {
-	std::ifstream inputJSONFile(i_JSONFilePath);
+	std::ifstream inputJSONFile(InJSONFilePath);
 	std::stringstream fileContentStringStream;
 	fileContentStringStream << inputJSONFile.rdbuf();
-	if (OnFileContentsReadCallback != nullptr)
+	if (InOnFileContentsReadCallback != nullptr)
 	{
-		OnFileContentsReadCallback(fileContentStringStream.str());
+		InOnFileContentsReadCallback(fileContentStringStream.str());
 	}
 }

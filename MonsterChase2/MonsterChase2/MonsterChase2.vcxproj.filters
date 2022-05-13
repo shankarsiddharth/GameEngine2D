@@ -35,9 +35,6 @@
     <ClCompile Include="DebugCRT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SIMDMatrixTest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FinalGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

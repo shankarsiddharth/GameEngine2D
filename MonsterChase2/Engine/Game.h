@@ -14,7 +14,7 @@ public:
 	Game();
 	~Game();
 
-	void StartGame(HINSTANCE i_hInstance, int i_nCmdShow);
+	void StartGame(HINSTANCE InHInstance, int InNCmdShow);
 	
 protected:
 	virtual void ProcessInput() = 0;
@@ -23,10 +23,10 @@ protected:
 	virtual void UpdateGameplay() = 0;
 	virtual void ShutDownGameplay() = 0;
 
-	SharedPointer<GameObject> CreateObject(std::string i_FilePath);
+	SharedPointer<GameObject> CreateObject(std::string InFilePath);
 
-	ObjectGenerator objectGenerator;
-	JSONParser jsonParser;
+	ObjectGenerator m_ObjectGenerator;
+	JSONParser m_JSONParser;
 
 private:
 	void UpdateGame();

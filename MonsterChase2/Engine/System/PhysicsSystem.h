@@ -9,7 +9,7 @@ public:
 	~PhysicsSystem();
 
 	void Initialize();
-	void Update(float deltaTime, GameWorld* i_GameWorld);
+	void Update(float InDeltaTime, GameWorld* InGameWorld);
 	void ShutDown();
 
 };

@@ -16,9 +16,9 @@ ObjectGenerator::~ObjectGenerator()
 
 }
 
-SharedPointer<GameObject> ObjectGenerator::CreateGameObjectFromJSONDocument(const rapidjson::Document i_JSONDocument)
+SharedPointer<GameObject> ObjectGenerator::CreateGameObjectFromJSONDocument(const rapidjson::Document InJSONDocument)
 {
-	if (!i_JSONDocument.IsObject())
+	if (!InJSONDocument.IsObject())
 	{
 		return SharedPointer<GameObject>(nullptr);
 	}
@@ -26,24 +26,24 @@ SharedPointer<GameObject> ObjectGenerator::CreateGameObjectFromJSONDocument(cons
 	SharedPointer<GameObject> newGameObject(new GameObject());
 
 	//Read JSON File and Create components
-	if (i_JSONDocument.HasMember("position"))
+	if (InJSONDocument.HasMember("position"))
 	{
-		const rapidjson::Value& positionValue = i_JSONDocument["position"];
+		const rapidjson::Value& positionValue = InJSONDocument["position"];
 		float x = positionValue[0].GetFloat();
 		float y = positionValue[1].GetFloat();
 		newGameObject->SetPosition(Vector2(x, y));
 	}
 
-	if (i_JSONDocument.HasMember("name"))
+	if (InJSONDocument.HasMember("name"))
 	{
-		const rapidjson::Value& nameValue = i_JSONDocument["name"];
+		const rapidjson::Value& nameValue = InJSONDocument["name"];
 		std::string gameObjectName = nameValue.GetString();
 		newGameObject->SetName(gameObjectName);
 	}
 
-	if (i_JSONDocument.HasMember("components"))
+	if (InJSONDocument.HasMember("components"))
 	{
-		const rapidjson::Value& componentsValue = i_JSONDocument["components"];
+		const rapidjson::Value& componentsValue = InJSONDocument["components"];
 
 		if (componentsValue.HasMember("sprite2d"))
 		{

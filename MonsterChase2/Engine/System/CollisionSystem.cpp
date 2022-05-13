@@ -24,11 +24,11 @@ void CollisionSystem::Initialize()
 
 }
 
-void CollisionSystem::Update(float deltaTime, GameWorld* i_GameWorld)
+void CollisionSystem::Update(float InDeltaTime, GameWorld* InGameWorld)
 {
 	//Get All Colliders from the GameWorld
 	std::vector<BoxCollider2D*> boxColliders;
-	std::vector<SharedPointer<GameObject>> gameObjects = i_GameWorld->GetAllGameObjects();
+	std::vector<SharedPointer<GameObject>> gameObjects = InGameWorld->GetAllGameObjects();
 	for (SharedPointer<GameObject> gameObject : gameObjects)
 	{
 		BoxCollider2D* boxCollider2DComponent = gameObject->GetComponent<BoxCollider2D>();
@@ -41,7 +41,7 @@ void CollisionSystem::Update(float deltaTime, GameWorld* i_GameWorld)
 		}
 	}
 
-	SeparatingAxisCheck(boxColliders, deltaTime);
+	SeparatingAxisCheck(boxColliders, InDeltaTime);
 
 }
 
@@ -50,7 +50,7 @@ void CollisionSystem::ShutDown()
 
 }
 
-void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InBoxColliderList, float deltaTime)
+void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InBoxColliderList, float InDeltaTime)
 {
 	for (size_t i = 0; i < InBoxColliderList.size(); i++)
 	{
@@ -64,7 +64,7 @@ void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InB
 			BoxCollider2D& colliderA = *(InBoxColliderList[i]);
 			BoxCollider2D& colliderB = *(InBoxColliderList[j]);
 
-			bool doesIntersect = DoesInterect(colliderA, colliderB, deltaTime) && DoesInterect(colliderB, colliderA, deltaTime);
+			bool doesIntersect = DoesInterect(colliderA, colliderB, InDeltaTime) && DoesInterect(colliderB, colliderA, InDeltaTime);
 			if (doesIntersect)
 			{
 				EngineHelpers::DebugPrint("Collision Detected");
@@ -74,12 +74,12 @@ void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InB
 	}
 }
 
-bool CollisionSystem::DoesInterect(BoxCollider2D& A, BoxCollider2D& B, float deltaTime)
+bool CollisionSystem::DoesInterect(BoxCollider2D& InA, BoxCollider2D& InB, float InDeltaTime)
 {
-	for (const Vector4& AAxis : A.GetWorldExtentAxes())
+	for (const Vector4& AAxis : InA.GetWorldExtentAxes())
 	{
 		std::vector<float> projectionValues;
-		for (const Vector4& currentVertex : A.GetWorldExtentCoordinates()) {
+		for (const Vector4& currentVertex : InA.GetWorldExtentCoordinates()) {
 			//Dot product	
 			float axisProjection = Vector4::DotProduct(AAxis, currentVertex);
 			projectionValues.push_back(axisProjection);
@@ -90,7 +90,7 @@ bool CollisionSystem::DoesInterect(BoxCollider2D& A, BoxCollider2D& B, float del
 
 		projectionValues.clear();
 
-		for (const Vector4& currentVertex : B.GetWorldExtentCoordinates()) {
+		for (const Vector4& currentVertex : InB.GetWorldExtentCoordinates()) {
 			//Dot product
 			float axisProjection = Vector4::DotProduct(AAxis, currentVertex);
 			projectionValues.push_back(axisProjection);
@@ -119,17 +119,17 @@ bool CollisionSystem::DoesInterect(BoxCollider2D& A, BoxCollider2D& B, float del
 			{
 				distanceAB = bMinimumProjection - aMaximumProjection;
 			}
-			if (A.GetRootGameObject()->GetComponent<RigidBody2D>()
-				&& B.GetRootGameObject()->GetComponent<RigidBody2D>())
+			if (InA.GetRootGameObject()->GetComponent<RigidBody2D>()
+				&& InB.GetRootGameObject()->GetComponent<RigidBody2D>())
 			{
-				Vector2 VelocityA = A.GetRootGameObject()->GetComponent<RigidBody2D>()->GetVelocity();
-				Vector2 VelocityB = B.GetRootGameObject()->GetComponent<RigidBody2D>()->GetVelocity();
+				Vector2 VelocityA = InA.GetRootGameObject()->GetComponent<RigidBody2D>()->GetVelocity();
+				Vector2 VelocityB = InB.GetRootGameObject()->GetComponent<RigidBody2D>()->GetVelocity();
 				//Calculate Relative Velocity
 				Vector4 relativeVelocity = Vector4(VelocityA, 0, 1) - Vector4(VelocityB, 0, 1);
 				float projectedVelocityOnAxis = Vector4::DotProduct(AAxis, relativeVelocity);
 				//Calculate time to close the distance between the A & B projections
 				float timeToClose = distanceAB / projectedVelocityOnAxis;
-				if (timeToClose >= 0 && timeToClose < deltaTime)
+				if (timeToClose >= 0 && timeToClose < InDeltaTime)
 				{
 					return true;
 				}

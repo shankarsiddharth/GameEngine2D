@@ -2,20 +2,20 @@
 #include "../FileLoader/FileLoader.h"
 #include "../../GLib/GLib.h"
 
-Sprite2D::Sprite2D(const SharedPointer<GameObject>& i_RootGameObject, std::string i_filePath)
-	:Component(i_RootGameObject),
-	filePath(i_filePath),
-	glibSprite(nullptr),
-	height(0),
-	width(0),
-	depth(0)
+Sprite2D::Sprite2D(const SharedPointer<GameObject>& InRootGameObject, std::string InFilePath)
+	:Component(InRootGameObject),
+	m_FilePath(InFilePath),
+	m_GLibSprite(nullptr),
+	m_Height(0),
+	m_Width(0),
+	m_Depth(0)
 {
-	glibSprite = FileLoader::CreateSprite(filePath.c_str(), width, height, depth);
+	m_GLibSprite = FileLoader::CreateSprite(m_FilePath.c_str(), m_Width, m_Height, m_Depth);
 }
 
 Sprite2D::~Sprite2D()
 {
-	GLib::Release(glibSprite);
+	GLib::Release(m_GLibSprite);
 }
 
 void Sprite2D::Start()
@@ -30,20 +30,20 @@ void Sprite2D::Update()
 
 GLib::Sprite* Sprite2D::GetGLibSprite()
 {
-	return glibSprite;
+	return m_GLibSprite;
 }
 
 unsigned int Sprite2D::GetHeight() const
 {
-	return height;
+	return m_Height;
 }
 
 unsigned int Sprite2D::GetWidth() const
 {
-	return width;
+	return m_Width;
 }
 
 unsigned int Sprite2D::GetDepth() const
 {
-	return depth;
+	return m_Depth;
 }

@@ -12,7 +12,7 @@ void TaskSystem::Initialize()
 	Engine::JobSystem::Init();
 }
 
-void TaskSystem::Update(float deltaTime, GameWorld* i_GameWorld)
+void TaskSystem::Update(float InDeltaTime, GameWorld* InGameWorld)
 {
 
 }

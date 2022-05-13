@@ -9,30 +9,30 @@ public:
 	GameWindow();
 	~GameWindow();
 
-	bool Initialize(HINSTANCE i_hInstance, int i_nCmdShow,
-		std::string i_WindowName = "DefaultGameWindow",
-		unsigned int i_WindowWidth = DEFAULT_GAME_WINDOW_WIDTH_SIZE_X,
-		unsigned int i_WindowHeight = DEFAULT_GAME_WINDOW_HEIGHT_SIZE_Y);
+	bool Initialize(HINSTANCE InHInstance, int InNCmdShow,
+		std::string InWindowName = "DefaultGameWindow",
+		unsigned int InWindowWidth = DEFAULT_GAME_WINDOW_WIDTH_SIZE_X,
+		unsigned int InWindowHeight = DEFAULT_GAME_WINDOW_HEIGHT_SIZE_Y);
 	void Update();
 	void ShutDown();
 
 	bool IsWindowClosed();
 
 	std::string GetWindowName() const;
-	void SetWindowName(std::string i_WindowName);
+	void SetWindowName(std::string InWindowName);
 
 	unsigned int GetWindowHeight() const;
-	void SetWindowHeight(unsigned int i_WindowHeight);
+	void SetWindowHeight(unsigned int InWindowHeight);
 	unsigned int GetWindowWidth() const;
-	void SetWindowWidth(unsigned int i_WindowWidth);
+	void SetWindowWidth(unsigned int InWindowWidth);
 
 private:
-	bool bIsWindowClosed = false;
+	bool m_IsWindowClosed = false;
 
-	std::string WindowName = "";
+	std::string m_WindowName = "";
 
-	unsigned int WindowHeight = 0;
-	unsigned int WindowWidth = 0;
+	unsigned int m_WindowHeight = 0;
+	unsigned int m_WindowWidth = 0;
 
 
 	static const unsigned int DEFAULT_GAME_WINDOW_WIDTH_SIZE_X = 800;

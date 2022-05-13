@@ -1,15 +1,15 @@
 #include "RigidBody2D.h"
 #include "../Object/GameObject.h"
 
-RigidBody2D::RigidBody2D(const SharedPointer<GameObject>& i_RootGameObject, float i_Mass /*= 1.0f*/,
-	float i_CoefficientDrag /*= 0.0f*/, bool i_EnableDrag /*= true*/,
-	bool i_EnableGravity /*= false*/)
-	:Component(i_RootGameObject),
+RigidBody2D::RigidBody2D(const SharedPointer<GameObject>& InRootGameObject, float InMass /*= 1.0f*/,
+	float InCoefficientDrag /*= 0.0f*/, bool InEnableDrag /*= true*/,
+	bool InEnableGravity /*= false*/)
+	:Component(InRootGameObject),
 	m_Velocity(Vector2::Zero),
 	m_Force(Vector2::Zero),
-	m_Mass(i_Mass),
-	m_isDragEnabled(i_EnableDrag),
-	m_CoefficientDrag(i_CoefficientDrag)
+	m_Mass(InMass),
+	m_IsDragEnabled(InEnableDrag),
+	m_CoefficientDrag(InCoefficientDrag)
 {
 
 }
@@ -29,17 +29,17 @@ void RigidBody2D::Update()
 
 }
 
-void RigidBody2D::AddForce(Vector2 i_Force)
+void RigidBody2D::AddForce(Vector2 InForce)
 {
 	//TODO: Change to add force
-	m_Force = i_Force;
+	m_Force = InForce;
 
 	//m_Force += i_Force;
 }
 
-void RigidBody2D::SetForce(Vector2 i_Force)
+void RigidBody2D::SetForce(Vector2 InForce)
 {
-	m_Force = i_Force;
+	m_Force = InForce;
 }
 
 Vector2 RigidBody2D::GetForce()
@@ -52,19 +52,19 @@ Vector2 RigidBody2D::GetVelocity() const
 	return m_Velocity;
 }
 
-void RigidBody2D::SetVelocity(Vector2 i_Veclocity)
+void RigidBody2D::SetVelocity(Vector2 InVeclocity)
 {
-	m_Velocity = i_Veclocity;
+	m_Velocity = InVeclocity;
 }
 
 Vector2 RigidBody2D::GetPosition() const
 {
-	return rootGameObject->GetPosition();
+	return m_RootGameObject->GetPosition();
 }
 
-void RigidBody2D::SetPosition(Vector2 i_Position)
+void RigidBody2D::SetPosition(Vector2 InPosition)
 {
-	rootGameObject->SetPosition(i_Position);
+	m_RootGameObject->SetPosition(InPosition);
 }
 
 float RigidBody2D::GetMass() const
@@ -74,7 +74,7 @@ float RigidBody2D::GetMass() const
 
 bool RigidBody2D::IsDragEnabled() const
 {
-	return m_isDragEnabled;
+	return m_IsDragEnabled;
 }
 
 float RigidBody2D::GetDragCoefficient() const
@@ -87,8 +87,8 @@ Vector2 RigidBody2D::GetDragForce() const
 	return m_Drag;
 }
 
-void RigidBody2D::SetDragForce(Vector2 val)
+void RigidBody2D::SetDragForce(Vector2 InDragForce)
 {
-	m_Drag = val;
+	m_Drag = InDragForce;
 }
 

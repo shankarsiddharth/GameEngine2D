@@ -11,7 +11,7 @@ public:
 	GameRuntime();
 	~GameRuntime();
 
-	bool Initialize(HINSTANCE i_hInstance, int i_nCmdShow);
+	bool Initialize(HINSTANCE InHInstance, int InNCmdShow);
 	void UpdateInput();
 	void Update();
 	void ShutDown();
@@ -22,12 +22,12 @@ public:
 	virtual void ProcessInput() = 0;
 
 protected:
-	bool bQuit = false;
+	bool m_ShouldQuit = false;
 
-	float deltaTime;
-	GameEngine gameEngine;
-	GameWindow gameWindow;
-	GameWorld gameWorld;
-	InputSystem inputSystem;
+	float m_DeltaTime;
+	GameEngine m_GameEngine;
+	GameWindow m_GameWindow;
+	GameWorld m_GameWorld;
+	InputSystem m_InputSystem;
 };
 

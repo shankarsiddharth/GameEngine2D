@@ -11,32 +11,32 @@ GameWindow::~GameWindow()
 	
 }
 
-bool GameWindow::Initialize(HINSTANCE i_hInstance, int i_nCmdShow, 
-	std::string i_WindowName /*= "DefaultGameWindow"*/, 
-	unsigned int i_WindowWidth /*= DEFAULT_GAME_WINDOW_WIDTH_SIZE_X*/, 
-	unsigned int i_WindowHeight /*= DEFAULT_GAME_WINDOW_HEIGHT_SIZE_Y*/)
+bool GameWindow::Initialize(HINSTANCE InHInstance, int InNCmdShow, 
+	std::string InWindowName /*= "DefaultGameWindow"*/, 
+	unsigned int InWindowWidth /*= DEFAULT_GAME_WINDOW_WIDTH_SIZE_X*/, 
+	unsigned int InWindowHeight /*= DEFAULT_GAME_WINDOW_HEIGHT_SIZE_Y*/)
 {
-	if (WindowHeight != 0)
+	if (m_WindowHeight != 0)
 	{
-		i_WindowHeight = WindowHeight;
+		InWindowHeight = m_WindowHeight;
 	}
-	if (WindowWidth != 0)
+	if (m_WindowWidth != 0)
 	{
-		i_WindowWidth = WindowWidth;
+		InWindowWidth = m_WindowWidth;
 	}
-	if (WindowName != "")
+	if (m_WindowName != "")
 	{
-		i_WindowName = WindowName;
+		InWindowName = m_WindowName;
 	}
 
 	// IMPORTANT: first we need to initialize GLib
-	return GLib::Initialize(i_hInstance, i_nCmdShow, i_WindowName.c_str(), -1, i_WindowWidth, i_WindowHeight, true);
+	return GLib::Initialize(InHInstance, InNCmdShow, InWindowName.c_str(), -1, InWindowWidth, InWindowHeight, true);
 }
 
 void GameWindow::Update()
 {
 	// IMPORTANT: Check whether the window is closed.
-	GLib::Service(bIsWindowClosed);
+	GLib::Service(m_IsWindowClosed);
 }
 
 void GameWindow::ShutDown()
@@ -47,36 +47,36 @@ void GameWindow::ShutDown()
 
 bool GameWindow::IsWindowClosed()
 {
-	return bIsWindowClosed;
+	return m_IsWindowClosed;
 }
 
 std::string GameWindow::GetWindowName() const
 {
-	return WindowName;
+	return m_WindowName;
 }
 
-void GameWindow::SetWindowName(std::string i_WindowName)
+void GameWindow::SetWindowName(std::string InWindowName)
 {
-	WindowName = i_WindowName;
+	m_WindowName = InWindowName;
 }
 
 unsigned int GameWindow::GetWindowHeight() const
 {
-	return WindowHeight;
+	return m_WindowHeight;
 }
 
-void GameWindow::SetWindowHeight(unsigned int i_WindowHeight)
+void GameWindow::SetWindowHeight(unsigned int InWindowHeight)
 {
-	WindowHeight = i_WindowHeight;
+	m_WindowHeight = InWindowHeight;
 }
 
 unsigned int GameWindow::GetWindowWidth() const
 {
-	return WindowWidth;
+	return m_WindowWidth;
 }
 
-void GameWindow::SetWindowWidth(unsigned int i_WindowWidth)
+void GameWindow::SetWindowWidth(unsigned int InWindowWidth)
 {
-	WindowWidth = i_WindowWidth;
+	m_WindowWidth = InWindowWidth;
 }
 

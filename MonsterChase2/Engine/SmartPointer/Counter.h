@@ -2,9 +2,9 @@
 
 struct Counter
 {
-	Counter(int i_SharedReference)
-		:sharedReference(i_SharedReference)
+	Counter(int InSharedReference)
+		:m_SharedReference(InSharedReference)
 	{}
 
-	int sharedReference;
+	int m_SharedReference;
 };

@@ -7,7 +7,7 @@ class GameObject;
 class Component
 {
 public:
-	Component(const SharedPointer<GameObject>& inRootGameObject);
+	Component(const SharedPointer<GameObject>& InRootGameObject);
 	virtual ~Component();
 	virtual void Start();
 	virtual void Update();
@@ -15,5 +15,5 @@ public:
 	SharedPointer<GameObject> GetRootGameObject() const;
 
 protected:
-	SharedPointer<GameObject> rootGameObject;
+	SharedPointer<GameObject> m_RootGameObject;
 };

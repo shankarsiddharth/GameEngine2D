@@ -21,7 +21,7 @@ public:
 	void AddRotationZ(float InValue);
 
 	template<class T>
-	void AddComponent(T* newComponent);
+	void AddComponent(T* InNewComponent);
 	template<class T>
 	T* GetComponent();
 	template<class T>
@@ -38,7 +38,7 @@ public:
 protected:
 	Vector2 m_Position;
 	Vector4 m_Rotation;
-	std::vector<Component*> componentList;
+	std::vector<Component*> m_ComponentList;
 	std::string m_Name;
 };
 

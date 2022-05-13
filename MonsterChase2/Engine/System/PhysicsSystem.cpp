@@ -20,9 +20,9 @@ void PhysicsSystem::Initialize()
 
 }
 
-void PhysicsSystem::Update(float deltaTime, GameWorld* i_GameWorld)
+void PhysicsSystem::Update(float InDeltaTime, GameWorld* InGameWorld)
 {
-	std::vector<SharedPointer<GameObject>> gameObjects = i_GameWorld->GetAllGameObjects();
+	std::vector<SharedPointer<GameObject>> gameObjects = InGameWorld->GetAllGameObjects();
 	for (SharedPointer<GameObject> gameObject : gameObjects)
 	{
 		RigidBody2D* rigidBodyComponent = gameObject->GetComponent<RigidBody2D>();
@@ -48,11 +48,11 @@ void PhysicsSystem::Update(float deltaTime, GameWorld* i_GameWorld)
 
 			//dv = a * dt
 			Vector2 currentPosition = rigidBodyComponent->GetPosition();
-			currentVelocity += accelaration * deltaTime;
+			currentVelocity += accelaration * InDeltaTime;
 
 			//dx = v * dt using Midpoint/Average
 			Vector2 averageVelocity = (currentVelocity + previousVelocity) / 2.0f;
-			currentPosition += averageVelocity * deltaTime;
+			currentPosition += averageVelocity * InDeltaTime;
 
 			rigidBodyComponent->SetPosition(currentPosition);
 			rigidBodyComponent->SetVelocity(currentVelocity);

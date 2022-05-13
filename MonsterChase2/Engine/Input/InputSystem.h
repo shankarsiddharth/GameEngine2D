@@ -12,24 +12,20 @@ public:
 	void ClearInput();
 	bool IsValidInput();
 
-	bool IsKeyDown(KeyCode i_Key);
-	bool IsKeyUp(KeyCode i_Key);
-	bool IsKeyPressed(KeyCode i_Key);
+	bool IsKeyDown(KeyCode InKey);
+	bool IsKeyUp(KeyCode InKey);
+	bool IsKeyPressed(KeyCode InKey);
 
 	KeyCode GetCurrentKeyCode();
 
 private:
 	
-	void KeyInputCallback(unsigned int i_VKeyID, bool bWentDown);
+	void KeyInputCallback(unsigned int InVKeyID, bool InIsDown);
 
-	//int previousInputKeyCode = -1;
-	//bool previousIsUp = false;
-	//bool previousIsDown = false;
+	int m_InputKeyCode = -1;
+	bool m_IsUp = false;
+	bool m_IsDown = false;
 
-	int inputKeyCode = -1;
-	bool isUp = false;
-	bool isDown = false;
-
-	std::map<KeyCode, bool> keyPressedMap;
-	std::vector<KeyCode> validKeyCodes;
+	std::map<KeyCode, bool> m_KeyPressedMap;
+	std::vector<KeyCode> m_ValidKeyCodesList;
 };

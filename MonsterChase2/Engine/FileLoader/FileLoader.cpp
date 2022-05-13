@@ -1,12 +1,12 @@
 #include "FileLoader.h"
 
-void* FileLoader::LoadFile(const char* i_pFilename, size_t& o_sizeFile)
+void* FileLoader::LoadFile(const char* InFilename, size_t& OutSizeFile)
 {
-	assert(i_pFilename != NULL);
+	assert(InFilename != NULL);
 
 	FILE* pFile = NULL;
 
-	errno_t fopenError = fopen_s(&pFile, i_pFilename, "rb");
+	errno_t fopenError = fopen_s(&pFile, InFilename, "rb");
 	if (fopenError != 0)
 		return NULL;
 
@@ -29,19 +29,19 @@ void* FileLoader::LoadFile(const char* i_pFilename, size_t& o_sizeFile)
 
 	fclose(pFile);
 
-	o_sizeFile = FileSize;
+	OutSizeFile = FileSize;
 
 	return pBuffer;
 }
 
-GLib::Sprite* FileLoader::CreateSprite(const char* i_pFilename, unsigned int& o_Width, unsigned int& o_Height, unsigned int& o_Depth)
+GLib::Sprite* FileLoader::CreateSprite(const char* InFilename, unsigned int& OutWidth, unsigned int& OutHeight, unsigned int& OutDepth)
 {
-	assert(i_pFilename);
+	assert(InFilename);
 
 	size_t sizeTextureFile = 0;
 
 	// Load the source file (texture data)
-	void* pTextureFile = LoadFile(i_pFilename, sizeTextureFile);
+	void* pTextureFile = LoadFile(InFilename, sizeTextureFile);
 
 	// Ask GLib to create a texture out of the data (assuming it was loaded successfully)
 	GLib::Texture* pTexture = pTextureFile ? GLib::CreateTexture(pTextureFile, sizeTextureFile) : nullptr;
@@ -64,9 +64,9 @@ GLib::Sprite* FileLoader::CreateSprite(const char* i_pFilename, unsigned int& o_
 	assert((width > 0) && (height > 0));
 
 	//Store the Dimensions of the Texture
-	o_Width = width;
-	o_Height = height;
-	o_Depth = depth;
+	OutWidth = width;
+	OutHeight = height;
+	OutDepth = depth;
 
 	// Define the sprite edges
 	GLib::SpriteEdges	Edges = { -float(width / 2.0f), float(height), float(width / 2.0f), 0.0f };

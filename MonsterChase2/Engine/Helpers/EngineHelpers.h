@@ -4,5 +4,5 @@
 #include <string>
 
 namespace EngineHelpers {
-	void DebugPrint(std::string debugLogString);
+	void DebugPrint(std::string InDebugLogString);
 }

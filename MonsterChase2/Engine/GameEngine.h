@@ -11,14 +11,14 @@ class GameEngine
 {
 public:
 	void Initialize();
-	void Update(float deltaTime, GameWorld* i_GameWorld);
+	void Update(float InDeltaTime, GameWorld* InGameWorld);
 	void ShutDown();
 
 	float ComputeDeltaTime();
 
 private:
-	RenderSystem renderSystem;
-	PhysicsSystem physicsSystem;
-	CollisionSystem collisionSystem;
-	TaskSystem taskSystem;
+	RenderSystem m_RenderSystem;
+	PhysicsSystem m_PhysicsSystem;
+	CollisionSystem m_CollisionSystem;
+	TaskSystem m_TaskSystem;
 };

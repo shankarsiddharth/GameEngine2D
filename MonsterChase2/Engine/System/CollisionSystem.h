@@ -1,8 +1,13 @@
 #pragma once
 #include <vector>
+#include <functional>
+#include "../SmartPointer/SmartPointer.h"
+#include "../Object/GameObject.h"
 
 class GameWorld;
 class BoxCollider2D;
+
+typedef std::function<void(SharedPointer<GameObject>, SharedPointer<GameObject>)> FOnCollisionDetected;
 
 class CollisionSystem
 {
@@ -11,11 +16,14 @@ public:
 	~CollisionSystem();
 
 	void Initialize();
-	void Update(float deltaTime, GameWorld* i_GameWorld);
+	void Update(float InDeltaTime, GameWorld* InGameWorld);
 	void ShutDown();
 
+protected:
+	FOnCollisionDetected m_OnCollisionDetected;
+
 private:
-	void SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InBoxColliderList, float deltaTime);
-	bool DoesInterect(BoxCollider2D& A, BoxCollider2D& B, float deltaTime);
+	void SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InBoxColliderList, float InDeltaTime);
+	bool DoesInterect(BoxCollider2D& InA, BoxCollider2D& InB, float InDeltaTime);
 };
 

@@ -1,7 +1,7 @@
 #include "GameRuntime.h"
 
 GameRuntime::GameRuntime()
-	:deltaTime(1/60.0f)
+	:m_DeltaTime(1/60.0f)
 {
 
 }
@@ -11,14 +11,14 @@ GameRuntime::~GameRuntime()
 
 }
 
-bool GameRuntime::Initialize(HINSTANCE i_hInstance, int i_nCmdShow)
+bool GameRuntime::Initialize(HINSTANCE InHInstance, int InNCmdShow)
 {
-	bool isWindowInitialized = gameWindow.Initialize(i_hInstance, i_nCmdShow);
+	bool isWindowInitialized = m_GameWindow.Initialize(InHInstance, InNCmdShow);
 	if (isWindowInitialized)
 	{
-		inputSystem.Initialize();
-		gameWorld.Initialize();
-		gameEngine.Initialize();
+		m_InputSystem.Initialize();
+		m_GameWorld.Initialize();
+		m_GameEngine.Initialize();
 		return true;
 	}
 	return false;
@@ -32,35 +32,35 @@ void GameRuntime::UpdateInput()
 		inputSystem.ClearInput();
 	}*/
 	ProcessInput();
-	inputSystem.ClearInput();
-	inputSystem.UpdateInput();
+	m_InputSystem.ClearInput();
+	m_InputSystem.UpdateInput();
 }
 
 void GameRuntime::Update()
 {
-	gameWindow.Update();
-	if (!gameWindow.IsWindowClosed())
+	m_GameWindow.Update();
+	if (!m_GameWindow.IsWindowClosed())
 	{
-		gameWorld.Update();
-		gameEngine.Update(deltaTime, &gameWorld);
+		m_GameWorld.Update();
+		m_GameEngine.Update(m_DeltaTime, &m_GameWorld);
 	}
 }
 
 void GameRuntime::ShutDown()
 {
-	gameEngine.ShutDown();
-	gameWorld.ShutDown();
-	gameWindow.ShutDown();
+	m_GameEngine.ShutDown();
+	m_GameWorld.ShutDown();
+	m_GameWindow.ShutDown();
 }
 
 bool GameRuntime::IsRunning()
 {
-	return !gameWindow.IsWindowClosed();
+	return !m_GameWindow.IsWindowClosed();
 }
 
 void GameRuntime::UpdateDeltaTime()
 {
-	deltaTime = gameEngine.ComputeDeltaTime();
+	m_DeltaTime = m_GameEngine.ComputeDeltaTime();
 }
 
 void GameRuntime::ProcessInput()

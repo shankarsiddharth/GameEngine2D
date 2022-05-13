@@ -1,7 +1,7 @@
 #include "Component.h"
 
-Component::Component(const SharedPointer<GameObject>& inRootGameObject)
-	: rootGameObject(inRootGameObject)
+Component::Component(const SharedPointer<GameObject>& InRootGameObject)
+	: m_RootGameObject(InRootGameObject)
 {
 
 }
@@ -23,6 +23,6 @@ void Component::Update()
 
 SharedPointer<GameObject> Component::GetRootGameObject() const
 {
-	return rootGameObject;
+	return m_RootGameObject;
 }
 

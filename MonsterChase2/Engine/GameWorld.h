@@ -10,12 +10,12 @@ public:
 	GameWorld();
 	~GameWorld();
 
-	void AddGameObject(SharedPointer<GameObject> i_GameObject);
-	void RemoveGameObject(SharedPointer<GameObject> i_GameObject);
-	void RemoveGameObjectAtIndex(size_t i_Index);
+	void AddGameObject(SharedPointer<GameObject> InGameObject);
+	void RemoveGameObject(SharedPointer<GameObject> InGameObject);
+	void RemoveGameObjectAtIndex(size_t InIndex);
 	std::vector<SharedPointer<GameObject>> GetAllGameObjects();
 
-	SharedPointer<GameObject> GetGameObjectAtIndex(size_t i_Index);
+	SharedPointer<GameObject> GetGameObjectAtIndex(size_t InIndex);
 
 	size_t GetGameObjectsCount();
 
@@ -25,6 +25,6 @@ public:
 
 private:
 
-	std::vector<SharedPointer<GameObject>> gameObjectList;
+	std::vector<SharedPointer<GameObject>> m_GameObjectList;
 };
 

@@ -3,16 +3,16 @@
 #include "../Object/GameObject.h"
 #include "../Math/Matrix4x4.h"
 
-BoxCollider2D::BoxCollider2D(const SharedPointer<GameObject>& i_RootGameObject)
-	:Component(i_RootGameObject)
+BoxCollider2D::BoxCollider2D(const SharedPointer<GameObject>& InRootGameObject)
+	:Component(InRootGameObject)
 {
 	int spriteHeight = 0;
 	int spriteWidth = 0;
 	int spriteDepth = 0;
 
-	if (rootGameObject->HasComponent<Sprite2D>())
+	if (m_RootGameObject->HasComponent<Sprite2D>())
 	{
-		const Sprite2D& sprite2d = *(rootGameObject->GetComponent<Sprite2D>());
+		const Sprite2D& sprite2d = *(m_RootGameObject->GetComponent<Sprite2D>());
 		spriteHeight = sprite2d.GetHeight();
 		spriteWidth = sprite2d.GetWidth();
 		spriteDepth = sprite2d.GetDepth();
@@ -23,10 +23,10 @@ BoxCollider2D::BoxCollider2D(const SharedPointer<GameObject>& i_RootGameObject)
 	Vector2 localBottomLeftExtent(-1.0f * (float)(spriteWidth / 2), 0);
 	Vector2 localBottomRightExtent((float)(spriteWidth / 2), 0);
 
-	localExtentCoordinates.push_back(Vector4(localTopLeftExtent, 0.0f, 1.0f));
-	localExtentCoordinates.push_back(Vector4(localTopRightExtent, 0.0f, 1.0f));
-	localExtentCoordinates.push_back(Vector4(localBottomRightExtent, 0.0f, 1.0f));
-	localExtentCoordinates.push_back(Vector4(localBottomLeftExtent, 0.0f, 1.0f));
+	m_LocalExtentCoordinates.push_back(Vector4(localTopLeftExtent, 0.0f, 1.0f));
+	m_LocalExtentCoordinates.push_back(Vector4(localTopRightExtent, 0.0f, 1.0f));
+	m_LocalExtentCoordinates.push_back(Vector4(localBottomRightExtent, 0.0f, 1.0f));
+	m_LocalExtentCoordinates.push_back(Vector4(localBottomLeftExtent, 0.0f, 1.0f));
 }
 
 BoxCollider2D::~BoxCollider2D()
@@ -46,94 +46,94 @@ void BoxCollider2D::Update()
 
 void BoxCollider2D::UpdateWorldExtents()
 {
-	worldExtentCoordinates.clear();
+	m_WorldExtentCoordinates.clear();
 
-	Vector2 gameObjectPosition = rootGameObject->GetPosition();
-	Vector4 gameObjectRotation = rootGameObject->GetRotation();
+	Vector2 gameObjectPosition = m_RootGameObject->GetPosition();
+	Vector4 gameObjectRotation = m_RootGameObject->GetRotation();
 
 	Matrix4x4 translationMatrix = Matrix4x4::TranslationMatrix(gameObjectPosition.X(), gameObjectPosition.Y(), 0.0f);
 	Matrix4x4 rotationMatrix = Matrix4x4::ZRotationMatrix(gameObjectRotation.Z());
 
 	Matrix4x4 localToWorldMartrix = translationMatrix * rotationMatrix;
 
-	for (size_t i = 0; i < localExtentCoordinates.size(); i++)
+	for (size_t i = 0; i < m_LocalExtentCoordinates.size(); i++)
 	{
-		Vector4 worldExtent = localToWorldMartrix * localExtentCoordinates[i];
-		worldExtentCoordinates.push_back(worldExtent);
+		Vector4 worldExtent = localToWorldMartrix * m_LocalExtentCoordinates[i];
+		m_WorldExtentCoordinates.push_back(worldExtent);
 	}
 }
 
 void BoxCollider2D::UpdateWorldExtentsAxes()
 {
-	worldExtentEdges.clear();
-	worldExtentAxes.clear();
+	m_WorldExtentEdges.clear();
+	m_WorldExtentAxes.clear();
 
-	for (size_t i = 0; i < worldExtentCoordinates.size(); i++)
+	for (size_t i = 0; i < m_WorldExtentCoordinates.size(); i++)
 	{
-		Vector4 currentvertex = worldExtentCoordinates[i];
+		Vector4 currentvertex = m_WorldExtentCoordinates[i];
 
-		const size_t nextIndex = (i + 1) % worldExtentCoordinates.size();
-		Vector4 nextVertex = worldExtentCoordinates[nextIndex];
+		const size_t nextIndex = (i + 1) % m_WorldExtentCoordinates.size();
+		Vector4 nextVertex = m_WorldExtentCoordinates[nextIndex];
 
 		Vector4 worldExtentEdge = nextVertex - currentvertex;
 
-		worldExtentEdges.push_back(worldExtentEdge);
+		m_WorldExtentEdges.push_back(worldExtentEdge);
 
 		Vector2 edgeXY(worldExtentEdge.X(), worldExtentEdge.Y());
 		Vector2 normalizedEdgeXY = edgeXY.GetNormalVector();
 		Vector2 edgeAxis = Vector2::PerpendicularVector(normalizedEdgeXY);
 		Vector4 worldExtentAxis(edgeAxis, 0.0f, 1.0f);
 
-		worldExtentAxes.push_back(worldExtentAxis);
+		m_WorldExtentAxes.push_back(worldExtentAxis);
 	}
 }
 
 std::vector<Vector4> BoxCollider2D::GetWorldExtentAxes() const
 {
-	return worldExtentAxes;
+	return m_WorldExtentAxes;
 }
 
 std::vector<Vector4> BoxCollider2D::GetWorldExtentCoordinates() const
 {
-	return worldExtentCoordinates;
+	return m_WorldExtentCoordinates;
 }
 
-void BoxCollider2D::EnableCollisionCallback(FCollisionCallback i_CollisionCallback)
+void BoxCollider2D::EnableCollisionCallback(FCollisionCallback InCollisionCallback)
 {
-	OnCollision = i_CollisionCallback;
+	m_OnCollision = InCollisionCallback;
 }
 
-void BoxCollider2D::ExecuteCollisionCallback(SharedPointer<GameObject> CollidedGameObject)
+void BoxCollider2D::ExecuteCollisionCallback(SharedPointer<GameObject> InCollidedGameObject)
 {
-	if (OnCollision)
+	if (m_OnCollision)
 	{
-		OnCollision(CollidedGameObject);
+		m_OnCollision(InCollidedGameObject);
 	}
 }
 
 void BoxCollider2D::UpdateWorldExtentsEdges()
 {
-	worldExtentEdges.clear();
-	worldExtentAxes.clear();
+	m_WorldExtentEdges.clear();
+	m_WorldExtentAxes.clear();
 
-	Vector4 worldExtentEdge1 = worldExtentCoordinates[1] - worldExtentCoordinates[0];
-	Vector4 worldExtentEdge2 = worldExtentCoordinates[2] - worldExtentCoordinates[1];
-	Vector4 worldExtentEdge3 = worldExtentCoordinates[3] - worldExtentCoordinates[2];
-	Vector4 worldExtentEdge4 = worldExtentCoordinates[0] - worldExtentCoordinates[3];
+	Vector4 worldExtentEdge1 = m_WorldExtentCoordinates[1] - m_WorldExtentCoordinates[0];
+	Vector4 worldExtentEdge2 = m_WorldExtentCoordinates[2] - m_WorldExtentCoordinates[1];
+	Vector4 worldExtentEdge3 = m_WorldExtentCoordinates[3] - m_WorldExtentCoordinates[2];
+	Vector4 worldExtentEdge4 = m_WorldExtentCoordinates[0] - m_WorldExtentCoordinates[3];
 
-	worldExtentEdges.push_back(worldExtentEdge1);
-	worldExtentEdges.push_back(worldExtentEdge2);
-	worldExtentEdges.push_back(worldExtentEdge3);
-	worldExtentEdges.push_back(worldExtentEdge4);
+	m_WorldExtentEdges.push_back(worldExtentEdge1);
+	m_WorldExtentEdges.push_back(worldExtentEdge2);
+	m_WorldExtentEdges.push_back(worldExtentEdge3);
+	m_WorldExtentEdges.push_back(worldExtentEdge4);
 
-	for (size_t index = 0; index < worldExtentEdges.size(); index++)
+	for (size_t index = 0; index < m_WorldExtentEdges.size(); index++)
 	{
-		Vector2 edgeXY(worldExtentEdges[index].X(), worldExtentEdges[index].Y());
+		Vector2 edgeXY(m_WorldExtentEdges[index].X(), m_WorldExtentEdges[index].Y());
 		Vector2 normalizedEdgeXY = edgeXY.GetNormalVector();
 		Vector2 edgeAxis = Vector2::PerpendicularVector(normalizedEdgeXY);
 		Vector4 worldExtentAxis(edgeAxis, 0.0f, 1.0f);
 
-		worldExtentAxes.push_back(worldExtentAxis);
+		m_WorldExtentAxes.push_back(worldExtentAxis);
 	}
 }
 

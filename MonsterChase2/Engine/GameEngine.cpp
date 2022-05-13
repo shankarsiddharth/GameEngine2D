@@ -10,26 +10,26 @@ void GameEngine::Initialize()
 
 	//Initialize Time
 	EngineTime::Initialize();
-	physicsSystem.Initialize();
-	renderSystem.Initialize();
-	collisionSystem.Initialize();
-	taskSystem.Initialize();
+	m_PhysicsSystem.Initialize();
+	m_RenderSystem.Initialize();
+	m_CollisionSystem.Initialize();
+	m_TaskSystem.Initialize();
 }
 
-void GameEngine::Update(float deltaTime, GameWorld* i_GameWorld)
+void GameEngine::Update(float InDeltaTime, GameWorld* InGameWorld)
 {
-	physicsSystem.Update(deltaTime, i_GameWorld);
-	renderSystem.Update(deltaTime, i_GameWorld);
-	collisionSystem.Update(deltaTime, i_GameWorld);
-	taskSystem.Update(deltaTime, i_GameWorld);
+	m_PhysicsSystem.Update(InDeltaTime, InGameWorld);
+	m_RenderSystem.Update(InDeltaTime, InGameWorld);
+	m_CollisionSystem.Update(InDeltaTime, InGameWorld);
+	m_TaskSystem.Update(InDeltaTime, InGameWorld);
 }
 
 void GameEngine::ShutDown()
 {
-	taskSystem.ShutDown();
-	collisionSystem.ShutDown();
-	physicsSystem.ShutDown();
-	renderSystem.ShutDown();
+	m_TaskSystem.ShutDown();
+	m_CollisionSystem.ShutDown();
+	m_PhysicsSystem.ShutDown();
+	m_RenderSystem.ShutDown();
 }
 
 float GameEngine::ComputeDeltaTime()

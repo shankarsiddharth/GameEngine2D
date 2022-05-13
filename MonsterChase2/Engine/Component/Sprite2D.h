@@ -11,7 +11,7 @@ class Sprite2D :
 	public Component
 {
 public:
-	Sprite2D(const SharedPointer<GameObject>& i_RootGameObject, std::string i_filePath);
+	Sprite2D(const SharedPointer<GameObject>& InRootGameObject, std::string InFilePath);
 	~Sprite2D();
 
 	void Start() override;
@@ -24,11 +24,11 @@ public:
 	unsigned int GetDepth() const;
 
 protected:
-	std::string filePath;
-	GLib::Sprite* glibSprite;
+	std::string m_FilePath;
+	GLib::Sprite* m_GLibSprite;
 
-	unsigned int height;
-	unsigned int width;
-	unsigned int depth;
+	unsigned int m_Height;
+	unsigned int m_Width;
+	unsigned int m_Depth;
 };
 

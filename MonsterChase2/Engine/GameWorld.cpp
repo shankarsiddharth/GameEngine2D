@@ -11,24 +11,24 @@ GameWorld::~GameWorld()
 
 }
 
-void GameWorld::AddGameObject(SharedPointer<GameObject> i_GameObject)
+void GameWorld::AddGameObject(SharedPointer<GameObject> InGameObject)
 {
-	gameObjectList.push_back(i_GameObject);
+	m_GameObjectList.push_back(InGameObject);
 }
 
-void GameWorld::RemoveGameObject(SharedPointer<GameObject> i_GameObject)
+void GameWorld::RemoveGameObject(SharedPointer<GameObject> InGameObject)
 {
-	if (!i_GameObject) {
+	if (!InGameObject) {
 		return;
 	}
 
-	for (std::vector<SharedPointer<GameObject>>::iterator listIterator = gameObjectList.begin();
-		listIterator != gameObjectList.end();)
+	for (std::vector<SharedPointer<GameObject>>::iterator listIterator = m_GameObjectList.begin();
+		listIterator != m_GameObjectList.end();)
 	{
-		if (*listIterator == i_GameObject)
+		if (*listIterator == InGameObject)
 		{
 			(*listIterator)->RemoveAllComponents();
-			listIterator = gameObjectList.erase(listIterator);
+			listIterator = m_GameObjectList.erase(listIterator);
 		}
 		else
 		{
@@ -37,7 +37,7 @@ void GameWorld::RemoveGameObject(SharedPointer<GameObject> i_GameObject)
 	}
 }
 
-void GameWorld::RemoveGameObjectAtIndex(size_t i_Index)
+void GameWorld::RemoveGameObjectAtIndex(size_t InIndex)
 {
 	/*size_t index = 0;
 
@@ -56,24 +56,24 @@ void GameWorld::RemoveGameObjectAtIndex(size_t i_Index)
 		}
 	}*/
 
-	if (i_Index < gameObjectList.size())
+	if (InIndex < m_GameObjectList.size())
 	{
-		SharedPointer<GameObject> gameObjectToRemove = gameObjectList.at(i_Index);
+		SharedPointer<GameObject> gameObjectToRemove = m_GameObjectList.at(InIndex);
 		gameObjectToRemove->RemoveAllComponents();
-		gameObjectList.erase(gameObjectList.begin() + i_Index);
+		m_GameObjectList.erase(m_GameObjectList.begin() + InIndex);
 	}
 }
 
 std::vector<SharedPointer<GameObject>> GameWorld::GetAllGameObjects()
 {
-	return gameObjectList;
+	return m_GameObjectList;
 }
 
-SharedPointer<GameObject> GameWorld::GetGameObjectAtIndex(size_t i_Index)
+SharedPointer<GameObject> GameWorld::GetGameObjectAtIndex(size_t InIndex)
 {
-	if (i_Index < gameObjectList.size())
+	if (InIndex < m_GameObjectList.size())
 	{
-		return gameObjectList.at(i_Index);
+		return m_GameObjectList.at(InIndex);
 		/*for (size_t index = 0; index < gameObjectList.size(); index++)
 		{
 			if (index == i_Index)
@@ -90,7 +90,7 @@ SharedPointer<GameObject> GameWorld::GetGameObjectAtIndex(size_t i_Index)
 
 size_t GameWorld::GetGameObjectsCount()
 {
-	return gameObjectList.size();
+	return m_GameObjectList.size();
 }
 
 void GameWorld::Initialize()
@@ -105,12 +105,12 @@ void GameWorld::Update()
 
 void GameWorld::ShutDown()
 {
-	for (SharedPointer<GameObject> gameObject : gameObjectList)
+	for (SharedPointer<GameObject> gameObject : m_GameObjectList)
 	{
 		if (gameObject)
 		{
 			gameObject->RemoveAllComponents();
 		}
 	}
-	gameObjectList.clear();
+	m_GameObjectList.clear();
 }
