@@ -1,6 +1,11 @@
 #pragma once
 
 #include "GameRuntime.h"
+#include "Object/ObjectGenerator.h"
+#include "FileLoader/JSONParser.h"
+#include <string>
+#include "SmartPointer/SmartPointer.h"
+#include "Object/GameObject.h"
 
 class Game :
 	public GameRuntime
@@ -17,6 +22,11 @@ protected:
 	virtual void StartGameplay() = 0;
 	virtual void UpdateGameplay() = 0;
 	virtual void ShutDownGameplay() = 0;
+
+	SharedPointer<GameObject> CreateObject(std::string i_FilePath);
+
+	ObjectGenerator objectGenerator;
+	JSONParser jsonParser;
 
 private:
 	void UpdateGame();

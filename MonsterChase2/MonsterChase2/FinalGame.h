@@ -2,9 +2,8 @@
 #include "Game.h"
 #include "SmartPointer/SmartPointer.h"
 #include "Object/GameObject.h"
-#include "Object/ObjectGenerator.h"
-#include "FileLoader/JSONParser.h"
 #include "Math/Vector2.h"
+#include <vector>
 
 class FinalGame
 	: public Game
@@ -23,13 +22,10 @@ protected:
 private:
 	void LoadGameObjects();
 
-	SharedPointer<GameObject> player;
-	SharedPointer<GameObject> monster;
-
-	ObjectGenerator objectGenerator;
-	JSONParser jsonParser;
+	SharedPointer<GameObject> m_Player;
+	SharedPointer<GameObject> m_Goal;
+	std::vector<SharedPointer<GameObject>> m_ObstaclesList;
 
 	float gameTime = 0;
-
 	Vector2 direction = Vector2::Zero;
 };

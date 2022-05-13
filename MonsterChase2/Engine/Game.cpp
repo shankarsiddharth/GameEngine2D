@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "JobSystem/JobSystem/JobSystem.h"
 
 Game::Game()
 	:GameRuntime()
@@ -21,6 +22,31 @@ void Game::StartGame(HINSTANCE i_hInstance, int i_nCmdShow)
 		UpdateGame();
 		ExitGame();
 	}
+}
+
+SharedPointer<GameObject> Game::CreateObject(std::string i_FilePath)
+{
+	SharedPointer<GameObject> newGameObject;
+
+	Engine::JobSystem::JobStatus Status;
+
+	Engine::JobSystem::RunJob(
+		Engine::JobSystem::GetDefaultQueueName(),
+		[this, i_FilePath, &newGameObject]()
+		{
+			this->jsonParser.GetFileContentsAsync(i_FilePath, [this, &newGameObject](std::string contents) {
+				newGameObject = objectGenerator.CreateGameObjectFromJSONDocument(
+					jsonParser.GetJSONDocumentFromString(contents)
+				);
+				this->gameWorld.AddGameObject(newGameObject);
+				});
+		},
+		&Status
+			);
+
+	Status.WaitForZeroJobsLeft();
+
+	return newGameObject;
 }
 
 void Game::UpdateGame()
