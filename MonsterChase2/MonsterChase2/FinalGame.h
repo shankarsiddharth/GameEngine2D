@@ -29,6 +29,9 @@ private:
 	SharedPointer<GameObject> m_Goal;
 	std::vector<SharedPointer<GameObject>> m_ObstaclesList;
 
+	SharedPointer<GameObject> m_GameOverScreen;
+	SharedPointer<GameObject> m_GameWonScreen;
+
 	float m_GameTime = 0;
 	Vector2 m_Direction = Vector2::Zero;
 };

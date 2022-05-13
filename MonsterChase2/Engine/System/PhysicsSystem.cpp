@@ -48,14 +48,14 @@ void PhysicsSystem::Update(float InDeltaTime, GameWorld* InGameWorld)
 
 			//dv = a * dt
 			Vector2 currentPosition = rigidBodyComponent->GetPosition();
-			currentVelocity += accelaration * InDeltaTime;
+			Vector2 newVelocity  = currentVelocity + accelaration * InDeltaTime;
 
 			//dx = v * dt using Midpoint/Average
-			Vector2 averageVelocity = (currentVelocity + previousVelocity) / 2.0f;
-			currentPosition += averageVelocity * InDeltaTime;
+			Vector2 averageVelocity = (newVelocity + previousVelocity) / 2.0f;
+			Vector2 newPosition = currentPosition + averageVelocity * InDeltaTime;
 
-			rigidBodyComponent->SetPosition(currentPosition);
-			rigidBodyComponent->SetVelocity(currentVelocity);
+			rigidBodyComponent->SetPosition(newPosition);
+			rigidBodyComponent->SetVelocity(newVelocity);
 
 			// reset the net force
 			//rigidBodyComponent->SetForce(Vector2::Zero);

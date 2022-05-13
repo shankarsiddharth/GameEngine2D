@@ -156,4 +156,15 @@ void FinalGame::LoadGameObjects()
 	dataFilePath = "data/obstacle.json";
 	SharedPointer<GameObject> newObstacle = CreateObject(dataFilePath);
 	m_ObstaclesList.push_back(newObstacle);
+
+	Vector2 screenPosition = Vector2(0, float(-1 * ((int)(m_GameWindow.GetWindowHeight()) / 2)));
+	dataFilePath = "data/gameover.json";
+	m_GameOverScreen = CreateObject(dataFilePath);
+	m_GameOverScreen->SetPosition(screenPosition);
+	//m_GameOverScreen->SetVisibility(false);
+
+	dataFilePath = "data/gamewon.json";
+	m_GameWonScreen = CreateObject(dataFilePath);
+	m_GameWonScreen->SetPosition(screenPosition);
+	//m_GameOverScreen->SetVisibility(false);
 }

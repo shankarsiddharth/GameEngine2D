@@ -1,5 +1,5 @@
 {
-    "name": "Goal",
+    "name": "goal",
     "position": [-250 , 250],
     "components": {
         "sprite2d":{
