@@ -69,18 +69,25 @@ void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InB
 				continue;
 			}
 
-			BoxCollider2D& colliderA = *(InBoxColliderList[i]);
-			BoxCollider2D& colliderB = *(InBoxColliderList[j]);
-
-			bool doesIntersect = DoesInterect(colliderA, colliderB, InDeltaTime) && DoesInterect(colliderB, colliderA, InDeltaTime);
-			if (doesIntersect)
+			if (InBoxColliderList[i] != nullptr && InBoxColliderList[j] != nullptr)
 			{
-				EngineHelpers::DebugPrint("Collision Detected");
-				if(m_OnCollisionDetected != nullptr)
+				BoxCollider2D& colliderA = *(InBoxColliderList[i]);
+				BoxCollider2D& colliderB = *(InBoxColliderList[j]);
+
+				bool doesIntersectAB = DoesInterect(colliderA, colliderB, InDeltaTime);
+				bool doesIntersectBA = DoesInterect(colliderB, colliderA, InDeltaTime);
+				if (doesIntersectAB && doesIntersectBA)
 				{
-					m_OnCollisionDetected(colliderA.GetRootGameObject(), colliderB.GetRootGameObject());
+					EngineHelpers::DebugPrint("Collision Detected");
+					if (m_OnCollisionDetected != nullptr)
+					{
+						m_OnCollisionDetected(colliderA.GetRootGameObject(), colliderB.GetRootGameObject());
+					}
+					if (InBoxColliderList[i] != nullptr && InBoxColliderList[j] != nullptr)
+					{
+						colliderA.ExecuteCollisionCallback(colliderB.GetRootGameObject());
+					}
 				}
-				colliderA.ExecuteCollisionCallback(colliderB.GetRootGameObject());
 			}
 		}
 	}
@@ -145,7 +152,7 @@ bool CollisionSystem::DoesInterect(BoxCollider2D& InA, BoxCollider2D& InB, float
 				{
 					return true;
 				}
-			}			
+			}
 			return false;
 		}
 	}

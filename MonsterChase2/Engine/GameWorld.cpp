@@ -27,7 +27,7 @@ void GameWorld::RemoveGameObject(SharedPointer<GameObject> InGameObject)
 	{
 		if (*listIterator == InGameObject)
 		{
-			(*listIterator)->RemoveAllComponents();
+			//(*listIterator)->RemoveAllComponents();
 			listIterator = m_GameObjectList.erase(listIterator);
 		}
 		else

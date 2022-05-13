@@ -130,8 +130,24 @@ void FinalGame::RemoveAllObstacles()
 
 void FinalGame::OnCollision(SharedPointer<GameObject> InObjectA, SharedPointer<GameObject> InObjectB)
 {
-	std::string logString = "Game Object " + InObjectA->GetName() + " collided with " + InObjectB->GetName();
+	std::string objectAName = InObjectA->GetName();
+	std::string objectBName = InObjectB->GetName();
+	std::string logString = "Game Object " + objectAName + " collided with " + objectBName;
+
 	EngineHelpers::DebugPrint(logString);
+
+	if ((objectAName == "obstacle" && objectBName == "player") ||
+		(objectAName == "player") && objectBName == "obstacle")
+	{
+		if (objectAName == "obstacle")
+		{
+			m_GameWorld.RemoveGameObject(InObjectA);
+		}
+		else
+		{
+			m_GameWorld.RemoveGameObject(InObjectB);
+		}
+	}
 }
 
 void FinalGame::LoadGameObjects()
@@ -139,16 +155,16 @@ void FinalGame::LoadGameObjects()
 	std::string dataFilePath = "data/player.json";
 
 	m_Player = CreateObject(dataFilePath);
-	m_Player->GetComponent<BoxCollider2D>()->EnableCollisionCallback([this](SharedPointer<GameObject> CollidedObject) {
-		EngineHelpers::DebugPrint(CollidedObject->GetName());
-		RigidBody2D& rigidbody = *(this->m_Player->GetComponent<RigidBody2D>());
-		Vector2 velocity = rigidbody.GetVelocity();
-		Vector2 force = rigidbody.GetForce();
-		//rigidbody.AddForce(force * -2.0f);
-		//rigidbody.SetVelocity(Vector2::Zero);
-		//rigidbody.SetForce(Vector2::Zero);
-		this->m_Direction = this->m_Direction * -1.0f;
-		});
+	//m_Player->GetComponent<BoxCollider2D>()->EnableCollisionCallback([this](SharedPointer<GameObject> CollidedObject) {
+	//	EngineHelpers::DebugPrint(CollidedObject->GetName());
+	//	RigidBody2D& rigidbody = *(this->m_Player->GetComponent<RigidBody2D>());
+	//	Vector2 velocity = rigidbody.GetVelocity();
+	//	Vector2 force = rigidbody.GetForce();
+	//	//rigidbody.AddForce(force * -2.0f);
+	//	//rigidbody.SetVelocity(Vector2::Zero);
+	//	//rigidbody.SetForce(Vector2::Zero);
+	//	this->m_Direction = this->m_Direction * -1.0f;
+	//	});
 
 	dataFilePath = "data/goal.json";
 	m_Goal = CreateObject(dataFilePath);
@@ -161,10 +177,10 @@ void FinalGame::LoadGameObjects()
 	dataFilePath = "data/gameover.json";
 	m_GameOverScreen = CreateObject(dataFilePath);
 	m_GameOverScreen->SetPosition(screenPosition);
-	//m_GameOverScreen->SetVisibility(false);
+	m_GameOverScreen->SetVisibility(false);
 
 	dataFilePath = "data/gamewon.json";
 	m_GameWonScreen = CreateObject(dataFilePath);
 	m_GameWonScreen->SetPosition(screenPosition);
-	//m_GameOverScreen->SetVisibility(false);
+	m_GameWonScreen->SetVisibility(false);
 }
