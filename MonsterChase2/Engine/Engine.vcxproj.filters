@@ -171,6 +171,9 @@
     <ClCompile Include="Helpers\EngineHelpers.cpp">
       <Filter>Source Files\EngineHelpers</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine.h">
@@ -424,6 +427,9 @@
     </ClInclude>
     <ClInclude Include="System\TaskSystem.h">
       <Filter>Source Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -47,7 +47,7 @@ void RenderSystem::ShutDown()
 void RenderSystem::BeginRendering()
 {
 	// IMPORTANT: Tell GLib that we want to start rendering
-	GLib::BeginRendering(DirectX::Colors::Blue);
+	GLib::BeginRendering(DirectX::Colors::Black);
 	// Tell GLib that we want to render some sprites
 	GLib::Sprites::BeginRendering();
 }

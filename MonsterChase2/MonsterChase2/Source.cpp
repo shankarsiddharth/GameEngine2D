@@ -5,12 +5,12 @@
 #include <crtdbg.h>
 #endif // _DEBUG
 
-#include "MonsterChaseGame.h"
 #include <iostream>
+#include "FinalGame.h"
 
 void RunGame(HINSTANCE i_hInstance, HINSTANCE i_hPrevInstance, LPWSTR i_lpCmdLine, int i_nCmdShow)
 {
-	MonsterChaseGame game;
+	FinalGame game;
 	game.StartGame(i_hInstance, i_nCmdShow);
 }
 

@@ -24,7 +24,7 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MonsterChaseGame.h">
+    <ClInclude Include="FinalGame.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,13 +32,13 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MonsterChaseGame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DebugCRT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SIMDMatrixTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FinalGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
