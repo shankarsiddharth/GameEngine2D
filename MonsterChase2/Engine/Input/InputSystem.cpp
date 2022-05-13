@@ -1,5 +1,6 @@
 #include "InputSystem.h"
 #include "../../GLib/GLib.h"
+#include "../Helpers/EngineHelpers.h"
 
 void InputSystem::UpdateInput()
 {
@@ -41,14 +42,23 @@ bool InputSystem::IsKeyUp(KeyCode i_Key)
 	return false;
 }
 
+//bool InputSystem::IsKeyPressed(KeyCode i_Key)
+//{
+//	for (KeyCode keyCode : validKeyCodes)
+//	{
+//		if (keyCode == i_Key)
+//		{
+//			return keyPressedMap[keyCode];
+//		}
+//	}
+//	return false;
+//}
+
 bool InputSystem::IsKeyPressed(KeyCode i_Key)
 {
-	for (KeyCode keyCode : validKeyCodes)
-	{
-		if (keyCode == i_Key)
-		{
-			return keyPressedMap[keyCode];
-		}
+	if (keyPressedMap.count(i_Key))
+	{		
+		return keyPressedMap[i_Key];
 	}
 	return false;
 }
@@ -59,7 +69,7 @@ void InputSystem::KeyInputCallback(unsigned int i_VKeyID, bool bWentDown)
 	isDown = bWentDown;
 	isUp = !bWentDown;
 
-	keyPressedMap[(KeyCode)i_VKeyID] = isDown;
+	keyPressedMap[(KeyCode)inputKeyCode] = isDown;
 
 #ifdef _DEBUG
 	const size_t	lenBuffer = 65;
@@ -106,6 +116,11 @@ void InputSystem::Initialize()
 	validKeyCodes.push_back(KeyCode::X);
 	validKeyCodes.push_back(KeyCode::Y);
 	validKeyCodes.push_back(KeyCode::Z);
+
+	for (KeyCode keyCode : validKeyCodes)
+	{
+		keyPressedMap.insert(std::pair<KeyCode, bool>(keyCode, false));
+	}
 
 	GLib::SetKeyStateChangeCallback(std::bind(&InputSystem::KeyInputCallback, this, std::placeholders::_1, std::placeholders::_2));
 }

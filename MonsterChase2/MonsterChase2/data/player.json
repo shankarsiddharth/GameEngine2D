@@ -7,7 +7,7 @@
         },
         "rigidbody2d":{
             "mass" : 0.5,
-            "dragcoefficient": 2.0           
+            "dragcoefficient": 0          
         },
         "boxcollider2d":{}
     }

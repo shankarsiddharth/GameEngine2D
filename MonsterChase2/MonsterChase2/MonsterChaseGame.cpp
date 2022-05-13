@@ -4,6 +4,7 @@
 #include "GameRuntime.h"
 #include "Component/RigidBody2D.h"
 #include "JobSystem/JobSystem/JobSystem.h"
+#include "Helpers/EngineHelpers.h"
 
 MonsterChaseGame::MonsterChaseGame()
 	:GameRuntime(),
@@ -54,7 +55,7 @@ void MonsterChaseGame::StartGame(HINSTANCE i_hInstance, int i_nCmdShow)
 
 void MonsterChaseGame::ProcessInput()
 {
-	float force = 25.0f;
+	float force = 0.5f;
 
 	if (inputSystem.IsKeyPressed(KeyCode::W))
 	{
@@ -71,6 +72,23 @@ void MonsterChaseGame::ProcessInput()
 	if (inputSystem.IsKeyPressed(KeyCode::D))
 	{
 		player->GetComponent<RigidBody2D>()->AddForce(Vector2(force, 0));
+	}
+
+	if (inputSystem.IsKeyPressed(KeyCode::Y))
+	{
+		monster->GetComponent<RigidBody2D>()->AddForce(Vector2(0, force));
+	}
+	if (inputSystem.IsKeyPressed(KeyCode::G))
+	{
+		monster->GetComponent<RigidBody2D>()->AddForce(Vector2(-force, 0));
+	}
+	if (inputSystem.IsKeyPressed(KeyCode::H))
+	{
+		monster->GetComponent<RigidBody2D>()->AddForce(Vector2(0, -force));
+	}
+	if (inputSystem.IsKeyPressed(KeyCode::J))
+	{
+		monster->GetComponent<RigidBody2D>()->AddForce(Vector2(force, 0));
 	}
 
 	if (inputSystem.IsKeyPressed(KeyCode::K))

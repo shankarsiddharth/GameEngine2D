@@ -33,6 +33,8 @@ void RigidBody2D::AddForce(Vector2 i_Force)
 {
 	//TODO: Change to add force
 	m_Force = i_Force;
+
+	//m_Force += i_Force;
 }
 
 void RigidBody2D::SetForce(Vector2 i_Force)

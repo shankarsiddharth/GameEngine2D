@@ -26,11 +26,13 @@ bool GameRuntime::Initialize(HINSTANCE i_hInstance, int i_nCmdShow)
 
 void GameRuntime::UpdateInput()
 {
-	if (inputSystem.IsValidInput())
+	/*if (inputSystem.IsValidInput())
 	{
 		ProcessInput();
 		inputSystem.ClearInput();
-	}
+	}*/
+	ProcessInput();
+	inputSystem.ClearInput();
 	inputSystem.UpdateInput();
 }
 
