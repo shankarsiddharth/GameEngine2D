@@ -4,6 +4,7 @@
 #include "Object/GameObject.h"
 #include "Math/Vector2.h"
 #include <vector>
+#include "GameState.h"
 
 class FinalGame
 	: public Game
@@ -23,14 +24,19 @@ protected:
 private:
 	void LoadGameObjects();
 	void RemoveAllObstacles();
-	void OnCollision(SharedPointer<GameObject> InObjectA, SharedPointer<GameObject> InObjectB);
+	void HandleCollision(SharedPointer<GameObject> InObjectA, SharedPointer<GameObject> InObjectB);
 
+	void ChangeGameState(TGameState InGameState);
+	void HideAllScreens();
+	
 	SharedPointer<GameObject> m_Player;
 	SharedPointer<GameObject> m_Goal;
 	std::vector<SharedPointer<GameObject>> m_ObstaclesList;
 
 	SharedPointer<GameObject> m_GameOverScreen;
 	SharedPointer<GameObject> m_GameWonScreen;
+
+	TGameState m_CurrentGameState;
 
 	float m_GameTime = 0;
 	Vector2 m_Direction = Vector2::Zero;

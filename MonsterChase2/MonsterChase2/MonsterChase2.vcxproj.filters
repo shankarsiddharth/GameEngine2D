@@ -27,6 +27,9 @@
     <ClInclude Include="FinalGame.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">

@@ -11,7 +11,8 @@
 FinalGame::FinalGame()
 	:Game(),
 	m_Player(nullptr),
-	m_Goal(nullptr)
+	m_Goal(nullptr),
+	m_CurrentGameState(TGameState::kStart)
 {
 
 }
@@ -27,7 +28,7 @@ void FinalGame::InitializeGameplay()
 	m_GameWindow.SetWindowHeight(800);
 	m_GameWindow.SetWindowWidth(1200);
 
-	ListenForCollisions(std::bind(&FinalGame::OnCollision, this, std::placeholders::_1, std::placeholders::_2));
+	ListenForCollisions(std::bind(&FinalGame::HandleCollision, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void FinalGame::StartGameplay()
@@ -109,6 +110,12 @@ void FinalGame::UpdateGameplay()
 		EngineHelpers::DebugPrint("30 seconds elapsed.");
 		gameTime = 0.0f;
 	}*/
+	float rotationSpeed = 0.5f;
+
+	for (SharedPointer<GameObject> obstacle: m_ObstaclesList)
+	{
+		obstacle->AddRotationZ(rotationSpeed * m_DeltaTime);
+	}
 }
 
 void FinalGame::ShutDownGameplay()
@@ -128,7 +135,7 @@ void FinalGame::RemoveAllObstacles()
 	m_ObstaclesList.clear();
 }
 
-void FinalGame::OnCollision(SharedPointer<GameObject> InObjectA, SharedPointer<GameObject> InObjectB)
+void FinalGame::HandleCollision(SharedPointer<GameObject> InObjectA, SharedPointer<GameObject> InObjectB)
 {
 	std::string objectAName = InObjectA->GetName();
 	std::string objectBName = InObjectB->GetName();
@@ -147,7 +154,50 @@ void FinalGame::OnCollision(SharedPointer<GameObject> InObjectA, SharedPointer<G
 		{
 			m_GameWorld.RemoveGameObject(InObjectB);
 		}
+		ChangeGameState(TGameState::kGameOver);
 	}
+
+	if ((objectAName == "goal" && objectBName == "player") ||
+		(objectAName == "player") && objectBName == "goal")
+	{		
+		ChangeGameState(TGameState::kGameWon);
+	}
+}
+
+void FinalGame::ChangeGameState(TGameState InGameState)
+{
+	if (m_CurrentGameState == InGameState)
+	{
+		return;
+	}
+
+	m_CurrentGameState = InGameState;
+
+	switch (m_CurrentGameState)
+	{
+	case TGameState::kStart:
+		break;
+	case TGameState::kGameWon:
+	{
+		HideAllScreens();
+		m_GameWonScreen->SetVisibility(true);
+	}
+		break;
+	case TGameState::kGameOver:
+	{
+		HideAllScreens();
+		m_GameOverScreen->SetVisibility(true);
+	}
+		break;
+	default:
+		break;
+	}
+}
+
+void FinalGame::HideAllScreens()
+{
+	m_GameWonScreen->SetVisibility(false);
+	m_GameOverScreen->SetVisibility(false);
 }
 
 void FinalGame::LoadGameObjects()
