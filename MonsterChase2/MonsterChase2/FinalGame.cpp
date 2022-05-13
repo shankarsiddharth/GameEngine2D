@@ -122,6 +122,8 @@ void FinalGame::UpdateGameplay()
 void FinalGame::ShutDownGameplay()
 {
 	RemoveAllObstacles();
+	RemoveAllBreakableWalls();
+	RemoveAllWalls();
 }
 
 void FinalGame::RemoveAllObstacles()
@@ -136,6 +138,30 @@ void FinalGame::RemoveAllObstacles()
 	m_ObstaclesList.clear();
 }
 
+void FinalGame::RemoveAllBreakableWalls()
+{
+	for (SharedPointer<GameObject> breakableWalls : m_BrekableWallsList)
+	{
+		if (breakableWalls)
+		{
+			breakableWalls->RemoveAllComponents();
+		}
+	}
+	m_BrekableWallsList.clear();
+}
+
+void FinalGame::RemoveAllWalls()
+{
+	for (SharedPointer<GameObject> walls : m_WallsList)
+	{
+		if (walls)
+		{
+			walls->RemoveAllComponents();
+		}
+	}
+	m_WallsList.clear();
+}
+
 void FinalGame::HandleCollision(SharedPointer<GameObject> InObjectA, SharedPointer<GameObject> InObjectB)
 {
 	std::string objectAName = InObjectA->GetName();
@@ -144,25 +170,41 @@ void FinalGame::HandleCollision(SharedPointer<GameObject> InObjectA, SharedPoint
 
 	EngineHelpers::DebugPrint(logString);
 
+	//Player - Goal - Game Won
+	if ((objectAName == "goal" && objectBName == "player") ||
+		(objectAName == "player") && objectBName == "goal")
+	{
+		ChangeGameState(TGameState::kGameWon);
+	}
+
+	//Player - Obstacle - Game Over
 	if ((objectAName == "obstacle" && objectBName == "player") ||
 		(objectAName == "player") && objectBName == "obstacle")
-	{
-		if (objectAName == "obstacle")
-		{
-			m_GameWorld.RemoveGameObject(InObjectA);
-		}
-		else
-		{
-			m_GameWorld.RemoveGameObject(InObjectB);
-		}
+	{		
 		ChangeGameState(TGameState::kGameOver);
 	}
 
-	if ((objectAName == "goal" && objectBName == "player") ||
-		(objectAName == "player") && objectBName == "goal")
-	{		
-		ChangeGameState(TGameState::kGameWon);
+	//Player - BreakableWall - Destroy the Wall
+	if ((objectAName == "breakablewall" && objectBName == "player") ||
+		(objectAName == "player") && objectBName == "breakablewall")
+	{
+		if (InObjectA == m_Player)
+		{
+			m_GameWorld.RemoveGameObject(InObjectB);
+		}
+		else
+		{
+			m_GameWorld.RemoveGameObject(InObjectA);
+		}
+	}		
+
+	//Player - Wall - Stop the Player
+	if ((objectAName == "wall" && objectBName == "player") ||
+		(objectAName == "player") && objectBName == "wall")
+	{
+		m_Player->GetComponent<RigidBody2D>()->SetForce(Vector2::Zero);
 	}
+
 }
 
 void FinalGame::ChangeGameState(TGameState InGameState)
@@ -204,25 +246,22 @@ void FinalGame::HideAllScreens()
 void FinalGame::LoadGameObjects()
 {
 	std::string dataFilePath = "data/player.json";
-
 	m_Player = CreateObject(dataFilePath);
-	//m_Player->GetComponent<BoxCollider2D>()->EnableCollisionCallback([this](SharedPointer<GameObject> CollidedObject) {
-	//	EngineHelpers::DebugPrint(CollidedObject->GetName());
-	//	RigidBody2D& rigidbody = *(this->m_Player->GetComponent<RigidBody2D>());
-	//	Vector2 velocity = rigidbody.GetVelocity();
-	//	Vector2 force = rigidbody.GetForce();
-	//	//rigidbody.AddForce(force * -2.0f);
-	//	//rigidbody.SetVelocity(Vector2::Zero);
-	//	//rigidbody.SetForce(Vector2::Zero);
-	//	this->m_Direction = this->m_Direction * -1.0f;
-	//	});
 
 	dataFilePath = "data/goal.json";
 	m_Goal = CreateObject(dataFilePath);
 
+	dataFilePath = "data/wall.json";
+	SharedPointer<GameObject> newWall = CreateObject(dataFilePath);
+	m_WallsList.push_back(newWall);
+
 	dataFilePath = "data/obstacle.json";
 	SharedPointer<GameObject> newObstacle = CreateObject(dataFilePath);
 	m_ObstaclesList.push_back(newObstacle);
+
+	dataFilePath = "data/breakablewall.json";
+	SharedPointer<GameObject> newBreakableWall = CreateObject(dataFilePath);
+	m_BrekableWallsList.push_back(newBreakableWall);
 
 	Vector2 screenPosition = Vector2(0, float(-1 * ((int)(m_GameWindow.GetWindowHeight()) / 2)));
 	dataFilePath = "data/gameover.json";

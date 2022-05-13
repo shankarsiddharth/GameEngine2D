@@ -56,13 +56,13 @@ void InputSystem::KeyInputCallback(unsigned int InVKeyID, bool InIsDown)
 
 	m_KeyPressedMap[(KeyCode)m_InputKeyCode] = m_IsDown;
 
-#ifdef _DEBUG
-	const size_t	lenBuffer = 65;
-	char			Buffer[lenBuffer];
-
-	sprintf_s(Buffer, lenBuffer, "VKey 0x%04x went %s\n", InVKeyID, InIsDown ? "down" : "up");
-	OutputDebugStringA(Buffer);
-#endif // __DEBUG
+//#ifdef _DEBUG
+//	const size_t	lenBuffer = 65;
+//	char			Buffer[lenBuffer];
+//
+//	sprintf_s(Buffer, lenBuffer, "VKey 0x%04x went %s\n", InVKeyID, InIsDown ? "down" : "up");
+//	OutputDebugStringA(Buffer);
+//#endif // __DEBUG
 }
 
 KeyCode InputSystem::GetCurrentKeyCode()

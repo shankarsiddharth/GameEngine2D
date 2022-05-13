@@ -1,0 +1,10 @@
+{
+    "name": "breakablewall",
+    "position": [-150 , -150],
+    "components": {
+        "sprite2d":{
+            "filepath": "data\\breakablewall.dds"
+        },
+        "boxcollider2d":{}
+    }
+}

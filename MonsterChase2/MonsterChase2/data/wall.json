@@ -1,0 +1,10 @@
+{
+    "name": "wall",
+    "position": [150 , -150],
+    "components": {
+        "sprite2d":{
+            "filepath": "data\\wall.dds"
+        },
+        "boxcollider2d":{}
+    }
+}

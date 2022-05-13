@@ -21,6 +21,7 @@ public:
 
 	Vector2 operator / (float const& InValue);
 	Vector2 operator * (float const& InValue);
+	Vector2 operator-();
 
 	Vector2 GetNormalVector() const;
 

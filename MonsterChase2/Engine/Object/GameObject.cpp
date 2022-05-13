@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "../Component/Component.h"
+#include "../Helpers/EngineHelpers.h"
 
 GameObject::GameObject()
 	:m_Position(Vector2(0,0)),
@@ -13,6 +14,7 @@ GameObject::~GameObject()
 	{
 		RemoveAllComponents();
 	}
+	EngineHelpers::DebugPrint(m_Name + " deleted.");
 };
 
 Vector2 GameObject::GetPosition() const

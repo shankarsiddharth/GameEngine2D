@@ -87,6 +87,11 @@ void Vector2::operator-=(const Vector2& InVector)
 	m_Y -= InVector.m_Y;
 }
 
+Vector2 Vector2::operator-()
+{
+	return Vector2(m_X * -1.0f, m_Y * -1.0f);
+}
+
 void Vector2::operator+=(const Vector2& InVector)
 {
 	m_X += InVector.m_X;
