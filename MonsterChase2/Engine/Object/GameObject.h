@@ -35,11 +35,15 @@ public:
 	std::string GetName() const;
 	void SetName(std::string InName);
 
+	bool IsVisible() const;
+	void SetVisibility(bool InVisibility);
+
 protected:
 	Vector2 m_Position;
 	Vector4 m_Rotation;
 	std::vector<Component*> m_ComponentList;
 	std::string m_Name;
+	bool m_Visibility;
 };
 
 #include "GameObject_inl.h"

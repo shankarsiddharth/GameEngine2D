@@ -2,7 +2,8 @@
 #include "../Component/Component.h"
 
 GameObject::GameObject()
-	:m_Position(Vector2(0,0))
+	:m_Position(Vector2(0,0)),
+	m_Visibility(true)
 {
 }
 
@@ -70,4 +71,14 @@ std::string GameObject::GetName() const
 void GameObject::SetName(std::string InName)
 {
 	m_Name = InName;
+}
+
+bool GameObject::IsVisible() const
+{
+	return m_Visibility;
+}
+
+void GameObject::SetVisibility(bool InVisibility)
+{
+	m_Visibility = InVisibility;
 }

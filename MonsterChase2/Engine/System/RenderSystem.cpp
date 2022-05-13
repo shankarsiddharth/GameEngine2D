@@ -27,12 +27,15 @@ void RenderSystem::Update(float InDeltaTime, GameWorld* InGameWorld)
 	std::vector<SharedPointer<GameObject>> gameObjects = InGameWorld->GetAllGameObjects();
 	for (SharedPointer<GameObject> gameObject : gameObjects)
 	{
-		GLib::Point2D position{ (float)(gameObject->GetPosition().X()), (float)(gameObject->GetPosition().Y()) };
-		Sprite2D* spriteComponent = gameObject->GetComponent<Sprite2D>();
-		if (spriteComponent != nullptr)
+		if (gameObject->IsVisible())
 		{
-			float rotationZ = gameObject->GetRotation().Z();
-			GLib::Render(*(spriteComponent->GetGLibSprite()), position, 0.0f, rotationZ);
+			GLib::Point2D position{ (float)(gameObject->GetPosition().X()), (float)(gameObject->GetPosition().Y()) };
+			Sprite2D* spriteComponent = gameObject->GetComponent<Sprite2D>();
+			if (spriteComponent != nullptr)
+			{
+				float rotationZ = gameObject->GetRotation().Z();
+				GLib::Render(*(spriteComponent->GetGLibSprite()), position, 0.0f, rotationZ);
+			}
 		}
 	}
 
