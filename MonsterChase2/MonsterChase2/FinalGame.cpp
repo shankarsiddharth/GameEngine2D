@@ -7,6 +7,7 @@
 #include "Helpers/EngineHelpers.h"
 #include "Component/BoxCollider2D.h"
 #include "JobSystem/JobSystem/JobStatus.h"
+#include "GameConstants.h"
 
 FinalGame::FinalGame()
 	:Game(),
@@ -38,7 +39,7 @@ void FinalGame::StartGameplay()
 
 void FinalGame::ProcessInput()
 {
-	float force = 0.5f;
+	float force = GameConstants::PlayerForce;
 
 	if (m_InputSystem.IsKeyPressed(KeyCode::W))
 	{
@@ -110,7 +111,7 @@ void FinalGame::UpdateGameplay()
 		EngineHelpers::DebugPrint("30 seconds elapsed.");
 		gameTime = 0.0f;
 	}*/
-	float rotationSpeed = 0.5f;
+	float rotationSpeed = GameConstants::ObstacleRotaionSpeed;
 
 	for (SharedPointer<GameObject> obstacle: m_ObstaclesList)
 	{

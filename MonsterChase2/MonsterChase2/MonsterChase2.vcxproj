@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="FinalGame.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GameConstants.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -164,6 +165,7 @@
   <ItemGroup>
     <ClCompile Include="DebugCRT.cpp" />
     <ClCompile Include="FinalGame.cpp" />
+    <ClCompile Include="GameConstants.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
