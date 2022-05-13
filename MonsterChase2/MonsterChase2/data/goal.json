@@ -1,0 +1,10 @@
+{
+    "name": "Goal",
+    "position": [-250 , 250],
+    "components": {
+        "sprite2d":{
+            "filepath": "data\\goal.dds"
+        },
+        "boxcollider2d":{}
+    }
+}

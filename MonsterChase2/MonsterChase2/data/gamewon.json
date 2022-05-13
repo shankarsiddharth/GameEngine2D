@@ -1,0 +1,9 @@
+{
+    "name": "player",
+    "position": [0 , 0],
+    "components": {
+        "sprite2d":{
+            "filepath": "data\\gamewon.dds"
+        }
+    }
+}

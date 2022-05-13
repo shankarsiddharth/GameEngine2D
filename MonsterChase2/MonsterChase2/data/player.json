@@ -1,6 +1,6 @@
 {
-    "name": "Player",
-    "position": [0 , 50],
+    "name": "player",
+    "position": [0 , 0],
     "components": {
         "sprite2d":{
             "filepath": "data\\player.dds"
