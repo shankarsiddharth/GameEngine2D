@@ -51,7 +51,6 @@ void BoxCollider2D::UpdateWorldExtents()
 	Vector2 gameObjectPosition = rootGameObject->GetPosition();
 	Vector4 gameObjectRotation = rootGameObject->GetRotation();
 
-	//TODO: Check the ZValue passed to create the translation matrix
 	Matrix4x4 translationMatrix = Matrix4x4::TranslationMatrix(gameObjectPosition.X(), gameObjectPosition.Y(), 0.0f);
 	Matrix4x4 rotationMatrix = Matrix4x4::ZRotationMatrix(gameObjectRotation.Z());
 
