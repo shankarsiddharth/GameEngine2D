@@ -21,3 +21,8 @@ void Component::Update()
 
 }
 
+SharedPointer<GameObject> Component::GetRootGameObject() const
+{
+	return rootGameObject;
+}
+

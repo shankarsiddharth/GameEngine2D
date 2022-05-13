@@ -15,7 +15,7 @@ public:
 	void ShutDown();
 
 private:
-	void SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InBoxColliderList);
-	bool DoesInterect(BoxCollider2D& A, BoxCollider2D& B);
+	void SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InBoxColliderList, float deltaTime);
+	bool DoesInterect(BoxCollider2D& A, BoxCollider2D& B, float deltaTime);
 };
 

@@ -7,6 +7,7 @@
 #include <iterator>
 #include <Windows.h>
 #include "../Helpers/EngineHelpers.h"
+#include "../Component/RigidBody2D.h"
 
 CollisionSystem::CollisionSystem()
 {
@@ -40,7 +41,7 @@ void CollisionSystem::Update(float deltaTime, GameWorld* i_GameWorld)
 		}
 	}
 
-	SeparatingAxisCheck(boxColliders);
+	SeparatingAxisCheck(boxColliders, deltaTime);
 
 }
 
@@ -49,7 +50,7 @@ void CollisionSystem::ShutDown()
 
 }
 
-void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InBoxColliderList)
+void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InBoxColliderList, float deltaTime)
 {
 	for (size_t i = 0; i < InBoxColliderList.size(); i++)
 	{
@@ -63,7 +64,7 @@ void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InB
 			BoxCollider2D& colliderA = *(InBoxColliderList[i]);
 			BoxCollider2D& colliderB = *(InBoxColliderList[j]);
 
-			bool doesIntersect = DoesInterect(colliderA, colliderB) && DoesInterect(colliderB, colliderA);
+			bool doesIntersect = DoesInterect(colliderA, colliderB, deltaTime) && DoesInterect(colliderB, colliderA, deltaTime);
 			if (doesIntersect)
 			{
 				EngineHelpers::DebugPrint("Collision Detected");
@@ -76,7 +77,7 @@ void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InB
 	}
 }
 
-bool CollisionSystem::DoesInterect(BoxCollider2D& A, BoxCollider2D& B)
+bool CollisionSystem::DoesInterect(BoxCollider2D& A, BoxCollider2D& B, float deltaTime)
 {
 	for (const Vector4& AAxis : A.GetWorldExtentAxes())
 	{
@@ -106,9 +107,36 @@ bool CollisionSystem::DoesInterect(BoxCollider2D& A, BoxCollider2D& B)
 		//Check the min and max to determine possible intersection
 		if ((aMinimumProjection < bMaximumProjection && aMinimumProjection > bMinimumProjection)
 			|| (bMinimumProjection < aMaximumProjection && bMinimumProjection > aMinimumProjection)) {
+			//Projections Overlap, Check for Other Axes
 			continue;
 		}
 		else {
+			//Check for swept axis
+			//Find the distance between the projections
+			float distanceAB = 0.0f;
+			if (bMaximumProjection <= aMinimumProjection)
+			{
+				distanceAB = aMinimumProjection - bMaximumProjection;
+			}
+			else if (aMaximumProjection <= bMinimumProjection)
+			{
+				distanceAB = bMinimumProjection - aMaximumProjection;
+			}
+			if (A.GetRootGameObject()->GetComponent<RigidBody2D>()
+				&& B.GetRootGameObject()->GetComponent<RigidBody2D>())
+			{
+				Vector2 VelocityA = A.GetRootGameObject()->GetComponent<RigidBody2D>()->GetVelocity();
+				Vector2 VelocityB = B.GetRootGameObject()->GetComponent<RigidBody2D>()->GetVelocity();
+				//Calculate Relative Velocity
+				Vector4 relativeVelocity = Vector4(VelocityA, 0, 1) - Vector4(VelocityB, 0, 1);
+				float projectedVelocityOnAxis = Vector4::DotProduct(AAxis, relativeVelocity);
+				//Calculate time to close the distance between the A & B projections
+				float timeToClose = distanceAB / projectedVelocityOnAxis;
+				if (timeToClose >= 0 && timeToClose < deltaTime)
+				{
+					return true;
+				}
+			}			
 			return false;
 		}
 	}

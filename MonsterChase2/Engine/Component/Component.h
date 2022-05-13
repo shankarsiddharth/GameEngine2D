@@ -11,6 +11,9 @@ public:
 	virtual ~Component();
 	virtual void Start();
 	virtual void Update();
+
+	SharedPointer<GameObject> GetRootGameObject() const;
+
 protected:
 	SharedPointer<GameObject> rootGameObject;
 };
