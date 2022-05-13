@@ -9,7 +9,7 @@
 #include "JobSystem/JobSystem/JobStatus.h"
 
 FinalGame::FinalGame()
-	:Game(), 
+	:Game(),
 	m_Player(nullptr),
 	m_Goal(nullptr)
 {
@@ -21,12 +21,13 @@ FinalGame::~FinalGame()
 
 }
 
-
 void FinalGame::InitializeGameplay()
 {
 	m_GameWindow.SetWindowName("GameWindow");
 	m_GameWindow.SetWindowHeight(800);
 	m_GameWindow.SetWindowWidth(1200);
+
+	ListenForCollisions(std::bind(&FinalGame::OnCollision, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 void FinalGame::StartGameplay()
@@ -113,7 +114,6 @@ void FinalGame::UpdateGameplay()
 void FinalGame::ShutDownGameplay()
 {
 	RemoveAllObstacles();
-
 }
 
 void FinalGame::RemoveAllObstacles()
@@ -126,6 +126,12 @@ void FinalGame::RemoveAllObstacles()
 		}
 	}
 	m_ObstaclesList.clear();
+}
+
+void FinalGame::OnCollision(SharedPointer<GameObject> InObjectA, SharedPointer<GameObject> InObjectB)
+{
+	std::string logString = "Game Object " + InObjectA->GetName() + " collided with " + InObjectB->GetName();
+	EngineHelpers::DebugPrint(logString);
 }
 
 void FinalGame::LoadGameObjects()

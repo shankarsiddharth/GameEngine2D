@@ -67,3 +67,8 @@ void GameRuntime::ProcessInput()
 {
 
 }
+
+void GameRuntime::ListenForCollisions(FOnCollisionDetected InOnCollisionDetectedCallback)
+{
+	m_GameEngine.ListenForCollisions(InOnCollisionDetectedCallback);
+}

@@ -16,6 +16,8 @@ public:
 
 	float ComputeDeltaTime();
 
+	void ListenForCollisions(FOnCollisionDetected InOnCollisionDetectedCallback);
+
 private:
 	RenderSystem m_RenderSystem;
 	PhysicsSystem m_PhysicsSystem;

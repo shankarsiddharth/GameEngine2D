@@ -36,3 +36,8 @@ float GameEngine::ComputeDeltaTime()
 {
 	return EngineTime::GetFrameTime();
 }
+
+void GameEngine::ListenForCollisions(FOnCollisionDetected InOnCollisionDetectedCallback)
+{
+	m_CollisionSystem.ListenForCollisions(InOnCollisionDetectedCallback);
+}

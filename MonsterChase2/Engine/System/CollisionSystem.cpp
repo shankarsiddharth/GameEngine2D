@@ -50,6 +50,14 @@ void CollisionSystem::ShutDown()
 
 }
 
+void CollisionSystem::ListenForCollisions(FOnCollisionDetected InOnCollisionDetectedCallback)
+{
+	if (InOnCollisionDetectedCallback != nullptr)
+	{
+		m_OnCollisionDetected = InOnCollisionDetectedCallback;
+	}
+}
+
 void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InBoxColliderList, float InDeltaTime)
 {
 	for (size_t i = 0; i < InBoxColliderList.size(); i++)
@@ -68,6 +76,10 @@ void CollisionSystem::SeparatingAxisCheck(const std::vector<BoxCollider2D*>& InB
 			if (doesIntersect)
 			{
 				EngineHelpers::DebugPrint("Collision Detected");
+				if(m_OnCollisionDetected != nullptr)
+				{
+					m_OnCollisionDetected(colliderA.GetRootGameObject(), colliderB.GetRootGameObject());
+				}
 				colliderA.ExecuteCollisionCallback(colliderB.GetRootGameObject());
 			}
 		}

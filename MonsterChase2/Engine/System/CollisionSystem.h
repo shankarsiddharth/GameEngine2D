@@ -19,6 +19,8 @@ public:
 	void Update(float InDeltaTime, GameWorld* InGameWorld);
 	void ShutDown();
 
+	void ListenForCollisions(FOnCollisionDetected InOnCollisionDetectedCallback);
+
 protected:
 	FOnCollisionDetected m_OnCollisionDetected;
 

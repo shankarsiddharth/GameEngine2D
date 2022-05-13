@@ -21,7 +21,10 @@ public:
 
 	virtual void ProcessInput() = 0;
 
+
 protected:
+	void ListenForCollisions(FOnCollisionDetected InOnCollisionDetectedCallback);
+	
 	bool m_ShouldQuit = false;
 
 	float m_DeltaTime;

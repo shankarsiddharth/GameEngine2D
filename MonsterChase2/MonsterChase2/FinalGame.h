@@ -23,6 +23,7 @@ protected:
 private:
 	void LoadGameObjects();
 	void RemoveAllObstacles();
+	void OnCollision(SharedPointer<GameObject> InObjectA, SharedPointer<GameObject> InObjectB);
 
 	SharedPointer<GameObject> m_Player;
 	SharedPointer<GameObject> m_Goal;
