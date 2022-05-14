@@ -4,7 +4,7 @@
 
 struct GameConstants
 {
-	const float PlayerForce = 2.5f;
+	const float PlayerForce = 1.5f;
 
 	const float ObstacleRotaionSpeed = 0.5f;
 
