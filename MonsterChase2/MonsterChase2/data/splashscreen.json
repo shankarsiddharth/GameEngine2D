@@ -1,0 +1,9 @@
+{
+    "name": "gamewon",
+    "position": [0 , 0],
+    "components": {
+        "sprite2d":{
+            "filepath": "data\\splashscreen.dds"
+        }
+    }
+}

@@ -3,6 +3,8 @@
 enum class TGameState
 {
 	kStart,
+	kPlaying,
 	kGameWon,
-	kGameOver
+	kGameOver,
+	kRestart
 };

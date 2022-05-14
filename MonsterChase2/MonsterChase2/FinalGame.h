@@ -25,6 +25,7 @@ private:
 	void LoadGameObjects();
 
 	void CreateScreens();
+	void CreateSplashScreen();
 	void CreateCollectibles();
 	void CreateBreakableWalls();
 	void CreateObstacles();
@@ -53,6 +54,7 @@ private:
 
 	SharedPointer<GameObject> m_GameOverScreen;
 	SharedPointer<GameObject> m_GameWonScreen;
+	SharedPointer<GameObject> m_SplashScreen;
 
 	TGameState m_CurrentGameState;
 

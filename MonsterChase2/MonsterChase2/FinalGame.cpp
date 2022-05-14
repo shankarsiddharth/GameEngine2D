@@ -40,32 +40,49 @@ void FinalGame::ProcessInput()
 {
 	float force = m_GameConstants.PlayerForce;
 
-	if (m_InputSystem.IsKeyPressed(KeyCode::W))
+	if (m_CurrentGameState == TGameState::kPlaying)
 	{
-		m_Player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, force));
-	}
-	if (m_InputSystem.IsKeyPressed(KeyCode::A))
-	{
-		m_Player->GetComponent<RigidBody2D>()->AddForce(Vector2(-force, 0));
-	}
-	if (m_InputSystem.IsKeyPressed(KeyCode::S))
-	{
-		m_Player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, -force));
-	}
-	if (m_InputSystem.IsKeyPressed(KeyCode::D))
-	{
-		m_Player->GetComponent<RigidBody2D>()->AddForce(Vector2(force, 0));
+		if (m_InputSystem.IsKeyPressed(KeyCode::W))
+		{
+			m_Player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, force));
+		}
+		if (m_InputSystem.IsKeyPressed(KeyCode::A))
+		{
+			m_Player->GetComponent<RigidBody2D>()->AddForce(Vector2(-force, 0));
+		}
+		if (m_InputSystem.IsKeyPressed(KeyCode::S))
+		{
+			m_Player->GetComponent<RigidBody2D>()->AddForce(Vector2(0, -force));
+		}
+		if (m_InputSystem.IsKeyPressed(KeyCode::D))
+		{
+			m_Player->GetComponent<RigidBody2D>()->AddForce(Vector2(force, 0));
+		}
 	}
 
-	if (m_InputSystem.IsKeyPressed(KeyCode::K))
+	if (m_InputSystem.IsKeyDown(KeyCode::Enter))
+	{
+		if (m_CurrentGameState == TGameState::kStart
+			|| m_CurrentGameState == TGameState::kRestart)
+		{
+			ChangeGameState(TGameState::kPlaying);
+		}
+
+		if (m_CurrentGameState == TGameState::kGameOver
+			|| m_CurrentGameState == TGameState::kGameWon)
+		{
+			ChangeGameState(TGameState::kRestart);
+		}
+	}
+
+	/*if (m_InputSystem.IsKeyPressed(KeyCode::K))
 	{
 		m_Player->AddRotationZ(0.01f);
 	}
 	if (m_InputSystem.IsKeyPressed(KeyCode::L))
 	{
 		m_Player->AddRotationZ(-0.01f);
-	}
-
+	}*/
 
 	//if (m_InputSystem.IsKeyDown(KeyCode::O))
 	//{
@@ -195,7 +212,10 @@ void FinalGame::ChangeGameState(TGameState InGameState)
 	switch (InGameState)
 	{
 	case TGameState::kStart:
-		break;
+	{
+		
+	}
+	break;
 	case TGameState::kGameWon:
 	{
 		if (m_CurrentGameState != TGameState::kGameOver)
@@ -216,12 +236,32 @@ void FinalGame::ChangeGameState(TGameState InGameState)
 		}
 	}
 	break;
-	default:
-		break;
+	case TGameState::kPlaying:
+	{
+		if (m_CurrentGameState == TGameState::kStart
+			|| m_CurrentGameState == TGameState::kRestart)
+		{
+			m_SplashScreen->SetVisibility(false);
+		}
 	}
-
+	break;
+	case TGameState::kRestart:
+	{
+		if (m_CurrentGameState == TGameState::kGameOver
+			|| m_CurrentGameState == TGameState::kGameWon)
+		{
+			HideAllScreens();
+			RemoveGameplayObjects(m_CollectiblesList);
+			CreateCollectibles();
+			m_Player->RemoveAllComponents();
+			CreatePlayer();
+			m_SplashScreen->RemoveAllComponents();
+			CreateSplashScreen();
+		}
+	}
+	break;
+	}
 	m_CurrentGameState = InGameState;
-
 }
 
 void FinalGame::HideAllScreens()
@@ -273,6 +313,20 @@ void FinalGame::CreateScreens()
 	m_GameWonScreen = CreateObject(dataFilePath);
 	m_GameWonScreen->SetPosition(screenPosition);
 	m_GameWonScreen->SetVisibility(false);
+
+	dataFilePath = "data/splashscreen.json";
+	m_SplashScreen = CreateObject(dataFilePath);
+	m_SplashScreen->SetPosition(screenPosition);
+	m_SplashScreen->SetVisibility(true);
+}
+
+void FinalGame::CreateSplashScreen()
+{
+	Vector2 screenPosition = Vector2(0, float(-1 * ((int)(m_GameWindow.GetWindowHeight()) / 2)));
+	std::string dataFilePath = "data/splashscreen.json";
+	m_SplashScreen = CreateObject(dataFilePath);
+	m_SplashScreen->SetPosition(screenPosition);
+	m_SplashScreen->SetVisibility(true);
 }
 
 void FinalGame::CreatePlayer()
