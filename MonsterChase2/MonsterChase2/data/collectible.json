@@ -1,0 +1,10 @@
+{
+    "name": "collectible",
+    "position": [-150 , -150],
+    "components": {
+        "sprite2d":{
+            "filepath": "data\\collectible.dds"
+        },
+        "boxcollider2d":{}
+    }
+}

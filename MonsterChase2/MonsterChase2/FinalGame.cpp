@@ -57,23 +57,6 @@ void FinalGame::ProcessInput()
 		m_Player->GetComponent<RigidBody2D>()->AddForce(Vector2(force, 0));
 	}
 
-	//if (m_InputSystem.IsKeyPressed(KeyCode::Y))
-	//{
-	//	monster->GetComponent<RigidBody2D>()->AddForce(Vector2(0, force));
-	//}
-	//if (m_InputSystem.IsKeyPressed(KeyCode::G))
-	//{
-	//	monster->GetComponent<RigidBody2D>()->AddForce(Vector2(-force, 0));
-	//}
-	//if (m_InputSystem.IsKeyPressed(KeyCode::H))
-	//{
-	//	monster->GetComponent<RigidBody2D>()->AddForce(Vector2(0, -force));
-	//}
-	//if (m_InputSystem.IsKeyPressed(KeyCode::J))
-	//{
-	//	monster->GetComponent<RigidBody2D>()->AddForce(Vector2(force, 0));
-	//}
-
 	if (m_InputSystem.IsKeyPressed(KeyCode::K))
 	{
 		m_Player->AddRotationZ(0.01f);
@@ -84,87 +67,26 @@ void FinalGame::ProcessInput()
 	}
 
 
-	if (m_InputSystem.IsKeyDown(KeyCode::O))
-	{
-		SharedPointer<GameObject> newGameObject = m_ObjectGenerator.CreateGameObjectFromJSONDocument(m_JSONParser.GetJSONDocument("data/player.json"));
-		m_GameWorld.AddGameObject(newGameObject);
-	}
-	if (m_InputSystem.IsKeyDown(KeyCode::P))
-	{
-		m_GameWorld.RemoveGameObjectAtIndex(m_GameWorld.GetGameObjectsCount() - 1);
-	}
+	//if (m_InputSystem.IsKeyDown(KeyCode::O))
+	//{
+	//	SharedPointer<GameObject> newGameObject = m_ObjectGenerator.CreateGameObjectFromJSONDocument(m_JSONParser.GetJSONDocument("data/player.json"));
+	//	m_GameWorld.AddGameObject(newGameObject);
+	//}
+	//if (m_InputSystem.IsKeyDown(KeyCode::P))
+	//{
+	//	m_GameWorld.RemoveGameObjectAtIndex(m_GameWorld.GetGameObjectsCount() - 1);
+	//}
 
 }
 
 void FinalGame::UpdateGameplay()
 {
-	/*gameTime += deltaTime;
-	EngineHelpers::DebugPrint("DeltaTime: " + std::to_string(deltaTime));
-	EngineHelpers::DebugPrint("GameTime: " + std::to_string(gameTime));
-	if (gameTime >= 1000.0f)
-	{
-		if (monster)
-		{
-			m_GameWorld.RemoveGameObject(monster);
-		}
-		EngineHelpers::DebugPrint("30 seconds elapsed.");
-		gameTime = 0.0f;
-	}*/
 	UpdateObstacleRotation();
-
-}
-
-void FinalGame::UpdateObstacleRotation()
-{
-	float rotationSpeed = m_GameConstants.ObstacleRotaionSpeed;
-
-	for (SharedPointer<GameObject> obstacle : m_ObstaclesList)
-	{
-		obstacle->AddRotationZ(rotationSpeed * m_DeltaTime);
-	}
 }
 
 void FinalGame::ShutDownGameplay()
 {
-	RemoveAllObstacles();
-	RemoveAllBreakableWalls();
-	RemoveAllWalls();
-}
-
-void FinalGame::RemoveAllObstacles()
-{
-	for (SharedPointer<GameObject> obstacles : m_ObstaclesList)
-	{
-		if (obstacles)
-		{
-			obstacles->RemoveAllComponents();
-		}
-	}
-	m_ObstaclesList.clear();
-}
-
-void FinalGame::RemoveAllBreakableWalls()
-{
-	for (SharedPointer<GameObject> breakableWalls : m_BrekableWallsList)
-	{
-		if (breakableWalls)
-		{
-			breakableWalls->RemoveAllComponents();
-		}
-	}
-	m_BrekableWallsList.clear();
-}
-
-void FinalGame::RemoveAllWalls()
-{
-	for (SharedPointer<GameObject> walls : m_WallsList)
-	{
-		if (walls)
-		{
-			walls->RemoveAllComponents();
-		}
-	}
-	m_WallsList.clear();
+	RemoveAllGameplayObjects();
 }
 
 void FinalGame::HandleCollision(SharedPointer<GameObject> InObjectA, SharedPointer<GameObject> InObjectB)
@@ -189,6 +111,27 @@ void FinalGame::HandleCollision(SharedPointer<GameObject> InObjectA, SharedPoint
 		ChangeGameState(TGameState::kGameOver);
 	}
 
+	//Player - Collectibles - Destroy the Collectible
+	if ((objectAName == "collectible" && objectBName == "player") ||
+		(objectAName == "player") && objectBName == "collectible")
+	{
+		if (InObjectA == m_Player)
+		{
+			m_GameWorld.RemoveGameObject(InObjectB);
+		}
+		else
+		{
+			m_GameWorld.RemoveGameObject(InObjectA);
+		}
+	}
+
+	//Player - Boundary - Game Over
+	if ((objectAName == "boundary" && objectBName == "player") ||
+		(objectAName == "player") && objectBName == "boundary")
+	{
+		ChangeGameState(TGameState::kGameOver);
+	}
+
 	//Player - BreakableWall - Destroy the Wall
 	if ((objectAName == "breakablewall" && objectBName == "player") ||
 		(objectAName == "player") && objectBName == "breakablewall")
@@ -203,20 +146,43 @@ void FinalGame::HandleCollision(SharedPointer<GameObject> InObjectA, SharedPoint
 		}
 	}
 
-	//Player - Wall - Stop the Player
+	//Player - Wall - Set the force to Zero
 	if ((objectAName == "wall" && objectBName == "player") ||
 		(objectAName == "player") && objectBName == "wall")
 	{
 		m_Player->GetComponent<RigidBody2D>()->SetForce(Vector2::Zero);
 	}
 
-	//Player - Boundary - Stop the Player
-	if ((objectAName == "boundary" && objectBName == "player") ||
-		(objectAName == "player") && objectBName == "boundary")
-	{
-		m_Player->GetComponent<RigidBody2D>()->SetForce(Vector2::Zero);
-	}
+}
 
+void FinalGame::UpdateObstacleRotation()
+{
+	float rotationSpeed = m_GameConstants.ObstacleRotaionSpeed;
+
+	for (SharedPointer<GameObject> obstacle : m_ObstaclesList)
+	{
+		obstacle->AddRotationZ(rotationSpeed * m_DeltaTime);
+	}
+}
+
+void FinalGame::RemoveAllGameplayObjects()
+{
+	RemoveGameplayObjects(m_CollectiblesList);
+	RemoveGameplayObjects(m_ObstaclesList);
+	RemoveGameplayObjects(m_BrekableWallsList);
+	RemoveGameplayObjects(m_WallsList);
+}
+
+void FinalGame::RemoveGameplayObjects(std::vector<SharedPointer<GameObject>>& m_ObjectsList)
+{
+	for (SharedPointer<GameObject> object : m_ObjectsList)
+	{
+		if (object)
+		{
+			object->RemoveAllComponents();
+		}
+	}
+	m_ObjectsList.clear();
 }
 
 void FinalGame::ChangeGameState(TGameState InGameState)
@@ -226,33 +192,54 @@ void FinalGame::ChangeGameState(TGameState InGameState)
 		return;
 	}
 
-	m_CurrentGameState = InGameState;
-
-	switch (m_CurrentGameState)
+	switch (InGameState)
 	{
 	case TGameState::kStart:
 		break;
 	case TGameState::kGameWon:
 	{
-		HideAllScreens();
-		m_GameWonScreen->SetVisibility(true);
+		if (m_CurrentGameState != TGameState::kGameOver)
+		{
+			m_Player->SetPosition(m_GameConstants.PlayerPosition);
+			m_Player->GetComponent<RigidBody2D>()->SetForce(Vector2::Zero);
+			HideAllScreens();
+			m_GameWonScreen->SetVisibility(true);
+		}
 	}
 	break;
 	case TGameState::kGameOver:
 	{
-		HideAllScreens();
-		m_GameOverScreen->SetVisibility(true);
+		if (m_CurrentGameState != TGameState::kGameWon)
+		{
+			HideAllScreens();
+			m_GameOverScreen->SetVisibility(true);
+		}
 	}
 	break;
 	default:
 		break;
 	}
+
+	m_CurrentGameState = InGameState;
+
 }
 
 void FinalGame::HideAllScreens()
 {
 	m_GameWonScreen->SetVisibility(false);
 	m_GameOverScreen->SetVisibility(false);
+}
+
+void FinalGame::LoadGameObjects()
+{
+	CreateWorldBoundaries();
+	CreatePlayer();
+	CreateGoal();
+	CreateCollectibles();
+	//CreateWalls();
+	CreateObstacles();
+	//CreateBreakableWalls();
+	CreateScreens();
 }
 
 void FinalGame::CreateWorldBoundaries()
@@ -274,17 +261,6 @@ void FinalGame::CreateWorldBoundaries()
 	}
 }
 
-void FinalGame::LoadGameObjects()
-{
-	CreateWorldBoundaries();
-	CreatePlayer();
-	CreateGoal();
-	//CreateWalls();
-	CreateObstacles();
-	//CreateBreakableWalls();
-	CreateScreens();
-}
-
 void FinalGame::CreateScreens()
 {
 	Vector2 screenPosition = Vector2(0, float(-1 * ((int)(m_GameWindow.GetWindowHeight()) / 2)));
@@ -297,6 +273,40 @@ void FinalGame::CreateScreens()
 	m_GameWonScreen = CreateObject(dataFilePath);
 	m_GameWonScreen->SetPosition(screenPosition);
 	m_GameWonScreen->SetVisibility(false);
+}
+
+void FinalGame::CreatePlayer()
+{
+	std::string dataFilePath = "data/player.json";
+	m_Player = CreateObject(dataFilePath);
+}
+
+void FinalGame::CreateGoal()
+{
+	std::string dataFilePath = "data/goal.json";
+	m_Goal = CreateObject(dataFilePath);
+}
+
+void FinalGame::CreateWalls()
+{
+	std::string dataFilePath = "data/wall.json";
+	for (size_t index = 0; index < m_GameConstants.WallPositions.size(); index++)
+	{
+		SharedPointer<GameObject> newWall = CreateObject(dataFilePath);
+		newWall->SetPosition(m_GameConstants.WallPositions[index]);
+		m_WallsList.push_back(newWall);
+	}
+}
+
+void FinalGame::CreateCollectibles()
+{
+	std::string dataFilePath = "data/breakablewall.json";
+	for (size_t index = 0; index < m_GameConstants.CollectiblePositions.size(); index++)
+	{
+		SharedPointer<GameObject> newBreakableWall = CreateObject(dataFilePath);
+		newBreakableWall->SetPosition(m_GameConstants.BreakableWallPositions[index]);
+		m_BrekableWallsList.push_back(newBreakableWall);
+	}
 }
 
 void FinalGame::CreateBreakableWalls()
@@ -319,27 +329,4 @@ void FinalGame::CreateObstacles()
 		newObstacle->SetPosition(m_GameConstants.ObstaclePositions[index]);
 		m_ObstaclesList.push_back(newObstacle);
 	}
-}
-
-void FinalGame::CreateWalls()
-{
-	std::string dataFilePath = "data/wall.json";
-	for (size_t index = 0; index < m_GameConstants.WallPositions.size(); index++)
-	{
-		SharedPointer<GameObject> newWall = CreateObject(dataFilePath);
-		newWall->SetPosition(m_GameConstants.WallPositions[index]);
-		m_WallsList.push_back(newWall);
-	}
-}
-
-void FinalGame::CreateGoal()
-{
-	std::string dataFilePath = "data/goal.json";
-	m_Goal = CreateObject(dataFilePath);
-}
-
-void FinalGame::CreatePlayer()
-{
-	std::string dataFilePath = "data/player.json";
-	m_Player = CreateObject(dataFilePath);
 }

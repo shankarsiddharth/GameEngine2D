@@ -25,6 +25,7 @@ private:
 	void LoadGameObjects();
 
 	void CreateScreens();
+	void CreateCollectibles();
 	void CreateBreakableWalls();
 	void CreateObstacles();
 	void CreateWalls();
@@ -34,9 +35,9 @@ private:
 
 	void UpdateObstacleRotation();
 	
-	void RemoveAllObstacles();
-	void RemoveAllBreakableWalls();
-	void RemoveAllWalls();
+	void RemoveAllGameplayObjects();
+	void RemoveGameplayObjects(std::vector<SharedPointer<GameObject>>& m_ObjectsList);
+
 	void HandleCollision(SharedPointer<GameObject> InObjectA, SharedPointer<GameObject> InObjectB);
 
 	void ChangeGameState(TGameState InGameState);
@@ -45,6 +46,7 @@ private:
 	SharedPointer<GameObject> m_Player;
 	SharedPointer<GameObject> m_Goal;
 	std::vector<SharedPointer<GameObject>> m_ObstaclesList;
+	std::vector<SharedPointer<GameObject>> m_CollectiblesList;
 	std::vector<SharedPointer<GameObject>> m_BrekableWallsList;
 	std::vector<SharedPointer<GameObject>> m_WallsList;
 	std::vector<SharedPointer<GameObject>> m_WorldBoundaryList;

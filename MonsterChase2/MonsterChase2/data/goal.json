@@ -1,6 +1,6 @@
 {
     "name": "goal",
-    "position": [500, 300],
+    "position": [300, 200],
     "components": {
         "sprite2d":{
             "filepath": "data\\goal.dds"
