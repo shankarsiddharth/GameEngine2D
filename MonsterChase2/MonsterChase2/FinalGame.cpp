@@ -210,6 +210,13 @@ void FinalGame::HandleCollision(SharedPointer<GameObject> InObjectA, SharedPoint
 		m_Player->GetComponent<RigidBody2D>()->SetForce(Vector2::Zero);
 	}
 
+	//Player - Boundary - Stop the Player
+	if ((objectAName == "boundary" && objectBName == "player") ||
+		(objectAName == "player") && objectBName == "boundary")
+	{
+		m_Player->GetComponent<RigidBody2D>()->SetForce(Vector2::Zero);
+	}
+
 }
 
 void FinalGame::ChangeGameState(TGameState InGameState)
@@ -248,8 +255,28 @@ void FinalGame::HideAllScreens()
 	m_GameOverScreen->SetVisibility(false);
 }
 
+void FinalGame::CreateWorldBoundaries()
+{
+	std::string dataFilePath = "data/heightboundary.json";
+	for (size_t index = 0; index < m_GameConstants.HeightBoundaryPositions.size(); index++)
+	{
+		SharedPointer<GameObject> newBoundary = CreateObject(dataFilePath);
+		newBoundary->SetPosition(m_GameConstants.HeightBoundaryPositions[index]);
+		m_WorldBoundaryList.push_back(newBoundary);
+	}
+
+	dataFilePath = "data/widthboundary.json";
+	for (size_t index = 0; index < m_GameConstants.WidthBoundaryPositions.size(); index++)
+	{
+		SharedPointer<GameObject> newBoundary = CreateObject(dataFilePath);
+		newBoundary->SetPosition(m_GameConstants.WidthBoundaryPositions[index]);
+		m_WorldBoundaryList.push_back(newBoundary);
+	}
+}
+
 void FinalGame::LoadGameObjects()
 {
+	CreateWorldBoundaries();
 	CreatePlayer();
 	CreateGoal();
 	CreateWalls();

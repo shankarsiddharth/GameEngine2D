@@ -1,0 +1,10 @@
+{
+    "name": "boundary",
+    "position": [150 , -150],
+    "components": {
+        "sprite2d":{
+            "filepath": "data\\widthboundary.dds"
+        },
+        "boxcollider2d":{}
+    }
+}

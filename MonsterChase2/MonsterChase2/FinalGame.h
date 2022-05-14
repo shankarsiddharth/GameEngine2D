@@ -23,12 +23,14 @@ protected:
 
 private:
 	void LoadGameObjects();
+
 	void CreateScreens();
 	void CreateBreakableWalls();
 	void CreateObstacles();
 	void CreateWalls();
 	void CreateGoal();
 	void CreatePlayer();
+	void CreateWorldBoundaries();
 
 	void UpdateObstacleRotation();
 	
@@ -45,6 +47,7 @@ private:
 	std::vector<SharedPointer<GameObject>> m_ObstaclesList;
 	std::vector<SharedPointer<GameObject>> m_BrekableWallsList;
 	std::vector<SharedPointer<GameObject>> m_WallsList;
+	std::vector<SharedPointer<GameObject>> m_WorldBoundaryList;
 
 	SharedPointer<GameObject> m_GameOverScreen;
 	SharedPointer<GameObject> m_GameWonScreen;
