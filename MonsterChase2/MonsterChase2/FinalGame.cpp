@@ -279,9 +279,9 @@ void FinalGame::LoadGameObjects()
 	CreateWorldBoundaries();
 	CreatePlayer();
 	CreateGoal();
-	CreateWalls();
+	//CreateWalls();
 	CreateObstacles();
-	CreateBreakableWalls();
+	//CreateBreakableWalls();
 	CreateScreens();
 }
 
