@@ -220,10 +220,11 @@ void FinalGame::ChangeGameState(TGameState InGameState)
 	{
 		if (m_CurrentGameState != TGameState::kGameOver)
 		{
-			/*m_Player->SetPosition(m_GameConstants.PlayerPosition);
-			m_Player->GetComponent<RigidBody2D>()->SetForce(Vector2::Zero);*/
-			//m_Player->RemoveAllComponents();
+			m_Player->SetPosition(m_GameConstants.PlayerPosition);
+			m_Player->GetComponent<RigidBody2D>()->SetForce(Vector2::Zero);
 			HideAllScreens();
+			m_GameWonScreen->RemoveAllComponents();
+			CreateGameWonScreen();
 			m_GameWonScreen->SetVisibility(true);
 		}
 	}
@@ -232,9 +233,11 @@ void FinalGame::ChangeGameState(TGameState InGameState)
 	{
 		if (m_CurrentGameState != TGameState::kGameWon)
 		{
-			/*m_Player->SetPosition(m_GameConstants.PlayerPosition);
-			m_Player->GetComponent<RigidBody2D>()->SetForce(Vector2::Zero);*/
+			m_Player->SetPosition(m_GameConstants.PlayerPosition);
+			m_Player->GetComponent<RigidBody2D>()->SetForce(Vector2::Zero);
 			HideAllScreens();
+			m_GameOverScreen->RemoveAllComponents();
+			CreateGameOverScreen();
 			m_GameOverScreen->SetVisibility(true);
 		}
 	}
@@ -305,22 +308,10 @@ void FinalGame::CreateWorldBoundaries()
 }
 
 void FinalGame::CreateScreens()
-{
-	Vector2 screenPosition = Vector2(0, float(-1 * ((int)(m_GameWindow.GetWindowHeight()) / 2)));
-	std::string dataFilePath = "data/gameover.json";
-	m_GameOverScreen = CreateObject(dataFilePath);
-	m_GameOverScreen->SetPosition(screenPosition);
-	m_GameOverScreen->SetVisibility(false);
-
-	dataFilePath = "data/gamewon.json";
-	m_GameWonScreen = CreateObject(dataFilePath);
-	m_GameWonScreen->SetPosition(screenPosition);
-	m_GameWonScreen->SetVisibility(false);
-
-	dataFilePath = "data/splashscreen.json";
-	m_SplashScreen = CreateObject(dataFilePath);
-	m_SplashScreen->SetPosition(screenPosition);
-	m_SplashScreen->SetVisibility(true);
+{	
+	CreateSplashScreen();
+	CreateGameWonScreen();
+	CreateGameOverScreen();
 }
 
 void FinalGame::CreateSplashScreen()
@@ -330,6 +321,24 @@ void FinalGame::CreateSplashScreen()
 	m_SplashScreen = CreateObject(dataFilePath);
 	m_SplashScreen->SetPosition(screenPosition);
 	m_SplashScreen->SetVisibility(true);
+}
+
+void FinalGame::CreateGameOverScreen()
+{
+	Vector2 screenPosition = Vector2(0, float(-1 * ((int)(m_GameWindow.GetWindowHeight()) / 2)));
+	std::string dataFilePath = "data/gameover.json";
+	m_GameOverScreen = CreateObject(dataFilePath);
+	m_GameOverScreen->SetPosition(screenPosition);
+	m_GameOverScreen->SetVisibility(false);
+}
+
+void FinalGame::CreateGameWonScreen()
+{
+	Vector2 screenPosition = Vector2(0, float(-1 * ((int)(m_GameWindow.GetWindowHeight()) / 2)));
+	std::string dataFilePath = "data/gamewon.json";
+	m_GameWonScreen = CreateObject(dataFilePath);
+	m_GameWonScreen->SetPosition(screenPosition);
+	m_GameWonScreen->SetVisibility(false);
 }
 
 void FinalGame::CreatePlayer()

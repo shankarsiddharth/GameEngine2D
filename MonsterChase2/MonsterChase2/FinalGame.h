@@ -26,6 +26,8 @@ private:
 
 	void CreateScreens();
 	void CreateSplashScreen();
+	void CreateGameOverScreen();
+	void CreateGameWonScreen();
 	void CreateCollectibles();
 	void CreateBreakableWalls();
 	void CreateObstacles();
