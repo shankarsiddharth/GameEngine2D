@@ -220,8 +220,9 @@ void FinalGame::ChangeGameState(TGameState InGameState)
 	{
 		if (m_CurrentGameState != TGameState::kGameOver)
 		{
-			m_Player->SetPosition(m_GameConstants.PlayerPosition);
-			m_Player->GetComponent<RigidBody2D>()->SetForce(Vector2::Zero);
+			/*m_Player->SetPosition(m_GameConstants.PlayerPosition);
+			m_Player->GetComponent<RigidBody2D>()->SetForce(Vector2::Zero);*/
+			//m_Player->RemoveAllComponents();
 			HideAllScreens();
 			m_GameWonScreen->SetVisibility(true);
 		}
@@ -231,6 +232,8 @@ void FinalGame::ChangeGameState(TGameState InGameState)
 	{
 		if (m_CurrentGameState != TGameState::kGameWon)
 		{
+			/*m_Player->SetPosition(m_GameConstants.PlayerPosition);
+			m_Player->GetComponent<RigidBody2D>()->SetForce(Vector2::Zero);*/
 			HideAllScreens();
 			m_GameOverScreen->SetVisibility(true);
 		}
