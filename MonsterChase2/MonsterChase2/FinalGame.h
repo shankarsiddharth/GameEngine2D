@@ -5,6 +5,7 @@
 #include "Math/Vector2.h"
 #include <vector>
 #include "GameState.h"
+#include "GameConstants.h"
 
 class FinalGame
 	: public Game
@@ -20,9 +21,17 @@ protected:
 	void UpdateGameplay() override;
 	void ShutDownGameplay() override;
 
-
 private:
 	void LoadGameObjects();
+	void CreateScreens();
+	void CreateBreakableWalls();
+	void CreateObstacles();
+	void CreateWalls();
+	void CreateGoal();
+	void CreatePlayer();
+
+	void UpdateObstacleRotation();
+	
 	void RemoveAllObstacles();
 	void RemoveAllBreakableWalls();
 	void RemoveAllWalls();
@@ -41,6 +50,8 @@ private:
 	SharedPointer<GameObject> m_GameWonScreen;
 
 	TGameState m_CurrentGameState;
+
+	GameConstants m_GameConstants;
 
 	float m_GameTime = 0;
 	Vector2 m_Direction = Vector2::Zero;

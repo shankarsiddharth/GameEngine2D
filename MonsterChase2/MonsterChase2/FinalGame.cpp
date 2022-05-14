@@ -7,7 +7,6 @@
 #include "Helpers/EngineHelpers.h"
 #include "Component/BoxCollider2D.h"
 #include "JobSystem/JobSystem/JobStatus.h"
-#include "GameConstants.h"
 
 FinalGame::FinalGame()
 	:Game(),
@@ -39,7 +38,7 @@ void FinalGame::StartGameplay()
 
 void FinalGame::ProcessInput()
 {
-	float force = GameConstants::PlayerForce;
+	float force = m_GameConstants.PlayerForce;
 
 	if (m_InputSystem.IsKeyPressed(KeyCode::W))
 	{
@@ -111,9 +110,15 @@ void FinalGame::UpdateGameplay()
 		EngineHelpers::DebugPrint("30 seconds elapsed.");
 		gameTime = 0.0f;
 	}*/
-	float rotationSpeed = GameConstants::ObstacleRotaionSpeed;
+	UpdateObstacleRotation();
 
-	for (SharedPointer<GameObject> obstacle: m_ObstaclesList)
+}
+
+void FinalGame::UpdateObstacleRotation()
+{
+	float rotationSpeed = m_GameConstants.ObstacleRotaionSpeed;
+
+	for (SharedPointer<GameObject> obstacle : m_ObstaclesList)
 	{
 		obstacle->AddRotationZ(rotationSpeed * m_DeltaTime);
 	}
@@ -180,7 +185,7 @@ void FinalGame::HandleCollision(SharedPointer<GameObject> InObjectA, SharedPoint
 	//Player - Obstacle - Game Over
 	if ((objectAName == "obstacle" && objectBName == "player") ||
 		(objectAName == "player") && objectBName == "obstacle")
-	{		
+	{
 		ChangeGameState(TGameState::kGameOver);
 	}
 
@@ -196,7 +201,7 @@ void FinalGame::HandleCollision(SharedPointer<GameObject> InObjectA, SharedPoint
 		{
 			m_GameWorld.RemoveGameObject(InObjectA);
 		}
-	}		
+	}
 
 	//Player - Wall - Stop the Player
 	if ((objectAName == "wall" && objectBName == "player") ||
@@ -225,13 +230,13 @@ void FinalGame::ChangeGameState(TGameState InGameState)
 		HideAllScreens();
 		m_GameWonScreen->SetVisibility(true);
 	}
-		break;
+	break;
 	case TGameState::kGameOver:
 	{
 		HideAllScreens();
 		m_GameOverScreen->SetVisibility(true);
 	}
-		break;
+	break;
 	default:
 		break;
 	}
@@ -245,26 +250,18 @@ void FinalGame::HideAllScreens()
 
 void FinalGame::LoadGameObjects()
 {
-	std::string dataFilePath = "data/player.json";
-	m_Player = CreateObject(dataFilePath);
+	CreatePlayer();
+	CreateGoal();
+	CreateWalls();
+	CreateObstacles();
+	CreateBreakableWalls();
+	CreateScreens();
+}
 
-	dataFilePath = "data/goal.json";
-	m_Goal = CreateObject(dataFilePath);
-
-	dataFilePath = "data/wall.json";
-	SharedPointer<GameObject> newWall = CreateObject(dataFilePath);
-	m_WallsList.push_back(newWall);
-
-	dataFilePath = "data/obstacle.json";
-	SharedPointer<GameObject> newObstacle = CreateObject(dataFilePath);
-	m_ObstaclesList.push_back(newObstacle);
-
-	dataFilePath = "data/breakablewall.json";
-	SharedPointer<GameObject> newBreakableWall = CreateObject(dataFilePath);
-	m_BrekableWallsList.push_back(newBreakableWall);
-
+void FinalGame::CreateScreens()
+{
 	Vector2 screenPosition = Vector2(0, float(-1 * ((int)(m_GameWindow.GetWindowHeight()) / 2)));
-	dataFilePath = "data/gameover.json";
+	std::string dataFilePath = "data/gameover.json";
 	m_GameOverScreen = CreateObject(dataFilePath);
 	m_GameOverScreen->SetPosition(screenPosition);
 	m_GameOverScreen->SetVisibility(false);
@@ -273,4 +270,37 @@ void FinalGame::LoadGameObjects()
 	m_GameWonScreen = CreateObject(dataFilePath);
 	m_GameWonScreen->SetPosition(screenPosition);
 	m_GameWonScreen->SetVisibility(false);
+}
+
+void FinalGame::CreateBreakableWalls()
+{
+	std::string dataFilePath = "data/breakablewall.json";
+	SharedPointer<GameObject> newBreakableWall = CreateObject(dataFilePath);
+	m_BrekableWallsList.push_back(newBreakableWall);
+}
+
+void FinalGame::CreateObstacles()
+{
+	std::string dataFilePath = "data/obstacle.json";
+	SharedPointer<GameObject> newObstacle = CreateObject(dataFilePath);
+	m_ObstaclesList.push_back(newObstacle);
+}
+
+void FinalGame::CreateWalls()
+{
+	std::string dataFilePath = "data/wall.json";
+	SharedPointer<GameObject> newWall = CreateObject(dataFilePath);
+	m_WallsList.push_back(newWall);
+}
+
+void FinalGame::CreateGoal()
+{
+	std::string dataFilePath = "data/goal.json";
+	m_Goal = CreateObject(dataFilePath);
+}
+
+void FinalGame::CreatePlayer()
+{
+	std::string dataFilePath = "data/player.json";
+	m_Player = CreateObject(dataFilePath);
 }
