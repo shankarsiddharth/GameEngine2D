@@ -275,22 +275,34 @@ void FinalGame::CreateScreens()
 void FinalGame::CreateBreakableWalls()
 {
 	std::string dataFilePath = "data/breakablewall.json";
-	SharedPointer<GameObject> newBreakableWall = CreateObject(dataFilePath);
-	m_BrekableWallsList.push_back(newBreakableWall);
+	for (size_t index = 0; index < m_GameConstants.BreakableWallPositions.size(); index++)
+	{
+		SharedPointer<GameObject> newBreakableWall = CreateObject(dataFilePath);
+		newBreakableWall->SetPosition(m_GameConstants.BreakableWallPositions[index]);
+		m_BrekableWallsList.push_back(newBreakableWall);
+	}
 }
 
 void FinalGame::CreateObstacles()
 {
 	std::string dataFilePath = "data/obstacle.json";
-	SharedPointer<GameObject> newObstacle = CreateObject(dataFilePath);
-	m_ObstaclesList.push_back(newObstacle);
+	for (size_t index = 0; index < m_GameConstants.ObstaclePositions.size(); index++)
+	{
+		SharedPointer<GameObject> newObstacle = CreateObject(dataFilePath);
+		newObstacle->SetPosition(m_GameConstants.ObstaclePositions[index]);
+		m_ObstaclesList.push_back(newObstacle);
+	}
 }
 
 void FinalGame::CreateWalls()
 {
 	std::string dataFilePath = "data/wall.json";
-	SharedPointer<GameObject> newWall = CreateObject(dataFilePath);
-	m_WallsList.push_back(newWall);
+	for (size_t index = 0; index < m_GameConstants.WallPositions.size(); index++)
+	{
+		SharedPointer<GameObject> newWall = CreateObject(dataFilePath);
+		newWall->SetPosition(m_GameConstants.WallPositions[index]);
+		m_WallsList.push_back(newWall);
+	}
 }
 
 void FinalGame::CreateGoal()
