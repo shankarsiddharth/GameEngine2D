@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{1eaee98a-5d10-47d1-8ded-2bae59af0d21}</ProjectGuid>
-    <RootNamespace>MonsterChase2</RootNamespace>
+    <RootNamespace>MonsterChaseGame</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -169,10 +169,10 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MonsterChase2.rc" />
+    <ResourceCompile Include="MonsterChaseGame.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="MonsterChase2.ico" />
+    <Image Include="MonsterChaseGame.ico" />
     <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

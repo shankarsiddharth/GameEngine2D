@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MonsterChase2", "MonsterChase2\MonsterChase2.vcxproj", "{1EAEE98A-5D10-47D1-8DED-2BAE59AF0D21}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MonsterChaseGame", "MonsterChaseGame\MonsterChaseGame.vcxproj", "{1EAEE98A-5D10-47D1-8DED-2BAE59AF0D21}"
 	ProjectSection(ProjectDependencies) = postProject
 		{10A80D76-C580-4991-BA54-F5352FC6CCC4} = {10A80D76-C580-4991-BA54-F5352FC6CCC4}
 		{B2AB67DE-B7FA-42BA-B060-959487392AEA} = {B2AB67DE-B7FA-42BA-B060-959487392AEA}
